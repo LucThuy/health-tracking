@@ -22,57 +22,115 @@ class DashboardScreen extends GetView<DashboardController> {
               height: 40.h,
               width: 100.w,
               child: Padding(
-                padding: EdgeInsets.only(
-                    top: 1.h, bottom: 1.h, left: 5.w, right: 5.w),
+                padding: const EdgeInsets.all(5),
                 child: Card(
                   elevation: 3,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  color: kBackgroundColor,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: 0.5.h, bottom: 0.5.h, left: 3.w, right: 3.w),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Thứ hai, 22/11/2023",
-                          style: GoogleFonts.openSans(
-                            color: kTextInvertColor,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14.sp,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: kBackgroundLinearMainSubColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 3, bottom: 3, left: 5, right: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(
+                            () => Text(
+                              controller.formatter
+                                  .format(controller.currentDate.value),
+                              style: GoogleFonts.openSans(
+                                color: kTextInvertColor,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14.sp,
+                              ),
+                            ),
                           ),
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
+                          // SingleChildScrollView(
+                          //   scrollDirection: Axis.horizontal,
+                          //   child:
+                          Expanded(
+                            child:
+                                // Row(
+                                //   children: [
+                                // Obx(() {
+                              // return
+                              // RefreshIndicator(
+                              //   onRefresh: () => controller.loadLine(),
+                              //   child:
+                              ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: controller.lineList.length,
+                                    itemBuilder: (context, index) {
+                                      print(controller.lineList.length);
+                                      return FoodCard();
+                                    }),
+                              // )
+                              // );
+                            // }),
+                            // Card(
+                            //   color: kBackgroundTransparentSubZeroColor,
+                            //   elevation: 1,
+                            //   shape: RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.circular(5),
+                            //   ),
+                            //   child: SizedBox(
+                            //     height: 210,
+                            //     width: 150,
+                            //     child: InkWell(
+                            //       onTap: () => controller.insertLine(),
+                            //       child: Center(
+                            //         child: Icon(
+                            //           Icons.add,
+                            //           size: 80,
+                            //           color: kTextInvertColor,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                            // ],
+                            // ),
+                          ),
+                          // ),
+                          Row(
                             children: [
-                              FoodCard(),
-                              FoodCard(),
-                              Card(
-                                color: kSubBackgroundColor,
-                                elevation: 1,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
+                              Container(
+                                padding: kMainPadding,
+                                width: 130,
+                                decoration: BoxDecoration(
+                                  color: kBackgroundMainColor,
+                                  borderRadius: BorderRadius.circular(40),
                                 ),
-                                child: Container(
-                                  height: 200,
-                                  width: 100,
-                                  child: InkWell(
-                                    child: Center(
-                                        child: Icon(
-                                          Icons.add,
-                                          size: 50,
-                                          color: kTextInvertColor,
-                                    )),
-                                  ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(
+                                      Icons.accessibility,
+                                      size: 20,
+                                      color: kTextInvertColor,
+                                    ),
+                                    Text(
+                                      "100/1000 kcal",
+                                      style: GoogleFonts.openSans(
+                                        color: kTextInvertColor,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 10.sp,
+                                      ),
+                                    )
+                                  ],
                                 ),
                               )
                             ],
-                          ),
-                        ),
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

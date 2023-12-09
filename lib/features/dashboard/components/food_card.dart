@@ -10,15 +10,15 @@ class FoodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: kSubBackgroundColor,
+      color: kBackgroundTransparentSubZeroColor,
       elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),
       child: Container(
         padding: const EdgeInsets.only(top: 3, bottom: 3, left: 6, right: 6),
-        height: 200,
-        width: 100,
+        height: 210,
+        width: 150,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -27,18 +27,18 @@ class FoodCard extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: kObjectBackgroundColor,
+                    color: kBackgroundMainColor,
                     borderRadius: BorderRadius.circular(40),
                   ),
                   margin: const EdgeInsets.only(bottom: 3),
                   padding: const EdgeInsets.only(
-                      top: 1, bottom: 1, left: 3, right: 3),
+                      top: 1, bottom: 1, left: 5, right: 5),
                   child: Text(
                     "10:30",
                     style: GoogleFonts.openSans(
                       color: kTextInvertColor,
                       fontWeight: FontWeight.w700,
-                      fontSize: 6.sp,
+                      fontSize: 8.sp,
                     ),
                   ),
                 ),
@@ -49,30 +49,34 @@ class FoodCard extends StatelessWidget {
               child: Image.network(
                 "https://i.pinimg.com/280x280_RS/f6/e9/3a/f6e93a06b500b2d87ffd32e1f56f7c6f.jpg",
                 fit: BoxFit.cover,
-                height: 80,
-                width: 80,
+                height: 100,
+                width: 100,
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 3),
+              margin: const EdgeInsets.only(top: 5),
               padding:
-                  const EdgeInsets.only(top: 1, bottom: 1, left: 3, right: 3),
+                  const EdgeInsets.only(top: 1, bottom: 1, left: 10, right: 10),
               decoration: BoxDecoration(
-                color: kObjectBackgroundColor,
-                borderRadius: BorderRadius.circular(40),
+                color: kBackgroundMainColor,
+                borderRadius: BorderRadius.circular(5),
               ),
-              child: Text(
-                "An nhu buoi",
-                style: GoogleFonts.openSans(
-                  color: kTextInvertColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 8.sp,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  "Nem nướng Nha Trang",
+                  style: GoogleFonts.openSans(
+                    color: kTextInvertColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10.sp,
+                  ),
                 ),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(top: 3),
-              height: 70,
+              padding: const EdgeInsets.only(left: 5, right: 5),
+              height: 55,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Wrap(
@@ -81,85 +85,68 @@ class FoodCard extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(top: 3, left: 1, right: 1),
                       padding: const EdgeInsets.only(
-                          top: 1, bottom: 1, left: 3, right: 3),
+                          top: 1, bottom: 1, left: 5, right: 5),
                       decoration: BoxDecoration(
-                        color: kObjectBackgroundColor,
+                        color: kBackgroundMainColor,
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Text(
-                        "Dit me may",
+                        "Khá ngon bro",
                         style: GoogleFonts.openSans(
                           color: kTextInvertColor,
                           fontWeight: FontWeight.w700,
-                          fontSize: 5.sp,
+                          fontSize: 7.sp,
                         ),
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 3, left: 1, right: 1),
                       padding: const EdgeInsets.only(
-                          top: 1, bottom: 1, left: 3, right: 3),
+                          top: 1, bottom: 1, left: 5, right: 5),
                       decoration: BoxDecoration(
-                        color: kObjectBackgroundColor,
+                        color: kBackgroundMainColor,
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Text(
-                        "Cak",
+                        "Đói",
                         style: GoogleFonts.openSans(
                           color: kTextInvertColor,
                           fontWeight: FontWeight.w700,
-                          fontSize: 5.sp,
+                          fontSize: 7.sp,
                         ),
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 3, left: 1, right: 1),
                       padding: const EdgeInsets.only(
-                          top: 1, bottom: 1, left: 3, right: 3),
+                          top: 1, bottom: 1, left: 5, right: 5),
                       decoration: BoxDecoration(
-                        color: kObjectBackgroundColor,
+                        color: kBackgroundMainColor,
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Text(
-                        "Cho",
+                        "Tè vạ",
                         style: GoogleFonts.openSans(
                           color: kTextInvertColor,
                           fontWeight: FontWeight.w700,
-                          fontSize: 5.sp,
+                          fontSize: 7.sp,
                         ),
                       ),
                     ),
                     Container(
                       margin: const EdgeInsets.only(top: 3, left: 1, right: 1),
                       padding: const EdgeInsets.only(
-                          top: 1, bottom: 1, left: 3, right: 3),
+                          top: 1, bottom: 1, left: 5, right: 5),
                       decoration: BoxDecoration(
-                        color: kObjectBackgroundColor,
+                        color: kBackgroundMainColor,
                         borderRadius: BorderRadius.circular(40),
                       ),
                       child: Text(
-                        "Buoi cu",
+                        "Đéo hiểu",
                         style: GoogleFonts.openSans(
                           color: kTextInvertColor,
                           fontWeight: FontWeight.w700,
-                          fontSize: 5.sp,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 3, left: 1, right: 1),
-                      padding: const EdgeInsets.only(
-                          top: 1, bottom: 1, left: 3, right: 3),
-                      decoration: BoxDecoration(
-                        color: kObjectBackgroundColor,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
-                      child: Text(
-                        "Hehhe",
-                        style: GoogleFonts.openSans(
-                          color: kTextInvertColor,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 5.sp,
+                          fontSize: 7.sp,
                         ),
                       ),
                     ),
