@@ -12,22 +12,25 @@ import 'components/diary_box.dart';
 import 'components/meal_box.dart';
 
 class DiaryScreen extends GetView<DiaryController> {
+
   const DiaryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
           top: 30, bottom: 5, left: 5, right: 5
         ),
-        child: Column(
-          children: [
-            Calender(),
-            MealBox(),
-            DiaryBox(),
-          ],
-        ),
+        child: Obx(() =>
+            Column(
+                children: [
+                  Calender(controller.focusedDay.value),
+                  MealBox(),
+                  DiaryBox(),
+            ],
+          ),
+        )
       ),
     );
   }

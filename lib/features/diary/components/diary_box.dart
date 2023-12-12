@@ -50,10 +50,10 @@ class DiaryBox extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: SizedBox(
+                          child: const SizedBox(
                             height: 100,
                             width: 300,
-                            child: const InkWell(
+                            child: InkWell(
                               child: Center(
                                   child: Icon(
                                     Icons.add,
