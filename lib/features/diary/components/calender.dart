@@ -9,11 +9,11 @@ import '../../../utility/theme.dart';
 import '../diary_controller.dart';
 
 class Calender extends StatelessWidget {
-  final DiaryController controller = Get.find();
+  final diaryController = Get.find<DiaryController>();
   var focusedDay;
 
-  Calender(DateTime value, {Key? key}) : super(key: key){
-    focusedDay = value;
+  Calender(DateTime focusedDay, {Key? key}) : super(key: key){
+    this.focusedDay = focusedDay;
   }
 
 
@@ -21,7 +21,7 @@ class Calender extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return SizedBox(
-      height: 50.h,
+      height: 20.h,
       width: 100.w,
       child: Padding(
         padding: const EdgeInsets.all(5),
@@ -43,10 +43,11 @@ class Calender extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TableCalendar(
-                    focusedDay: DateTime.utc(2023, 12, 15),
+                    focusedDay: focusedDay,
                     firstDay: DateTime.utc(2023, 10, 16),
                     lastDay: DateTime.utc(2024, 3, 14),
                     rowHeight: 40,
+                    calendarFormat: CalendarFormat.week,
                     selectedDayPredicate: (day) => isSameDay(day, focusedDay),
                     headerStyle: const HeaderStyle(
                       formatButtonVisible: false,
@@ -54,7 +55,7 @@ class Calender extends StatelessWidget {
                     ),
                     onDaySelected: (selectedDay, focusedDay) {
                       // focusedDay = selectedDay;
-                      controller.updateSelectedDay(selectedDay);
+                      diaryController.updateSelectedDay(selectedDay);
                     },
                   )
                 ],
