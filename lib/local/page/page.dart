@@ -9,7 +9,7 @@ class Page extends Table {
 
 @UseMoor(tables: [Page], daos: [PageDao])
 class PageDatabase extends _$PageDatabase {
-  PageDatabase() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'db.lite', logStatements: false));
+  PageDatabase() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'db.lite', logStatements: true));
 
   @override
   int get schemaVersion => 1;

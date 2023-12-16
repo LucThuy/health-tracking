@@ -5,12 +5,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_tracking/features/dashboard/dashboard_screen.dart';
 import 'package:health_tracking/modules/main/main_controller.dart';
+import 'package:health_tracking/modules/scan/camera_screen.dart';
 import 'package:sizer/sizer.dart';
 
 class MainScreen extends GetWidget<MainController> {
   const MainScreen({Key? key}) : super(key: key);
 
   final screen = const <Widget>[
+    DashboardScreen(),
+    DashboardScreen(),
     DashboardScreen()
   ];
 
