@@ -1,9 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_tracking/features/dashboard/dashboard_screen.dart';
+import 'package:health_tracking/features/diary/diary_screen.dart';
 import 'package:health_tracking/modules/main/main_controller.dart';
 import 'package:health_tracking/modules/scan/camera_screen.dart';
 import 'package:sizer/sizer.dart';
@@ -13,8 +13,7 @@ class MainScreen extends GetWidget<MainController> {
 
   final screen = const <Widget>[
     DashboardScreen(),
-    DashboardScreen(),
-    DashboardScreen()
+    DiaryScreen()
   ];
 
   @override
@@ -43,7 +42,7 @@ class MainScreen extends GetWidget<MainController> {
             BottomNavyBarItem(
               icon: const Icon(Icons.home_rounded),
               title: Text(
-                'Schedule', //Có mấy cái lịch ăn uống rồi suggest món j j đấy. Ae nghĩ cái tên j hay hay bỏ vào nhá
+                'Diary', //Có mấy cái lịch ăn uống rồi suggest món j j đấy. Ae nghĩ cái tên j hay hay bỏ vào nhá
                 style: GoogleFonts.openSans(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.bold,
