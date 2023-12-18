@@ -12,7 +12,7 @@ class MainScreen extends GetWidget<MainController> {
 
   final screen = const <Widget>[
     DashboardScreen(),
-    DiaryScreen()
+    DiaryScreen(),
   ];
 
   @override
@@ -26,7 +26,13 @@ class MainScreen extends GetWidget<MainController> {
       bottomNavigationBar: Obx(
         () => BottomNavyBar(
           selectedIndex: controller.currentIndex.value,
-          onItemSelected: (newIndex) => controller.changeCurrentIndex(newIndex),
+          onItemSelected: (newIndex) => {
+          if(newIndex == 2) {
+            Navigator.pushNamed(context, '/blog')}
+           else {
+            controller.changeCurrentIndex(newIndex)
+          }
+          },
           items: [
             BottomNavyBarItem(
               icon: const Icon(Icons.home_rounded),

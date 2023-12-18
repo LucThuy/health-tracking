@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:health_tracking/features/blog/blog_screen.dart';
 import 'package:health_tracking/modules/main/main_binding.dart';
 import 'package:health_tracking/modules/main/main_screen.dart';
 
@@ -11,6 +12,10 @@ class AppPages {
       name: AppRoutes.rMain,
       binding: MainBinding(),
       page: () => const MainScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.rBlog,
+      page: () => BlogPage()
     )
   ];
 }
