@@ -1,6 +1,6 @@
 import 'package:moor_flutter/moor_flutter.dart';
 
-part 'diary_database.g.dart';
+part 'diary.g.dart';
 
 class Diary extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -14,15 +14,25 @@ class DiaryDatabase extends _$DiaryDatabase {
 
   @override
   int get schemaVersion => 1;
-
 }
 
 @UseDao(tables: [Diary])
 class DiaryDao extends DatabaseAccessor<DiaryDatabase> with _$DiaryDaoMixin {
-  final DiaryDatabase DiaryDb;
+  final DiaryDatabase diaryDb;
 
-  DiaryDao(this.DiaryDb) : super(DiaryDb);
+  DiaryDao(this.diaryDb) : super(diaryDb);
 
   Stream<List<DiaryData>> watchAllDiary() => select(diary).watch();
-  Future insertDiary(Insertable<DiaryData> diaryData) => into(diary).insert(diaryData);
+  Future updateDiary(Insertable<DiaryData> diaryData) => update(diary).replace(diaryData);
+  Future deleteDiary(Insertable<DiaryData> diaryData) => delete(diary).delete(diaryData);
+
+  Future<void> saveDiary(String content, DateTime date) async {
+    await into(diary).insert(
+      DiaryCompanion(
+        content: Value(content),
+        date: Value(date),
+      ),
+    );
+  }
+
 }

@@ -23,7 +23,7 @@ class DiaryPage extends StatelessWidget {
             padding: const EdgeInsets.only(right: 15.0),
             child: ElevatedButton(
               onPressed: () {
-
+                diaryController.saveDiary(textController.text, diaryController.focusedDay.value);
               },
               child: Text('Lưu'),
             ),

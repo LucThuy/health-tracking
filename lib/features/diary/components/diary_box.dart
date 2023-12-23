@@ -45,37 +45,34 @@ class DiaryBox extends StatelessWidget {
                       fontSize: 14.sp,
                     ),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Card(
-                          color: kBackgroundTransparentSubZeroColor,
-                          elevation: 1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                  Row(
+                    children: [
+                      Card(
+                        color: kBackgroundTransparentSubZeroColor,
+                        elevation: 1,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: SizedBox(
+                          height: 60,
+                          width: 300,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => DiaryPage(focusedDay)),
+                              );
+                            },
+                            child: Center(
+                                child: Icon(
+                                  Icons.add,
+                                  size: 50,
+                                  color: kTextInvertColor,
+                                )),
                           ),
-                          child: SizedBox(
-                            height: 60,
-                            width: 300,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => DiaryPage(focusedDay)),
-                                );
-                              },
-                              child: Center(
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 50,
-                                    color: kTextInvertColor,
-                                  )),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
