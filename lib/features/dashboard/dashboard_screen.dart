@@ -78,7 +78,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                               width: 150,
                                               child: InkWell(
                                                 onTap: () =>
-                                                    Get.toNamed(AppRoutes.rCamera),
+                                                    Get.toNamed(AppRoutes.rImage),
                                                 child: const Center(
                                                   child: Icon(
                                                     Icons.add,

@@ -13,8 +13,8 @@ class CaptureButton extends GetView<ScanController> {
       child: GestureDetector(
         onTap: () => controller.capture(),
         child: Container(
-          height: 100,
-          width: 100,
+          height: 80,
+          width: 80,
           padding: const EdgeInsets.all(5),
           decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -24,12 +24,6 @@ class CaptureButton extends GetView<ScanController> {
             decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Icon(
-                Icons.camera,
-                size: 60,
-              ),
             ),
           ),
         ),
