@@ -6,13 +6,11 @@ import 'package:http/http.dart';
 import 'package:sizer/sizer.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  List<CameraDescription> cameras = await availableCameras();
-  runApp(MyApp(cameras: cameras));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required List<CameraDescription> cameras}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
