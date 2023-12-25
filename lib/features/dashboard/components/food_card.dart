@@ -56,7 +56,7 @@ class FoodCard extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 5),
               padding:
-                  const EdgeInsets.only(top: 1, bottom: 1, left: 10, right: 10),
+              const EdgeInsets.only(top: 1, bottom: 1, left: 10, right: 10),
               decoration: BoxDecoration(
                 color: kBackgroundMainColor,
                 borderRadius: BorderRadius.circular(5),

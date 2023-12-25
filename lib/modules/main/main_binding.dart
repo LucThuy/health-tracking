@@ -6,6 +6,7 @@ import 'package:health_tracking/modules/image/image_controller.dart';
 import 'package:health_tracking/modules/image/image_controller.dart';
 import 'package:health_tracking/modules/main/main_controller.dart';
 
+import '../../features/nutrition/nutrition_controller.dart';
 import '../scan/scan_controller.dart';
 
 class MainBinding extends Bindings {
@@ -18,6 +19,7 @@ class MainBinding extends Bindings {
 
     Get.lazyPut<LineDao>(() => LineDao(LineDatabase()));
     Get.lazyPut<DiaryController>(() => DiaryController());
+    Get.lazyPut<NutritionController>(() => NutritionController());
   }
 
 }
