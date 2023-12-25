@@ -6,7 +6,11 @@ import '../../../utility/theme.dart';
 import '../../dashboard/components/food_card.dart';
 
 class MealBox extends StatelessWidget {
-  const MealBox({super.key});
+  var focusedDay;
+
+  MealBox(DateTime focusedDay, {Key? key}) : super(key: key){
+    this.focusedDay = focusedDay;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class MealBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Bữa ăn",
+                    "Kế hoạch ăn uống",
                     style: GoogleFonts.openSans(
                       color: kTextInvertColor,
                       fontWeight: FontWeight.w700,
@@ -44,8 +48,6 @@ class MealBox extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        const FoodCard(),
-                        const FoodCard(),
                         Card(
                           color: kBackgroundTransparentSubZeroColor,
                           elevation: 1,
@@ -55,7 +57,7 @@ class MealBox extends StatelessWidget {
                           child: Container(
                             height: 200,
                             width: 100,
-                            child: const InkWell(
+                            child: InkWell(
                               child: Center(
                                   child: Icon(
                                     Icons.add,

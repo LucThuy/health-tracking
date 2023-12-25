@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:health_tracking/local/line/line.dart';
+import 'package:health_tracking/modules/main/main_controller.dart';
 import 'package:intl/intl.dart';
 
 class DashboardController extends GetxController {
@@ -7,6 +8,7 @@ class DashboardController extends GetxController {
   final DateFormat formatter = DateFormat('yMEd');
   final LineDao lineDao = Get.find();
   final lineList = RxList<LineData>([]);
+  final mainController = Get.find<MainController>();
 
   @override
   Future<void> onInit() async {
@@ -21,6 +23,9 @@ class DashboardController extends GetxController {
   }
 
   Future<void> insertLine() async {
-    lineDao.insertLine(LineCompanion.insert(pageId: 1, date: currentDate.value));
+    mainController.changeCurrentIndex(3);
+    print(mainController.currentIndex);
+    // lineDao
+    //     .insertLine(LineCompanion.insert(pageId: 1, date: currentDate.value));
   }
 }

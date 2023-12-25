@@ -1,18 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../utility/theme.dart';
+import '../diary_controller.dart';
 
 class Calender extends StatelessWidget {
-  const Calender({super.key});
+  final diaryController = Get.find<DiaryController>();
+  var focusedDay;
+
+  Calender(DateTime focusedDay, {Key? key}) : super(key: key){
+    this.focusedDay = focusedDay;
+  }
+
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return SizedBox(
-      height: 50.h,
+      height: 20.h,
       width: 100.w,
       child: Padding(
         padding: const EdgeInsets.all(5),
@@ -34,14 +43,20 @@ class Calender extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TableCalendar(
-                    focusedDay: DateTime.now(),
+                    focusedDay: focusedDay,
                     firstDay: DateTime.utc(2023, 10, 16),
                     lastDay: DateTime.utc(2024, 3, 14),
                     rowHeight: 40,
+                    calendarFormat: CalendarFormat.week,
+                    selectedDayPredicate: (day) => isSameDay(day, focusedDay),
                     headerStyle: const HeaderStyle(
                       formatButtonVisible: false,
                       titleCentered: true,
                     ),
+                    onDaySelected: (selectedDay, focusedDay) {
+                      // focusedDay = selectedDay;
+                      diaryController.updateSelectedDay(selectedDay);
+                    },
                   )
                 ],
               ),
