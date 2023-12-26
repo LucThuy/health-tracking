@@ -10,7 +10,7 @@ class Line extends Table {
 
 @UseMoor(tables: [Line], daos: [LineDao])
 class LineDatabase extends _$LineDatabase {
-  LineDatabase() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'db.lite', logStatements: true));
+  LineDatabase() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'line.lite', logStatements: true));
 
   @override
   int get schemaVersion => 1;

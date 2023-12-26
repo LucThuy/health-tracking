@@ -10,7 +10,7 @@ class Diary extends Table {
 
 @UseMoor(tables: [Diary], daos: [DiaryDao])
 class DiaryDatabase extends _$DiaryDatabase {
-  DiaryDatabase() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'db.lite', logStatements: true));
+  DiaryDatabase() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'diary.lite', logStatements: true));
 
   @override
   int get schemaVersion => 1;
@@ -26,13 +26,31 @@ class DiaryDao extends DatabaseAccessor<DiaryDatabase> with _$DiaryDaoMixin {
   Future updateDiary(Insertable<DiaryData> diaryData) => update(diary).replace(diaryData);
   Future deleteDiary(Insertable<DiaryData> diaryData) => delete(diary).delete(diaryData);
 
+  Stream<List<DiaryData>> watchDiaryByDate(DateTime date) {
+    return (select(diary)
+      ..where((tbl) => tbl.date.equals(date))
+    ).watch();
+  }
+
   Future<void> saveDiary(String content, DateTime date) async {
-    await into(diary).insert(
-      DiaryCompanion(
-        content: Value(content),
-        date: Value(date),
-      ),
-    );
+    final existingDiary = await (select(diary)..where((d) => d.date.equals(date))).getSingleOrNull();
+
+    if (existingDiary != null) {
+      await update(diary).replace(
+        DiaryCompanion(
+          id: Value(existingDiary.id),
+          content: Value(content),
+          date: Value(date),
+        ),
+      );
+    } else {
+      await into(diary).insert(
+        DiaryCompanion(
+          content: Value(content),
+          date: Value(date),
+        ),
+      );
+    }
   }
 
 }

@@ -69,10 +69,32 @@ class Calender extends StatelessWidget {
                           color: kGreen800,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp
-                      )
+                      ),
+                    ),
+                    calendarStyle: CalendarStyle(
+                      defaultTextStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      weekendTextStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      todayTextStyle: GoogleFonts.pangolin(
+                          color: kBlack,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      selectedTextStyle: GoogleFonts.pangolin(
+                          color: kGreen400,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      outsideTextStyle: GoogleFonts.pangolin(),
                     ),
                     onDaySelected: (selectedDay, focusedDay) {
-                      // focusedDay = selectedDay;
                       diaryController.updateSelectedDay(selectedDay);
                     },
                   )

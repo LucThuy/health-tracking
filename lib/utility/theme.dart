@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 const kTextColor = Colors.black;
@@ -22,12 +20,19 @@ const kMainPadding = EdgeInsets.only(top: 1, bottom: 1, left: 5, right: 5);
 
 const kGreen50 = Color.fromRGBO(240, 253, 244, 1);
 const kGreen100 = Color.fromRGBO(220, 252, 231, 1);
+const kGreen400 = Color.fromRGBO(48, 191, 102, 1.0);
 const kGreen800 = Color.fromRGBO(22, 101, 52, 1);
 const kWhite = Colors.white;
 const kBlack = Colors.black;
 
 const kGradientGreen50White = LinearGradient(
     colors: [kGreen50, kWhite],
+    stops: [0, 0.7],
+    begin: Alignment.bottomLeft,
+    end: Alignment.topRight);
+
+const kGradientGreen100White = LinearGradient(
+    colors: [kGreen100, kWhite],
     stops: [0, 0.7],
     begin: Alignment.bottomLeft,
     end: Alignment.topRight);

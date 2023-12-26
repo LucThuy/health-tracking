@@ -1,16 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../local/database/diary.dart';
 import '../../../utility/theme.dart';
 import '../page/diary_page.dart';
 
 class DiaryBox extends StatelessWidget {
   var focusedDay;
+  var diaryDao;
 
-  DiaryBox(DateTime focusedDay, {Key? key}) : super(key: key){
+  DiaryBox(DateTime focusedDay, DiaryDao diaryDao, {Key? key}) : super(key: key){
     this.focusedDay = focusedDay;
+    this.diaryDao = diaryDao;
   }
 
   @override
@@ -39,10 +41,10 @@ class DiaryBox extends StatelessWidget {
                 children: [
                   Text(
                     "Nhật ký",
-                    style: GoogleFonts.openSans(
-                      color: kTextInvertColor,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14.sp,
+                    style: GoogleFonts.pangolin(
+                        color: kGreen800,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14.sp
                     ),
                   ),
                   Row(
@@ -53,25 +55,54 @@ class DiaryBox extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        child: SizedBox(
-                          height: 60,
-                          width: 300,
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => DiaryPage(focusedDay)),
+                        child: StreamBuilder<List<DiaryData>>(
+                            stream: diaryDao.watchDiaryByDate(focusedDay),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final diaryList = snapshot.data!;
+                                if (diaryList.isNotEmpty) {
+                                  // Nếu có nhật ký, hiển thị nội dung nhật ký
+                                  final diaryContent = diaryList.first.content;
+                                  return SizedBox(
+                                      height: 60,
+                                      width: 300,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => DiaryPage(focusedDay, diaryDao)),
+                                          );
+                                        },
+                                        child: Text(
+                                          diaryContent!,
+                                          style: TextStyle(
+                                            color: kTextInvertColor,
+                                            fontSize: 12.sp,
+                                          ),
+                                        ),
+                                      )
+                                  );
+                                }
+                              }
+                              // Nếu không có nhật ký hoặc có lỗi, hiển thị giao diện thêm nhật ký mới
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DiaryPage(focusedDay, diaryDao)),
+                                  );
+                                },
+                                child: Center(
+                                  child: Icon(
+                                    Icons.add,
+                                    size: 50,
+                                    color: kTextInvertColor,
+                                  ),
+                                ),
                               );
                             },
-                            child: Center(
-                                child: Icon(
-                                  Icons.add,
-                                  size: 50,
-                                  color: kTextInvertColor,
-                                )),
                           ),
                         ),
-                      )
                     ],
                   ),
                 ],
