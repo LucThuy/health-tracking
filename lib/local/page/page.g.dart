@@ -9,7 +9,7 @@ part of 'page.dart';
 // ignore_for_file: type=lint
 class PageData extends DataClass implements Insertable<PageData> {
   final int id;
-  final DateTime date;
+  final String date;
   PageData({required this.id, required this.date});
   factory PageData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
@@ -17,7 +17,7 @@ class PageData extends DataClass implements Insertable<PageData> {
     return PageData(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      date: const DateTimeType()
+      date: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
     );
   }
@@ -25,7 +25,7 @@ class PageData extends DataClass implements Insertable<PageData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['date'] = Variable<DateTime>(date);
+    map['date'] = Variable<String>(date);
     return map;
   }
 
@@ -41,7 +41,7 @@ class PageData extends DataClass implements Insertable<PageData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return PageData(
       id: serializer.fromJson<int>(json['id']),
-      date: serializer.fromJson<DateTime>(json['date']),
+      date: serializer.fromJson<String>(json['date']),
     );
   }
   @override
@@ -49,11 +49,11 @@ class PageData extends DataClass implements Insertable<PageData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'date': serializer.toJson<DateTime>(date),
+      'date': serializer.toJson<String>(date),
     };
   }
 
-  PageData copyWith({int? id, DateTime? date}) => PageData(
+  PageData copyWith({int? id, String? date}) => PageData(
         id: id ?? this.id,
         date: date ?? this.date,
       );
@@ -76,18 +76,18 @@ class PageData extends DataClass implements Insertable<PageData> {
 
 class PageCompanion extends UpdateCompanion<PageData> {
   final Value<int> id;
-  final Value<DateTime> date;
+  final Value<String> date;
   const PageCompanion({
     this.id = const Value.absent(),
     this.date = const Value.absent(),
   });
   PageCompanion.insert({
     this.id = const Value.absent(),
-    required DateTime date,
+    required String date,
   }) : date = Value(date);
   static Insertable<PageData> custom({
     Expression<int>? id,
-    Expression<DateTime>? date,
+    Expression<String>? date,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -95,7 +95,7 @@ class PageCompanion extends UpdateCompanion<PageData> {
     });
   }
 
-  PageCompanion copyWith({Value<int>? id, Value<DateTime>? date}) {
+  PageCompanion copyWith({Value<int>? id, Value<String>? date}) {
     return PageCompanion(
       id: id ?? this.id,
       date: date ?? this.date,
@@ -109,7 +109,7 @@ class PageCompanion extends UpdateCompanion<PageData> {
       map['id'] = Variable<int>(id.value);
     }
     if (date.present) {
-      map['date'] = Variable<DateTime>(date.value);
+      map['date'] = Variable<String>(date.value);
     }
     return map;
   }
@@ -138,9 +138,9 @@ class $PageTable extends Page with TableInfo<$PageTable, PageData> {
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
-  late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
+  late final GeneratedColumn<String?> date = GeneratedColumn<String?>(
       'date', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
+      type: const StringType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [id, date];
   @override

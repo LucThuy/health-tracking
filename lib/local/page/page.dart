@@ -4,7 +4,7 @@ part 'page.g.dart';
 
 class Page extends Table {
   IntColumn get id => integer().autoIncrement()();
-  DateTimeColumn get date => dateTime()();
+  TextColumn get date => text()();
 }
 
 @UseMoor(tables: [Page], daos: [PageDao])
@@ -22,4 +22,6 @@ class PageDao extends DatabaseAccessor<PageDatabase> with _$PageDaoMixin {
 
   PageDao(this.pageDb) : super(pageDb);
 
+  Future getPageByDate(String date) => (select(page)..where((p) => p.date.equals(date))).getSingleOrNull();
+  Future insertPage(Insertable<PageData> pageData) => into(page).insert(pageData);
 }
