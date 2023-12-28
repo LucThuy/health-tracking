@@ -64,7 +64,7 @@ class DiaryBox extends StatelessWidget {
                                   // Nếu có nhật ký, hiển thị nội dung nhật ký
                                   final diaryContent = diaryList.first.content;
                                   return SizedBox(
-                                      height: 60,
+                                      height: 150,
                                       width: 300,
                                       child: InkWell(
                                         onTap: () {
@@ -73,11 +73,14 @@ class DiaryBox extends StatelessWidget {
                                             MaterialPageRoute(builder: (context) => DiaryPage(focusedDay, diaryDao)),
                                           );
                                         },
-                                        child: Text(
-                                          diaryContent!,
-                                          style: TextStyle(
-                                            color: kTextInvertColor,
-                                            fontSize: 12.sp,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            diaryContent!,
+                                            style: GoogleFonts.pangolin(
+                                                color: kGreen400,
+                                                fontSize: 12.sp
+                                            ),
                                           ),
                                         ),
                                       )
