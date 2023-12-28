@@ -11,7 +11,7 @@ class ImageController extends GetxController {
 
   Future<void> initCamera() async {
     cameras = await availableCameras();
-    cameraController = CameraController(cameras[0], ResolutionPreset.high);
+    cameraController = CameraController(cameras[0], ResolutionPreset.ultraHigh);
     cameraController.initialize().then((value) {
       initialize.value = true;
       initialize.refresh();
