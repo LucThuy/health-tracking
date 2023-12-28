@@ -53,7 +53,7 @@ class DiaryBox extends StatelessWidget {
                         color: kBackgroundTransparentSubZeroColor,
                         elevation: 1,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: StreamBuilder<List<DiaryData>>(
                             stream: diaryDao.watchDiaryByDate(focusedDay),
@@ -63,7 +63,11 @@ class DiaryBox extends StatelessWidget {
                                 if (diaryList.isNotEmpty) {
                                   // Nếu có nhật ký, hiển thị nội dung nhật ký
                                   final diaryContent = diaryList.first.content;
-                                  return SizedBox(
+                                  return Container(
+                                      decoration: BoxDecoration(
+                                        gradient: kGradientGreen100White,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
                                       height: 150,
                                       width: 300,
                                       child: InkWell(

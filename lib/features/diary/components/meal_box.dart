@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../utility/theme.dart';
-import '../../dashboard/components/food_card.dart';
+import '../../plan/plan_screen.dart';
 
 class MealBox extends StatelessWidget {
   var focusedDay;
@@ -54,10 +54,16 @@ class MealBox extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Container(
+                          child: SizedBox(
                             height: 200,
                             width: 100,
                             child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => PlanPage(focusedDay)),
+                                );
+                              },
                               child: Center(
                                   child: Icon(
                                     Icons.add,
