@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:health_tracking/features/dashboard/dashboard_controller.dart';
 import 'package:health_tracking/features/diary/diary_controller.dart';
+import 'package:health_tracking/features/plan/plan_controller.dart';
 import 'package:health_tracking/local/database/diary.dart';
 import 'package:health_tracking/local/line/line.dart';
 import 'package:health_tracking/local/page/page.dart';
@@ -23,6 +24,7 @@ class MainBinding extends Bindings {
     Get.lazyPut<PageDao>(() => PageDao(PageDatabase()));
     Get.lazyPut<DiaryController>(() => DiaryController());
     Get.lazyPut<NutritionController>(() => NutritionController());
+    Get.lazyPut<PlanController>(() => PlanController());
   }
 
 }

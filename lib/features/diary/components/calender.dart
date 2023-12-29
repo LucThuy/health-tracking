@@ -34,7 +34,7 @@ class Calender extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              gradient: kBackgroundLinearMainSubColor,
+              color: kGreen800o9,
             ),
             child: Padding(
               padding: const EdgeInsets.only(
@@ -52,7 +52,7 @@ class Calender extends StatelessWidget {
                     selectedDayPredicate: (day) => isSameDay(day, focusedDay),
                     headerStyle: HeaderStyle(
                       titleTextStyle: GoogleFonts.pangolin(
-                        color: kGreen800,
+                        color: kWhite,
                         fontWeight: FontWeight.w700,
                         fontSize: 20.sp
                       ),
@@ -61,24 +61,24 @@ class Calender extends StatelessWidget {
                     ),
                     daysOfWeekStyle: DaysOfWeekStyle(
                       weekdayStyle: GoogleFonts.pangolin(
-                          color: kGreen800,
+                          color: kWhite,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp
                       ),
                       weekendStyle: GoogleFonts.pangolin(
-                          color: kGreen800,
+                          color: kWhite,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp
                       ),
                     ),
                     calendarStyle: CalendarStyle(
                       defaultTextStyle: GoogleFonts.pangolin(
-                          color: kGreen800,
+                          color: kWhite,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp
                       ),
                       weekendTextStyle: GoogleFonts.pangolin(
-                          color: kGreen800,
+                          color: kWhite,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp
                       ),
@@ -88,11 +88,14 @@ class Calender extends StatelessWidget {
                           fontSize: 14.sp
                       ),
                       selectedTextStyle: GoogleFonts.pangolin(
-                          color: kGreen400,
+                          color: kWhite,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp
                       ),
-                      outsideTextStyle: GoogleFonts.pangolin(),
+                      outsideTextStyle: GoogleFonts.pangolin(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
                     ),
                     onDaySelected: (selectedDay, focusedDay) {
                       diaryController.updateSelectedDay(selectedDay);

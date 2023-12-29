@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/features/plan/components/time_picker.dart';
+import 'package:health_tracking/features/plan/plan_controller.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../local/database/diary.dart';
-import '../../../routes/app_pages.dart';
-import '../../../utility/theme.dart';
-import '../diary_controller.dart';
+import '../../routes/app_pages.dart';
+import '../../utility/theme.dart';
+import '../diary/components/nutrition_button.dart';
+import '../diary/diary_controller.dart';
 
-class DiaryPage extends StatelessWidget {
+class PlanPage extends GetView<PlanController> {
   final diaryController = Get.find<DiaryController>();
-  final textController = TextEditingController();
   var focusedDay;
-  var diaryDao;
-  DiaryPage(DateTime focusedDay, DiaryDao diaryDao){
+
+  PlanPage(DateTime focusedDay){
     this.focusedDay = focusedDay;
-    this.diaryDao = diaryDao;
   }
 
   @override
@@ -40,105 +40,8 @@ class DiaryPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:StreamBuilder<List<DiaryData>>(
-                  stream: diaryDao.watchDiaryByDate(focusedDay),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final diaryList = snapshot.data!;
-                      if (diaryList.isNotEmpty) {
-                        final diaryContent = diaryList.first.content;
-
-                        // Gán giá trị của diaryContent cho textController
-                        textController.text = diaryContent ?? '';
-
-                        return SizedBox(
-                          height: 75.h,
-                          child: TextField(
-                            controller: textController,
-                            maxLines: 30,
-                            cursorColor: kGreen800,
-                            style: GoogleFonts.pangolin(
-                              color: kGreen800,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 12.sp,
-                            ),
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.only(
-                                    top: 20, bottom: 15, left: 20, right: 20),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                floatingLabelStyle: GoogleFonts.pangolin(
-                                  color: kGreen800,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14.sp,
-                                ),
-                                labelStyle: GoogleFonts.pangolin(
-                                  color: kGreen800,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14.sp,
-                                ),
-                                fillColor: kWhite,
-                                filled: true,
-                                hintText: "Nhập nội dung nhật ký",
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(color: kGreen800),
-                                    borderRadius: BorderRadius.circular(10)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide:
-                                    const BorderSide(color: kGreen800, width: 2),
-                                    borderRadius: BorderRadius.circular(10)),
-                                border: OutlineInputBorder(
-                                    borderSide: const BorderSide(color: kGreen800),
-                                    borderRadius: BorderRadius.circular(10))),
-                          ),
-                        );
-                      }
-                    }
-                    // Nếu không có dữ liệu hoặc có dữ liệu rỗng, trả về TextField mặc định
-                    return SizedBox(
-                      height: 75.h,
-                      child: TextField(
-                        controller: textController,
-                        maxLines: 30,
-                        cursorColor: kGreen800,
-                        style: GoogleFonts.pangolin(
-                          color: kGreen800,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 12.sp,
-                        ),
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 20, bottom: 15, left: 20, right: 20),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            floatingLabelStyle: GoogleFonts.pangolin(
-                              color: kGreen800,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.sp,
-                            ),
-                            labelStyle: GoogleFonts.pangolin(
-                              color: kGreen800,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.sp,
-                            ),
-                            fillColor: kWhite,
-                            filled: true,
-                            hintText: "Nhập nội dung nhật ký",
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: kGreen800),
-                                borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                const BorderSide(color: kGreen800, width: 2),
-                                borderRadius: BorderRadius.circular(10)),
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: kGreen800),
-                                borderRadius: BorderRadius.circular(10))),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              TimePicker(),
+              NutritionButton(),
               SizedBox(
                 width: 70.w,
                 height: 70,
@@ -174,7 +77,7 @@ class DiaryPage extends StatelessWidget {
                       },
                       onDismissed: (direction) => {
                         if (direction == DismissDirection.startToEnd)
-                          {diaryController.saveDiary(textController.text, diaryController.focusedDay.value)}
+                          {}
                         else if (direction == DismissDirection.endToStart)
                           {Get.toNamed(AppRoutes.rMain)}
                       },
@@ -251,6 +154,7 @@ class DiaryPage extends StatelessWidget {
       ),
     );
   }
+
   Future<bool?> _showConfirmationDialog(BuildContext context, String action) {
     return showDialog<bool>(
       context: context,
@@ -306,4 +210,5 @@ class DiaryPage extends StatelessWidget {
       },
     );
   }
+
 }

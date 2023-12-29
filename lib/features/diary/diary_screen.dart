@@ -21,9 +21,9 @@ class DiaryScreen extends GetView<DiaryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(gradient: kGradientGreen100White),
+        decoration: const BoxDecoration(gradient: kGradientGreen50White),
         child: SingleChildScrollView(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 top: 30, bottom: 5, left: 5, right: 5
             ),
             child: Obx(() =>
@@ -31,7 +31,6 @@ class DiaryScreen extends GetView<DiaryController> {
                   children: [
                     Calender(controller.focusedDay.value),
                     MealBox(controller.focusedDay.value),
-                    NutritionButton(),
                     DiaryBox(
                         controller.focusedDay.value,
                       Get.find<DiaryDao>()

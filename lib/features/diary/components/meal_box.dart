@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../utility/theme.dart';
-import '../../dashboard/components/food_card.dart';
+import '../../plan/plan_screen.dart';
 
 class MealBox extends StatelessWidget {
   var focusedDay;
@@ -28,7 +28,7 @@ class MealBox extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              gradient: kBackgroundLinearMainSubColor,
+              color: kGreen800o9,
             ),
             child: Padding(
               padding: EdgeInsets.only(
@@ -39,7 +39,7 @@ class MealBox extends StatelessWidget {
                   Text(
                     "Kế hoạch ăn uống",
                     style: GoogleFonts.pangolin(
-                        color: kGreen800,
+                        color: kWhite,
                         fontWeight: FontWeight.w700,
                         fontSize: 14.sp
                     ),
@@ -49,15 +49,21 @@ class MealBox extends StatelessWidget {
                     child: Row(
                       children: [
                         Card(
-                          color: kBackgroundTransparentSubZeroColor,
+                          color: kGreen50o6,
                           elevation: 1,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Container(
+                          child: SizedBox(
                             height: 200,
                             width: 100,
                             child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => PlanPage(focusedDay)),
+                                );
+                              },
                               child: Center(
                                   child: Icon(
                                     Icons.add,
