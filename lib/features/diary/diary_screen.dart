@@ -31,7 +31,6 @@ class DiaryScreen extends GetView<DiaryController> {
                   children: [
                     Calender(controller.focusedDay.value),
                     MealBox(controller.focusedDay.value),
-                    NutritionButton(),
                     DiaryBox(
                         controller.focusedDay.value,
                       Get.find<DiaryDao>()
