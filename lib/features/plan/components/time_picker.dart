@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:time_picker_spinner/time_picker_spinner.dart';
 
 import '../plan_controller.dart';
 
@@ -16,19 +16,24 @@ class TimePicker extends StatelessWidget {
     // TODO: implement build
     return Row(
       children: [
-        Text("data"),
-        TimePickerSpinner(
-          itemHeight: 30,
-          normalTextStyle: TextStyle(
-            color: Colors.transparent
-          ),
-          spacing: 0,
-          highlightedTextStyle: const TextStyle(fontSize: 24, color: Colors.blue),
-          isForce2Digits: true,
-          onTimeChange: (time) {
-            timeController.updateTime(time);
+        Text("Thời gian:"),
+        GestureDetector(
+          onTap: () async {
+            TimeOfDay? newTime = await showTimePicker(
+                context: context,
+                initialTime: timeController.selectedTime.value
+            );
+            if (newTime != null){
+              timeController.updateTime(newTime);
+            }
           },
-        ),
+          child: Obx(
+                () => Text(
+              '${timeController.selectedTime.value.hour.toString().padLeft(2, '0')}:${timeController.selectedTime.value.minute.toString().padLeft(2, '0')}',
+              style: TextStyle(fontSize: 24),
+            ),
+          ),
+        )
       ],
     );
   }

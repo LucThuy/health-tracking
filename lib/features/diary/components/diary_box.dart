@@ -31,7 +31,7 @@ class DiaryBox extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              gradient: kBackgroundLinearMainSubColor,
+              color: kGreen800o9,
             ),
             child: Padding(
               padding: EdgeInsets.only(
@@ -42,7 +42,7 @@ class DiaryBox extends StatelessWidget {
                   Text(
                     "Nhật ký",
                     style: GoogleFonts.pangolin(
-                        color: kGreen800,
+                        color: kWhite,
                         fontWeight: FontWeight.w700,
                         fontSize: 14.sp
                     ),
@@ -50,7 +50,7 @@ class DiaryBox extends StatelessWidget {
                   Row(
                     children: [
                       Card(
-                        color: kBackgroundTransparentSubZeroColor,
+                        color: kGreen50o6,
                         elevation: 1,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -77,13 +77,15 @@ class DiaryBox extends StatelessWidget {
                                             MaterialPageRoute(builder: (context) => DiaryPage(focusedDay, diaryDao)),
                                           );
                                         },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            diaryContent!,
-                                            style: GoogleFonts.pangolin(
-                                                color: kGreen400,
-                                                fontSize: 12.sp
+                                        child: SingleChildScrollView(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              diaryContent!,
+                                              style: GoogleFonts.pangolin(
+                                                  color: kGreen600,
+                                                  fontSize: 14.sp
+                                              ),
                                             ),
                                           ),
                                         ),

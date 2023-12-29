@@ -28,7 +28,7 @@ class MealBox extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              gradient: kBackgroundLinearMainSubColor,
+              color: kGreen800o9,
             ),
             child: Padding(
               padding: EdgeInsets.only(
@@ -39,7 +39,7 @@ class MealBox extends StatelessWidget {
                   Text(
                     "Kế hoạch ăn uống",
                     style: GoogleFonts.pangolin(
-                        color: kGreen800,
+                        color: kWhite,
                         fontWeight: FontWeight.w700,
                         fontSize: 14.sp
                     ),
@@ -49,7 +49,7 @@ class MealBox extends StatelessWidget {
                     child: Row(
                       children: [
                         Card(
-                          color: kBackgroundTransparentSubZeroColor,
+                          color: kGreen50o6,
                           elevation: 1,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
