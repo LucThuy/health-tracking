@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -49,12 +50,51 @@ class Calender extends StatelessWidget {
                     rowHeight: 40,
                     calendarFormat: CalendarFormat.week,
                     selectedDayPredicate: (day) => isSameDay(day, focusedDay),
-                    headerStyle: const HeaderStyle(
+                    headerStyle: HeaderStyle(
+                      titleTextStyle: GoogleFonts.pangolin(
+                        color: kGreen800,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20.sp
+                      ),
                       formatButtonVisible: false,
                       titleCentered: true,
                     ),
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                      weekdayStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      weekendStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                    ),
+                    calendarStyle: CalendarStyle(
+                      defaultTextStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      weekendTextStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      todayTextStyle: GoogleFonts.pangolin(
+                          color: kBlack,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      selectedTextStyle: GoogleFonts.pangolin(
+                          color: kGreen400,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      outsideTextStyle: GoogleFonts.pangolin(),
+                    ),
                     onDaySelected: (selectedDay, focusedDay) {
-                      // focusedDay = selectedDay;
                       diaryController.updateSelectedDay(selectedDay);
                     },
                   )

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'diary_database.dart';
+part of 'diary.dart';
 
 // **************************************************************************
 // MoorGenerator

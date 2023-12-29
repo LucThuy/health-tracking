@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_tracking/modules/main/main_screen.dart';
 import 'package:health_tracking/routes/app_pages.dart';
 import 'package:http/http.dart';
 import 'package:sizer/sizer.dart';

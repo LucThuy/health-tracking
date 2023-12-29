@@ -38,10 +38,10 @@ class MealBox extends StatelessWidget {
                 children: [
                   Text(
                     "Kế hoạch ăn uống",
-                    style: GoogleFonts.openSans(
-                      color: kTextInvertColor,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14.sp,
+                    style: GoogleFonts.pangolin(
+                        color: kGreen800,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14.sp
                     ),
                   ),
                   SingleChildScrollView(
