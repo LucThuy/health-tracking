@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'diary_database.dart';
+part of 'plan.dart';
 
 // **************************************************************************
 // MoorGenerator
 // **************************************************************************
 
 // ignore_for_file: type=lint
-class DiaryData extends DataClass implements Insertable<DiaryData> {
+class PlanData extends DataClass implements Insertable<PlanData> {
   final int id;
   final String? content;
   final DateTime date;
-  DiaryData({required this.id, this.content, required this.date});
-  factory DiaryData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  PlanData({required this.id, this.content, required this.date});
+  factory PlanData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    return DiaryData(
+    return PlanData(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       content: const StringType()
@@ -35,8 +35,8 @@ class DiaryData extends DataClass implements Insertable<DiaryData> {
     return map;
   }
 
-  DiaryCompanion toCompanion(bool nullToAbsent) {
-    return DiaryCompanion(
+  PlanCompanion toCompanion(bool nullToAbsent) {
+    return PlanCompanion(
       id: Value(id),
       content: content == null && nullToAbsent
           ? const Value.absent()
@@ -45,10 +45,10 @@ class DiaryData extends DataClass implements Insertable<DiaryData> {
     );
   }
 
-  factory DiaryData.fromJson(Map<String, dynamic> json,
+  factory PlanData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return DiaryData(
+    return PlanData(
       id: serializer.fromJson<int>(json['id']),
       content: serializer.fromJson<String?>(json['content']),
       date: serializer.fromJson<DateTime>(json['date']),
@@ -64,14 +64,14 @@ class DiaryData extends DataClass implements Insertable<DiaryData> {
     };
   }
 
-  DiaryData copyWith({int? id, String? content, DateTime? date}) => DiaryData(
+  PlanData copyWith({int? id, String? content, DateTime? date}) => PlanData(
         id: id ?? this.id,
         content: content ?? this.content,
         date: date ?? this.date,
       );
   @override
   String toString() {
-    return (StringBuffer('DiaryData(')
+    return (StringBuffer('PlanData(')
           ..write('id: $id, ')
           ..write('content: $content, ')
           ..write('date: $date')
@@ -84,27 +84,27 @@ class DiaryData extends DataClass implements Insertable<DiaryData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is DiaryData &&
+      (other is PlanData &&
           other.id == this.id &&
           other.content == this.content &&
           other.date == this.date);
 }
 
-class DiaryCompanion extends UpdateCompanion<DiaryData> {
+class PlanCompanion extends UpdateCompanion<PlanData> {
   final Value<int> id;
   final Value<String?> content;
   final Value<DateTime> date;
-  const DiaryCompanion({
+  const PlanCompanion({
     this.id = const Value.absent(),
     this.content = const Value.absent(),
     this.date = const Value.absent(),
   });
-  DiaryCompanion.insert({
+  PlanCompanion.insert({
     this.id = const Value.absent(),
     this.content = const Value.absent(),
     this.date = const Value.absent(),
   });
-  static Insertable<DiaryData> custom({
+  static Insertable<PlanData> custom({
     Expression<int>? id,
     Expression<String?>? content,
     Expression<DateTime>? date,
@@ -116,9 +116,9 @@ class DiaryCompanion extends UpdateCompanion<DiaryData> {
     });
   }
 
-  DiaryCompanion copyWith(
+  PlanCompanion copyWith(
       {Value<int>? id, Value<String?>? content, Value<DateTime>? date}) {
-    return DiaryCompanion(
+    return PlanCompanion(
       id: id ?? this.id,
       content: content ?? this.content,
       date: date ?? this.date,
@@ -142,7 +142,7 @@ class DiaryCompanion extends UpdateCompanion<DiaryData> {
 
   @override
   String toString() {
-    return (StringBuffer('DiaryCompanion(')
+    return (StringBuffer('PlanCompanion(')
           ..write('id: $id, ')
           ..write('content: $content, ')
           ..write('date: $date')
@@ -151,11 +151,11 @@ class DiaryCompanion extends UpdateCompanion<DiaryData> {
   }
 }
 
-class $DiaryTable extends Diary with TableInfo<$DiaryTable, DiaryData> {
+class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $DiaryTable(this.attachedDatabase, [this._alias]);
+  $PlanTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -178,11 +178,11 @@ class $DiaryTable extends Diary with TableInfo<$DiaryTable, DiaryData> {
   @override
   List<GeneratedColumn> get $columns => [id, content, date];
   @override
-  String get aliasedName => _alias ?? 'diary';
+  String get aliasedName => _alias ?? 'plan';
   @override
-  String get actualTableName => 'diary';
+  String get actualTableName => 'plan';
   @override
-  VerificationContext validateIntegrity(Insertable<DiaryData> instance,
+  VerificationContext validateIntegrity(Insertable<PlanData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -203,31 +203,31 @@ class $DiaryTable extends Diary with TableInfo<$DiaryTable, DiaryData> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  DiaryData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return DiaryData.fromData(data, attachedDatabase,
+  PlanData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return PlanData.fromData(data, attachedDatabase,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
-  $DiaryTable createAlias(String alias) {
-    return $DiaryTable(attachedDatabase, alias);
+  $PlanTable createAlias(String alias) {
+    return $PlanTable(attachedDatabase, alias);
   }
 }
 
-abstract class _$DiaryDatabase extends GeneratedDatabase {
-  _$DiaryDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  late final $DiaryTable diary = $DiaryTable(this);
-  late final DiaryDao diaryDao = DiaryDao(this as DiaryDatabase);
+abstract class _$PlanDatabase extends GeneratedDatabase {
+  _$PlanDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
+  late final $PlanTable plan = $PlanTable(this);
+  late final PlanDao planDao = PlanDao(this as PlanDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [diary];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [plan];
 }
 
 // **************************************************************************
 // DaoGenerator
 // **************************************************************************
 
-mixin _$DiaryDaoMixin on DatabaseAccessor<DiaryDatabase> {
-  $DiaryTable get diary => attachedDatabase.diary;
+mixin _$PlanDaoMixin on DatabaseAccessor<PlanDatabase> {
+  $PlanTable get plan => attachedDatabase.plan;
 }

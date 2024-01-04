@@ -32,7 +32,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.rAddLine,
       binding: AddLineBinding(),
-      page: () => AddLineScreen(),
+      page: () => const AddLineScreen(),
     )
   ];
 }

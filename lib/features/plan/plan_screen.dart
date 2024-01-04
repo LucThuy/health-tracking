@@ -1,22 +1,28 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:health_tracking/modules/dashboard/add_line/add_line_controller.dart';
-import 'package:health_tracking/routes/app_pages.dart';
+import 'package:health_tracking/features/plan/components/time_picker.dart';
+import 'package:health_tracking/features/plan/plan_controller.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../utility/theme.dart';
+import '../../routes/app_pages.dart';
+import '../../utility/theme.dart';
+import '../diary/components/nutrition_button.dart';
+import '../diary/diary_controller.dart';
 
-class AddLineScreen extends GetView<AddLineController> {
-  const AddLineScreen({super.key});
+class PlanPage extends GetView<PlanController> {
+  final diaryController = Get.find<DiaryController>();
+  var focusedDay;
+
+  PlanPage(DateTime focusedDay){
+    this.focusedDay = focusedDay;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(gradient: kGradientGreen50White),
+        decoration: const BoxDecoration(gradient: kGradientGreen100White),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,104 +30,18 @@ class AddLineScreen extends GetView<AddLineController> {
               SizedBox(
                 height: 5.h,
                 child: Center(
-                  child: Text("NEW LINE",
+                  child: Text(
+                      diaryController.formatter.format(focusedDay),
                       style: GoogleFonts.pangolin(
                         color: kGreen800,
                         fontWeight: FontWeight.w700,
                         fontSize: 20.sp,
-                      )),
-                ),
-              ),
-              SizedBox(
-                height: 43.h,
-                child: Column(
-                  children: [
-                    Card(
-                      elevation: 3,
-                      shadowColor: kGreen950,
-                      margin: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.file(
-                          File(controller.image),
-                          fit: BoxFit.cover,
-                          height: 300,
-                          width: 300,
-                        ),
-                      ),
-                    ),
-                    Obx(
-                      () => Container(
-                        padding: const EdgeInsets.only(left: 30, right: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              controller.dateFormatter
-                                  .format(controller.currentDate.value),
-                              style: GoogleFonts.pangolin(
-                                color: kGreen800,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 12.sp,
-                              ),
-                            ),
-                            Text(
-                              controller.timeFormatter
-                                  .format(controller.currentDate.value),
-                              style: GoogleFonts.pangolin(
-                                color: kGreen800,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 12.sp,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                width: 90.w,
-                height: 37.h,
-                child: TextField(
-                  onChanged: (value) => {controller.name = value},
-                  cursorColor: kGreen800,
-                  style: GoogleFonts.pangolin(
-                    color: kGreen800,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 12.sp,
+                      )
                   ),
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.only(
-                          top: 20, bottom: 15, left: 20, right: 20),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      floatingLabelStyle: GoogleFonts.pangolin(
-                        color: kGreen800,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14.sp,
-                      ),
-                      labelStyle: GoogleFonts.pangolin(
-                        color: kGreen800,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14.sp,
-                      ),
-                      fillColor: kWhite,
-                      filled: true,
-                      labelText: "Dish name",
-                      hintText: "Ex. Bún đậu mắm tôm",
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: kGreen800),
-                          borderRadius: BorderRadius.circular(10)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: kGreen800, width: 2),
-                          borderRadius: BorderRadius.circular(10)),
-                      border: OutlineInputBorder(
-                          borderSide: const BorderSide(color: kGreen800),
-                          borderRadius: BorderRadius.circular(10))),
                 ),
               ),
+              TimePicker(),
+              NutritionButton(),
               SizedBox(
                 width: 70.w,
                 height: 70,
@@ -140,11 +60,11 @@ class AddLineScreen extends GetView<AddLineController> {
                         switch (dismissDirection) {
                           case DismissDirection.endToStart:
                             return await _showConfirmationDialog(
-                                    context, 'cancel') ==
+                                context, 'cancel') ==
                                 true;
                           case DismissDirection.startToEnd:
                             return await _showConfirmationDialog(
-                                    context, 'save') ==
+                                context, 'save') ==
                                 true;
                           case DismissDirection.horizontal:
                           case DismissDirection.vertical:
@@ -157,9 +77,9 @@ class AddLineScreen extends GetView<AddLineController> {
                       },
                       onDismissed: (direction) => {
                         if (direction == DismissDirection.startToEnd)
-                          {controller.insertLine()}
+                          {}
                         else if (direction == DismissDirection.endToStart)
-                          {Get.toNamed(AppRoutes.rImage)}
+                          {Get.toNamed(AppRoutes.rMain)}
                       },
                       background: Container(
                         color: kGreen600,
@@ -290,4 +210,5 @@ class AddLineScreen extends GetView<AddLineController> {
       },
     );
   }
+
 }

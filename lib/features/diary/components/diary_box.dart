@@ -1,16 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../local/database/diary.dart';
 import '../../../utility/theme.dart';
 import '../page/diary_page.dart';
 
 class DiaryBox extends StatelessWidget {
   var focusedDay;
+  var diaryDao;
 
-  DiaryBox(DateTime focusedDay, {Key? key}) : super(key: key){
+  DiaryBox(DateTime focusedDay, DiaryDao diaryDao, {Key? key}) : super(key: key){
     this.focusedDay = focusedDay;
+    this.diaryDao = diaryDao;
   }
 
   @override
@@ -29,7 +31,7 @@ class DiaryBox extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              gradient: kBackgroundLinearMainSubColor,
+              color: kGreen800o9,
             ),
             child: Padding(
               padding: EdgeInsets.only(
@@ -39,43 +41,78 @@ class DiaryBox extends StatelessWidget {
                 children: [
                   Text(
                     "Nhật ký",
-                    style: GoogleFonts.openSans(
-                      color: kTextInvertColor,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 14.sp,
+                    style: GoogleFonts.pangolin(
+                        color: kWhite,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 14.sp
                     ),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Card(
-                          color: kBackgroundTransparentSubZeroColor,
-                          elevation: 1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: SizedBox(
-                            height: 60,
-                            width: 300,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => DiaryPage(focusedDay)),
-                                );
-                              },
-                              child: Center(
+                  Row(
+                    children: [
+                      Card(
+                        color: kGreen50o6,
+                        elevation: 1,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: StreamBuilder<List<DiaryData>>(
+                            stream: diaryDao.watchDiaryByDate(focusedDay),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final diaryList = snapshot.data!;
+                                if (diaryList.isNotEmpty) {
+                                  // Nếu có nhật ký, hiển thị nội dung nhật ký
+                                  final diaryContent = diaryList.first.content;
+                                  return Container(
+                                      decoration: BoxDecoration(
+                                        gradient: kGradientGreen100White,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      height: 150,
+                                      width: 300,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => DiaryPage(focusedDay, diaryDao)),
+                                          );
+                                        },
+                                        child: SingleChildScrollView(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              diaryContent!,
+                                              style: GoogleFonts.pangolin(
+                                                  color: kGreen600,
+                                                  fontSize: 14.sp
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                  );
+                                }
+                              }
+                              // Nếu không có nhật ký hoặc có lỗi, hiển thị giao diện thêm nhật ký mới
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DiaryPage(focusedDay, diaryDao)),
+                                  );
+                                },
+                                child: Center(
                                   child: Icon(
                                     Icons.add,
                                     size: 50,
                                     color: kTextInvertColor,
-                                  )),
-                            ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
                 ],
               ),
