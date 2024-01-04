@@ -1,79 +1,66 @@
-import 'package:health_tracking/model/loginuser.dart';
-import 'package:health_tracking/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:health_tracking/features/blog/blog_screen.dart';
 
+import '../../services/firebase_crud.dart';
 
-class Register extends StatefulWidget{
-
-  final Function? toggleView;
-  Register({this.toggleView});
-
+class AddPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _Register();
+    // TODO: implement createState
+    return _AddPage();
   }
 }
 
-class _Register extends State<Register>{
-  final AuthService _auth = AuthService();
+class _AddPage extends State<AddPage> {
+  final _title = TextEditingController();
+  final _content = TextEditingController();
+  final _image = TextEditingController();
 
-  bool _obscureText = true;
-  final _email = TextEditingController();
-  final _password = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-
-    final emailField = TextFormField(
-        controller: _email,
-        autofocus: false,
-        validator: (value) {
-          if (value != null) {
-            if (value.contains('@') && value.endsWith('.com')) {
-              return null;
-            }
-            return 'Enter a Valid Email Address';
-          }
-        },
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Email",
-            border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
-
-    final passwordField = TextFormField(
-        obscureText: _obscureText,
-        controller: _password,
+    final nameField = TextFormField(
+        controller: _title,
         autofocus: false,
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
             return 'This field is required';
           }
-          if (value.trim().length < 8) {
-            return 'Password must be at least 8 characters in length';
-          }
-          // Return null if the entered password is valid
-          return null;
-        } ,
+        },
         decoration: InputDecoration(
             contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Password",
-            suffixIcon: IconButton(icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
-              onPressed: (){
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
-              },),
+            hintText: "Title",
+            border:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
+    final positionField = TextFormField(
+        controller: _content,
+        autofocus: false,
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'This field is required';
+          }
+        },
+        decoration: InputDecoration(
+            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            hintText: "Content",
+            border:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
+    final contactField = TextFormField(
+        controller: _image,
+        autofocus: false,
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return 'This field is required';
+          }
+        },
+        decoration: InputDecoration(
+            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            hintText: "Image",
             border:
             OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
 
-    final txtbutton = TextButton(
-        onPressed: () {
-          widget.toggleView!();
-        },
-        child: const Text('Go to login'));
-
-    final registerButton = Material(
+    final SaveButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
       color: Theme.of(context).primaryColor,
@@ -82,39 +69,53 @@ class _Register extends State<Register>{
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            dynamic result = await _auth.registerEmailPassword(LoginUser(email: _email.text,password: _password.text));
-            if (result.uid == null) { //null means unsuccessfull authentication
+            var response = await FirebaseCrud.addNews(
+                title: _title.text,
+                content: _content.text,
+                image: _image.text);
+            if(response.code == 200) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BlogPage())
+              );
+            }
+            if (response.code != 200) {
               showDialog(
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      content: Text(result.code),
+                      content: Text(response.message.toString()),
+                    );
+                  });
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: Text(response.message.toString()),
                     );
                   });
             }
           }
         },
         child: Text(
-          "Register",
+          "Save",
           style: TextStyle(color: Theme.of(context).primaryColorLight),
           textAlign: TextAlign.center,
         ),
       ),
     );
 
-
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Registration Demo Page'),
+        title: const Text('Health Blog'),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Form(
-            autovalidateMode: AutovalidateMode.always,
             key: _formKey,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -122,14 +123,13 @@ class _Register extends State<Register>{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  nameField,
+                  const SizedBox(height: 25.0),
+                  positionField,
+                  const SizedBox(height: 35.0),
+                  contactField,
                   const SizedBox(height: 45.0),
-                  emailField,
-                  const SizedBox(height: 25.0),
-                  passwordField,
-                  const SizedBox(height: 25.0),
-                  txtbutton,
-                  const SizedBox( height: 35.0),
-                  registerButton,
+                  SaveButon,
                   const SizedBox(height: 15.0),
                 ],
               ),

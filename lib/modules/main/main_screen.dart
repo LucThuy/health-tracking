@@ -2,6 +2,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/features/blog/blog_screen.dart';
 import 'package:health_tracking/features/dashboard/dashboard_screen.dart';
 import 'package:health_tracking/features/diary/diary_screen.dart';
 import 'package:health_tracking/modules/main/main_controller.dart';
@@ -9,11 +10,12 @@ import 'package:health_tracking/modules/scan/camera_screen.dart';
 import 'package:sizer/sizer.dart';
 
 class MainScreen extends GetWidget<MainController> {
-  const MainScreen({Key? key}) : super(key: key);
+  MainScreen({Key? key}) : super(key: key);
 
-  final screen = const <Widget>[
+  final screen = <Widget>[
     DashboardScreen(),
     DiaryScreen(),
+    BlogPage()
   ];
 
   @override
@@ -27,13 +29,7 @@ class MainScreen extends GetWidget<MainController> {
       bottomNavigationBar: Obx(
         () => BottomNavyBar(
           selectedIndex: controller.currentIndex.value,
-          onItemSelected: (newIndex) => {
-          if(newIndex == 2) {
-            Navigator.pushNamed(context, '/blog')}
-           else {
-            controller.changeCurrentIndex(newIndex)
-          }
-          },
+          onItemSelected: (newIndex) => controller.changeCurrentIndex(newIndex),
           items: [
             BottomNavyBarItem(
               icon: const Icon(Icons.home_rounded),
