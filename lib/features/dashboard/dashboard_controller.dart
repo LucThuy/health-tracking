@@ -21,7 +21,19 @@ class DashboardController extends GetxController {
   }
 
   Future<void> loadLine() async {
-    PageData todayPage = await pageDao.getPageByDate(dateFormat.format(currentDate.value));
+    // await pageDao
+    //     .getPageByDate(dateFormat.format(currentDate.value))
+    //     .then((pageData) => {
+    //           if (pageData == null)
+    //             {
+    //               pageDao.insertPage(PageCompanion.insert(
+    //                   date: dateFormat.format(currentDate.value)))
+    //             }
+    //         });
+    var todayPage =
+        await pageDao.getPageByDate(dateFormat.format(currentDate.value));
+    todayPage ??= await pageDao.insertPage(PageCompanion.insert(
+          date: dateFormat.format(currentDate.value)));
     lineDao.watchLineByPageId(todayPage.id).listen((data) {
       lineList.assignAll(data);
     });
