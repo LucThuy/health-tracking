@@ -18,7 +18,7 @@ class AddLineController extends GetxController {
   final LineDao lineDao = Get.find();
   final PageDao pageDao = Get.find();
 
-  String name = "";
+  var name = "".obs;
 
   Future<void> insertLine() async {
     final Directory directory = await getApplicationDocumentsDirectory();
@@ -30,7 +30,7 @@ class AddLineController extends GetxController {
         pageId: todayPage.id,
         date: currentDate.value,
         imagePath: savedImage.path,
-        name: name));
+        name: name.value));
     Get.toNamed(AppRoutes.rMain);
   }
 }
