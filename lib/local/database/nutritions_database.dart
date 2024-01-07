@@ -77,6 +77,7 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
 
   Future<void> syncFirebaseData() async {
     print("start sync");
+    delete(nutrition).go();
     final foodCollection = await FoodCrud.readFoodData().first;
     final List<NutritionData> nutritionList =
         foodCollection.docs.map((document) {
