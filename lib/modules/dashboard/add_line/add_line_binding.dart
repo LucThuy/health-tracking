@@ -12,5 +12,4 @@ class AddLineBinding extends Bindings {
     Get.lazyPut<LineDao>(() => LineDao(LineDatabase()));
     Get.lazyPut<PageDao>(() => PageDao(PageDatabase()));
   }
-
 }
