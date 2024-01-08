@@ -117,4 +117,7 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
           mode: InsertMode.insertOrReplace);
     });
   }
+
+  Future<List<NutritionData>> searchNutrition(String query) => (select(nutrition)
+      ..where((n) => n.name.like('%$query%'))).get();
 }
