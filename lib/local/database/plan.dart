@@ -33,5 +33,12 @@ class PlanDao extends DatabaseAccessor<PlanDatabase> with _$PlanDaoMixin {
       );
   }
 
+  Future<List<PlanData>> getPlansByDate(DateTime date) async {
+    final query = select(plan)
+      ..where((p) => p.date.equals(date));
+
+    return query.get();
+  }
+
 
 }
