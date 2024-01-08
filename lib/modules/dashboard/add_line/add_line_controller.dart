@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:health_tracking/local/database/nutritions_database.dart';
+import 'package:health_tracking/local/model/food_type.dart';
 import 'package:health_tracking/routes/app_pages.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,8 +19,26 @@ class AddLineController extends GetxController {
 
   final LineDao lineDao = Get.find();
   final PageDao pageDao = Get.find();
+  final NutritionsDao nutritionsDao = Get.find();
 
+  var nutritionList = RxList<NutritionData>([]);
   var name = "".obs;
+
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    await loadNutrition("");
+  }
+
+  onChangeName(value) {
+    name.value = value;
+    loadNutrition(value);
+  }
+
+  loadNutrition(String key) async {
+    nutritionList.value = await nutritionsDao.searchNutrition(key);
+    print(nutritionList.value);
+  }
 
   Future<void> insertLine() async {
     final Directory directory = await getApplicationDocumentsDirectory();
