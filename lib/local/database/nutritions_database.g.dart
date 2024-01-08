@@ -8,7 +8,7 @@ part of 'nutritions_database.dart';
 
 // ignore_for_file: type=lint
 class NutritionData extends DataClass implements Insertable<NutritionData> {
-  final int id;
+  final String id;
   final String name;
   final String foodType;
   final double? calories;
@@ -28,7 +28,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return NutritionData(
-      id: const IntType()
+      id: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       name: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
@@ -47,7 +47,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
     map['food_type'] = Variable<String>(foodType);
     if (!nullToAbsent || calories != null) {
@@ -87,7 +87,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
       {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return NutritionData(
-      id: serializer.fromJson<int>(json['id']),
+      id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       foodType: serializer.fromJson<String>(json['foodType']),
       calories: serializer.fromJson<double?>(json['calories']),
@@ -100,7 +100,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
       'foodType': serializer.toJson<String>(foodType),
       'calories': serializer.toJson<double?>(calories),
@@ -111,7 +111,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
   }
 
   NutritionData copyWith(
-          {int? id,
+          {String? id,
           String? name,
           String? foodType,
           double? calories,
@@ -158,7 +158,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
 }
 
 class NutritionCompanion extends UpdateCompanion<NutritionData> {
-  final Value<int> id;
+  final Value<String> id;
   final Value<String> name;
   final Value<String> foodType;
   final Value<double?> calories;
@@ -175,17 +175,18 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
     this.fat = const Value.absent(),
   });
   NutritionCompanion.insert({
-    this.id = const Value.absent(),
+    required String id,
     required String name,
     required String foodType,
     this.calories = const Value.absent(),
     this.protein = const Value.absent(),
     this.carbohydrates = const Value.absent(),
     this.fat = const Value.absent(),
-  })  : name = Value(name),
+  })  : id = Value(id),
+        name = Value(name),
         foodType = Value(foodType);
   static Insertable<NutritionData> custom({
-    Expression<int>? id,
+    Expression<String>? id,
     Expression<String>? name,
     Expression<String>? foodType,
     Expression<double?>? calories,
@@ -205,7 +206,7 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
   }
 
   NutritionCompanion copyWith(
-      {Value<int>? id,
+      {Value<String>? id,
       Value<String>? name,
       Value<String>? foodType,
       Value<double?>? calories,
@@ -227,7 +228,7 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
@@ -273,11 +274,9 @@ class $NutritionTable extends Nutrition
   $NutritionTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+  late final GeneratedColumn<String?> id = GeneratedColumn<String?>(
       'id', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
@@ -329,6 +328,8 @@ class $NutritionTable extends Nutrition
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
     }
     if (data.containsKey('name')) {
       context.handle(
@@ -364,7 +365,7 @@ class $NutritionTable extends Nutrition
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => <GeneratedColumn>{};
   @override
   NutritionData map(Map<String, dynamic> data, {String? tablePrefix}) {
     return NutritionData.fromData(data, attachedDatabase,

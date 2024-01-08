@@ -6,11 +6,14 @@ class Plan extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get content => text().nullable()();
   DateTimeColumn get date => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get time => dateTime()();
 }
 
 @UseMoor(tables: [Plan], daos: [PlanDao])
 class PlanDatabase extends _$PlanDatabase {
-  PlanDatabase() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'plan.lite', logStatements: true));
+  PlanDatabase()
+      : super(FlutterQueryExecutor.inDatabaseFolder(
+            path: 'plan.lite', logStatements: true));
 
   @override
   int get schemaVersion => 1;
@@ -22,5 +25,10 @@ class PlanDao extends DatabaseAccessor<PlanDatabase> with _$PlanDaoMixin {
 
   PlanDao(this.planDb) : super(planDb);
 
-
+  Future<void> insertPlan(String content, DateTime date, DateTime time) async {
+    await into(plan).insert(
+      PlanCompanion(
+          content: Value(content), date: Value(date), time: Value(time)),
+    );
+  }
 }

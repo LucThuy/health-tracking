@@ -9,57 +9,45 @@ part of 'plan.dart';
 // ignore_for_file: type=lint
 class PlanData extends DataClass implements Insertable<PlanData> {
   final int id;
-  final String? contentMorning;
-  final String? contentLunch;
-  final String? contentDinner;
+  final String? content;
   final DateTime date;
-  PlanData({required this.id, this.contentMorning, this.contentLunch, this.contentDinner, required this.date});
+  final DateTime time;
+  PlanData(
+      {required this.id, this.content, required this.date, required this.time});
   factory PlanData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return PlanData(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      contentMorning: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}contentMorning']),
-      contentLunch: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}contentLunch']),
-      contentDinner: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}contentDinner']),
+      content: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}content']),
       date: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      time: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}time'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    if (!nullToAbsent || contentMorning != null) {
-      map['contentMorning'] = Variable<String?>(contentMorning);
-    }
-    if (!nullToAbsent || contentLunch != null) {
-      map['contentLunch'] = Variable<String?>(contentLunch);
-    }
-    if (!nullToAbsent || contentDinner != null) {
-      map['contentDinner'] = Variable<String?>(contentDinner);
+    if (!nullToAbsent || content != null) {
+      map['content'] = Variable<String?>(content);
     }
     map['date'] = Variable<DateTime>(date);
+    map['time'] = Variable<DateTime>(time);
     return map;
   }
 
   PlanCompanion toCompanion(bool nullToAbsent) {
     return PlanCompanion(
       id: Value(id),
-      contentMorning: contentMorning == null && nullToAbsent
+      content: content == null && nullToAbsent
           ? const Value.absent()
-          : Value(contentMorning),
-      contentLunch: contentLunch == null && nullToAbsent
-          ? const Value.absent()
-          : Value(contentLunch),
-      contentDinner: contentDinner == null && nullToAbsent
-          ? const Value.absent()
-          : Value(contentDinner),
+          : Value(content),
       date: Value(date),
+      time: Value(time),
     );
   }
 
@@ -68,10 +56,9 @@ class PlanData extends DataClass implements Insertable<PlanData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return PlanData(
       id: serializer.fromJson<int>(json['id']),
-      contentMorning: serializer.fromJson<String?>(json['contentMorning']),
-      contentLunch: serializer.fromJson<String?>(json['contentLunch']),
-      contentDinner: serializer.fromJson<String?>(json['contentDinner']),
+      content: serializer.fromJson<String?>(json['content']),
       date: serializer.fromJson<DateTime>(json['date']),
+      time: serializer.fromJson<DateTime>(json['time']),
     );
   }
   @override
@@ -79,89 +66,84 @@ class PlanData extends DataClass implements Insertable<PlanData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'contentMorning': serializer.toJson<String?>(contentMorning),
-      'contentLunch': serializer.toJson<String?>(contentLunch),
-      'contentDinner': serializer.toJson<String?>(contentDinner),
+      'content': serializer.toJson<String?>(content),
       'date': serializer.toJson<DateTime>(date),
+      'time': serializer.toJson<DateTime>(time),
     };
   }
 
-  PlanData copyWith({int? id, String? content, DateTime? date}) => PlanData(
+  PlanData copyWith(
+          {int? id, String? content, DateTime? date, DateTime? time}) =>
+      PlanData(
         id: id ?? this.id,
-        contentMorning: content ?? this.contentMorning,
-        contentLunch: content ?? this.contentLunch,
-        contentDinner: content ?? this.contentDinner,
+        content: content ?? this.content,
         date: date ?? this.date,
+        time: time ?? this.time,
       );
   @override
   String toString() {
     return (StringBuffer('PlanData(')
           ..write('id: $id, ')
-          ..write('contentMorning: $contentMorning, ')
-          ..write('contentLunch: $contentLunch, ')
-          ..write('contentDinner: $contentDinner, ')
-          ..write('date: $date')
+          ..write('content: $content, ')
+          ..write('date: $date, ')
+          ..write('time: $time')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, contentMorning, contentLunch, contentDinner, date);
+  int get hashCode => Object.hash(id, content, date, time);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PlanData &&
           other.id == this.id &&
-          other.contentMorning == this.contentMorning &&
-          other.contentLunch == this.contentLunch &&
-          other.contentDinner == this.contentDinner &&
-          other.date == this.date);
+          other.content == this.content &&
+          other.date == this.date &&
+          other.time == this.time);
 }
 
 class PlanCompanion extends UpdateCompanion<PlanData> {
   final Value<int> id;
-  final Value<String?> contentMorning;
-  final Value<String?> contentLunch;
-  final Value<String?> contentDinner;
+  final Value<String?> content;
   final Value<DateTime> date;
+  final Value<DateTime> time;
   const PlanCompanion({
     this.id = const Value.absent(),
-    this.contentMorning = const Value.absent(),
-    this.contentLunch = const Value.absent(),
-    this.contentDinner = const Value.absent(),
+    this.content = const Value.absent(),
     this.date = const Value.absent(),
+    this.time = const Value.absent(),
   });
   PlanCompanion.insert({
     this.id = const Value.absent(),
-    this.contentMorning = const Value.absent(),
-    this.contentLunch = const Value.absent(),
-    this.contentDinner = const Value.absent(),
+    this.content = const Value.absent(),
     this.date = const Value.absent(),
-  });
+    required DateTime time,
+  }) : time = Value(time);
   static Insertable<PlanData> custom({
     Expression<int>? id,
-    Expression<String?>? contentMorning,
-    Expression<String?>? contentLunch,
-    Expression<String?>? contentDinner,
+    Expression<String?>? content,
     Expression<DateTime>? date,
+    Expression<DateTime>? time,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (contentMorning != null) 'contentMorning': contentMorning,
-      if (contentLunch != null) 'contentLunch': contentLunch,
-      if (contentDinner != null) 'contentDinner': contentDinner,
+      if (content != null) 'content': content,
       if (date != null) 'date': date,
+      if (time != null) 'time': time,
     });
   }
 
   PlanCompanion copyWith(
-      {Value<int>? id, Value<String?>? contentMorning, Value<String?>? contentLunch,Value<String?>? contentDinner, Value<DateTime>? date}) {
+      {Value<int>? id,
+      Value<String?>? content,
+      Value<DateTime>? date,
+      Value<DateTime>? time}) {
     return PlanCompanion(
       id: id ?? this.id,
-      contentMorning: contentMorning ?? this.contentMorning,
-      contentLunch: contentLunch ?? this.contentLunch,
-      contentDinner: contentDinner ?? this.contentDinner,
+      content: content ?? this.content,
       date: date ?? this.date,
+      time: time ?? this.time,
     );
   }
 
@@ -171,17 +153,14 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (contentMorning.present) {
-      map['contentMorning'] = Variable<String?>(contentMorning.value);
-    }
-    if (contentLunch.present) {
-      map['contentLunch'] = Variable<String?>(contentLunch.value);
-    }
-    if (contentDinner.present) {
-      map['contentDinner'] = Variable<String?>(contentDinner.value);
+    if (content.present) {
+      map['content'] = Variable<String?>(content.value);
     }
     if (date.present) {
       map['date'] = Variable<DateTime>(date.value);
+    }
+    if (time.present) {
+      map['time'] = Variable<DateTime>(time.value);
     }
     return map;
   }
@@ -190,10 +169,9 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
   String toString() {
     return (StringBuffer('PlanCompanion(')
           ..write('id: $id, ')
-          ..write('contentMorning: $contentMorning, ')
-          ..write('contentLunch: $contentLunch, ')
-          ..write('contentDinner: $contentDinner, ')
-          ..write('date: $date')
+          ..write('content: $content, ')
+          ..write('date: $date, ')
+          ..write('time: $time')
           ..write(')'))
         .toString();
   }
@@ -211,20 +189,10 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
       type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _contentMorningMeta = const VerificationMeta('contentMorning');
+  final VerificationMeta _contentMeta = const VerificationMeta('content');
   @override
-  late final GeneratedColumn<String?> contentMorning = GeneratedColumn<String?>(
-      'contentMorning', aliasedName, true,
-      type: const StringType(), requiredDuringInsert: false);
-  final VerificationMeta _contentLunchMeta = const VerificationMeta('contentLunch');
-  @override
-  late final GeneratedColumn<String?> contentLunch = GeneratedColumn<String?>(
-      'contentLunch', aliasedName, true,
-      type: const StringType(), requiredDuringInsert: false);
-  final VerificationMeta _contentDinnerMeta = const VerificationMeta('contentDinner');
-  @override
-  late final GeneratedColumn<String?> contentDinner = GeneratedColumn<String?>(
-      'contentDinner', aliasedName, true,
+  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
+      'content', aliasedName, true,
       type: const StringType(), requiredDuringInsert: false);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
@@ -233,8 +201,13 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
       type: const IntType(),
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
+  final VerificationMeta _timeMeta = const VerificationMeta('time');
   @override
-  List<GeneratedColumn> get $columns => [id, contentMorning, contentLunch, contentDinner, date];
+  late final GeneratedColumn<DateTime?> time = GeneratedColumn<DateTime?>(
+      'time', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, content, date, time];
   @override
   String get aliasedName => _alias ?? 'plan';
   @override
@@ -247,21 +220,19 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('contentMorning')) {
-      context.handle(_contentMorningMeta,
-          contentMorning.isAcceptableOrUnknown(data['contentMorning']!, _contentMorningMeta));
-    }
-    if (data.containsKey('contentLunch')) {
-      context.handle(_contentLunchMeta,
-          contentLunch.isAcceptableOrUnknown(data['contentLunch']!, _contentLunchMeta));
-    }
-    if (data.containsKey('contentDinner')) {
-      context.handle(_contentDinnerMeta,
-          contentDinner.isAcceptableOrUnknown(data['contentDinner']!, _contentDinnerMeta));
+    if (data.containsKey('content')) {
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
     }
     if (data.containsKey('date')) {
       context.handle(
           _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    }
+    if (data.containsKey('time')) {
+      context.handle(
+          _timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
+    } else if (isInserting) {
+      context.missing(_timeMeta);
     }
     return context;
   }

@@ -37,7 +37,7 @@ class MealBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Kế hoạch ăn uống",
+                    "Planning Meal",
                     style: GoogleFonts.pangolin(
                         color: kWhite,
                         fontWeight: FontWeight.w700,
