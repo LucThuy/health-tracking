@@ -44,6 +44,15 @@ class AddLineController extends GetxController {
     print(nutritionList.value);
   }
 
+  onChooseFood(int index) {
+    NutritionData target = nutritionList[index];
+    name.value = target.name;
+    calories.value != target.calories;
+    protein.value != target.protein;
+    carbohydrates.value != target.carbohydrates;
+    fat.value != target.fat;
+  }
+
   Future<void> insertLine() async {
     final Directory directory = await getApplicationDocumentsDirectory();
     final path = directory.path;

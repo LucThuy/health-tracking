@@ -160,18 +160,25 @@ class AddLineScreen extends GetView<AddLineController> {
                                           itemCount:
                                               controller.nutritionList.length,
                                           itemBuilder: (context, index) {
-                                            return FoodCardChoice(
-                                                nutritionData: controller
-                                                    .nutritionList
-                                                    .elementAt(index));
+                                            return InkWell(
+                                              onTap: controller.onChooseFood(index),
+                                              child: FoodCardChoice(
+                                                  nutritionData: controller
+                                                      .nutritionList
+                                                      .elementAt(index)),
+                                            );
                                           }),
                                 ),
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           TextField(
-                            onChanged: (value) =>
-                                {controller.calories.value = double.parse(value)},
+                            onChanged: (value) => {
+                              controller.calories.value = double.parse(value)
+                            },
                             cursorColor: kGreen800,
                             style: GoogleFonts.pangolin(
                               color: kGreen800,
@@ -214,8 +221,9 @@ class AddLineScreen extends GetView<AddLineController> {
                             height: 10,
                           ),
                           TextField(
-                            onChanged: (value) =>
-                                {controller.protein.value = double.parse(value)},
+                            onChanged: (value) => {
+                              controller.protein.value = double.parse(value)
+                            },
                             cursorColor: kGreen800,
                             style: GoogleFonts.pangolin(
                               color: kGreen800,
@@ -258,8 +266,10 @@ class AddLineScreen extends GetView<AddLineController> {
                             height: 10,
                           ),
                           TextField(
-                            onChanged: (value) =>
-                                {controller.carbohydrates.value = double.parse(value)},
+                            onChanged: (value) => {
+                              controller.carbohydrates.value =
+                                  double.parse(value)
+                            },
                             cursorColor: kGreen800,
                             style: GoogleFonts.pangolin(
                               color: kGreen800,
