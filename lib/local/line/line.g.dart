@@ -13,12 +13,20 @@ class LineData extends DataClass implements Insertable<LineData> {
   final DateTime date;
   final String imagePath;
   final String name;
+  final double calories;
+  final double protein;
+  final double carbohydrates;
+  final double fat;
   LineData(
       {required this.id,
       required this.pageId,
       required this.date,
       required this.imagePath,
-      required this.name});
+      required this.name,
+      required this.calories,
+      required this.protein,
+      required this.carbohydrates,
+      required this.fat});
   factory LineData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -33,6 +41,14 @@ class LineData extends DataClass implements Insertable<LineData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}image_path'])!,
       name: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
+      calories: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}calories'])!,
+      protein: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}protein'])!,
+      carbohydrates: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}carbohydrates'])!,
+      fat: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fat'])!,
     );
   }
   @override
@@ -43,6 +59,10 @@ class LineData extends DataClass implements Insertable<LineData> {
     map['date'] = Variable<DateTime>(date);
     map['image_path'] = Variable<String>(imagePath);
     map['name'] = Variable<String>(name);
+    map['calories'] = Variable<double>(calories);
+    map['protein'] = Variable<double>(protein);
+    map['carbohydrates'] = Variable<double>(carbohydrates);
+    map['fat'] = Variable<double>(fat);
     return map;
   }
 
@@ -53,6 +73,10 @@ class LineData extends DataClass implements Insertable<LineData> {
       date: Value(date),
       imagePath: Value(imagePath),
       name: Value(name),
+      calories: Value(calories),
+      protein: Value(protein),
+      carbohydrates: Value(carbohydrates),
+      fat: Value(fat),
     );
   }
 
@@ -65,6 +89,10 @@ class LineData extends DataClass implements Insertable<LineData> {
       date: serializer.fromJson<DateTime>(json['date']),
       imagePath: serializer.fromJson<String>(json['imagePath']),
       name: serializer.fromJson<String>(json['name']),
+      calories: serializer.fromJson<double>(json['calories']),
+      protein: serializer.fromJson<double>(json['protein']),
+      carbohydrates: serializer.fromJson<double>(json['carbohydrates']),
+      fat: serializer.fromJson<double>(json['fat']),
     );
   }
   @override
@@ -76,6 +104,10 @@ class LineData extends DataClass implements Insertable<LineData> {
       'date': serializer.toJson<DateTime>(date),
       'imagePath': serializer.toJson<String>(imagePath),
       'name': serializer.toJson<String>(name),
+      'calories': serializer.toJson<double>(calories),
+      'protein': serializer.toJson<double>(protein),
+      'carbohydrates': serializer.toJson<double>(carbohydrates),
+      'fat': serializer.toJson<double>(fat),
     };
   }
 
@@ -84,13 +116,21 @@ class LineData extends DataClass implements Insertable<LineData> {
           int? pageId,
           DateTime? date,
           String? imagePath,
-          String? name}) =>
+          String? name,
+          double? calories,
+          double? protein,
+          double? carbohydrates,
+          double? fat}) =>
       LineData(
         id: id ?? this.id,
         pageId: pageId ?? this.pageId,
         date: date ?? this.date,
         imagePath: imagePath ?? this.imagePath,
         name: name ?? this.name,
+        calories: calories ?? this.calories,
+        protein: protein ?? this.protein,
+        carbohydrates: carbohydrates ?? this.carbohydrates,
+        fat: fat ?? this.fat,
       );
   @override
   String toString() {
@@ -99,13 +139,18 @@ class LineData extends DataClass implements Insertable<LineData> {
           ..write('pageId: $pageId, ')
           ..write('date: $date, ')
           ..write('imagePath: $imagePath, ')
-          ..write('name: $name')
+          ..write('name: $name, ')
+          ..write('calories: $calories, ')
+          ..write('protein: $protein, ')
+          ..write('carbohydrates: $carbohydrates, ')
+          ..write('fat: $fat')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, pageId, date, imagePath, name);
+  int get hashCode => Object.hash(
+      id, pageId, date, imagePath, name, calories, protein, carbohydrates, fat);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -114,7 +159,11 @@ class LineData extends DataClass implements Insertable<LineData> {
           other.pageId == this.pageId &&
           other.date == this.date &&
           other.imagePath == this.imagePath &&
-          other.name == this.name);
+          other.name == this.name &&
+          other.calories == this.calories &&
+          other.protein == this.protein &&
+          other.carbohydrates == this.carbohydrates &&
+          other.fat == this.fat);
 }
 
 class LineCompanion extends UpdateCompanion<LineData> {
@@ -123,12 +172,20 @@ class LineCompanion extends UpdateCompanion<LineData> {
   final Value<DateTime> date;
   final Value<String> imagePath;
   final Value<String> name;
+  final Value<double> calories;
+  final Value<double> protein;
+  final Value<double> carbohydrates;
+  final Value<double> fat;
   const LineCompanion({
     this.id = const Value.absent(),
     this.pageId = const Value.absent(),
     this.date = const Value.absent(),
     this.imagePath = const Value.absent(),
     this.name = const Value.absent(),
+    this.calories = const Value.absent(),
+    this.protein = const Value.absent(),
+    this.carbohydrates = const Value.absent(),
+    this.fat = const Value.absent(),
   });
   LineCompanion.insert({
     this.id = const Value.absent(),
@@ -136,16 +193,28 @@ class LineCompanion extends UpdateCompanion<LineData> {
     required DateTime date,
     required String imagePath,
     required String name,
+    required double calories,
+    required double protein,
+    required double carbohydrates,
+    required double fat,
   })  : pageId = Value(pageId),
         date = Value(date),
         imagePath = Value(imagePath),
-        name = Value(name);
+        name = Value(name),
+        calories = Value(calories),
+        protein = Value(protein),
+        carbohydrates = Value(carbohydrates),
+        fat = Value(fat);
   static Insertable<LineData> custom({
     Expression<int>? id,
     Expression<int>? pageId,
     Expression<DateTime>? date,
     Expression<String>? imagePath,
     Expression<String>? name,
+    Expression<double>? calories,
+    Expression<double>? protein,
+    Expression<double>? carbohydrates,
+    Expression<double>? fat,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -153,6 +222,10 @@ class LineCompanion extends UpdateCompanion<LineData> {
       if (date != null) 'date': date,
       if (imagePath != null) 'image_path': imagePath,
       if (name != null) 'name': name,
+      if (calories != null) 'calories': calories,
+      if (protein != null) 'protein': protein,
+      if (carbohydrates != null) 'carbohydrates': carbohydrates,
+      if (fat != null) 'fat': fat,
     });
   }
 
@@ -161,13 +234,21 @@ class LineCompanion extends UpdateCompanion<LineData> {
       Value<int>? pageId,
       Value<DateTime>? date,
       Value<String>? imagePath,
-      Value<String>? name}) {
+      Value<String>? name,
+      Value<double>? calories,
+      Value<double>? protein,
+      Value<double>? carbohydrates,
+      Value<double>? fat}) {
     return LineCompanion(
       id: id ?? this.id,
       pageId: pageId ?? this.pageId,
       date: date ?? this.date,
       imagePath: imagePath ?? this.imagePath,
       name: name ?? this.name,
+      calories: calories ?? this.calories,
+      protein: protein ?? this.protein,
+      carbohydrates: carbohydrates ?? this.carbohydrates,
+      fat: fat ?? this.fat,
     );
   }
 
@@ -189,6 +270,18 @@ class LineCompanion extends UpdateCompanion<LineData> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
+    if (calories.present) {
+      map['calories'] = Variable<double>(calories.value);
+    }
+    if (protein.present) {
+      map['protein'] = Variable<double>(protein.value);
+    }
+    if (carbohydrates.present) {
+      map['carbohydrates'] = Variable<double>(carbohydrates.value);
+    }
+    if (fat.present) {
+      map['fat'] = Variable<double>(fat.value);
+    }
     return map;
   }
 
@@ -199,7 +292,11 @@ class LineCompanion extends UpdateCompanion<LineData> {
           ..write('pageId: $pageId, ')
           ..write('date: $date, ')
           ..write('imagePath: $imagePath, ')
-          ..write('name: $name')
+          ..write('name: $name, ')
+          ..write('calories: $calories, ')
+          ..write('protein: $protein, ')
+          ..write('carbohydrates: $carbohydrates, ')
+          ..write('fat: $fat')
           ..write(')'))
         .toString();
   }
@@ -237,8 +334,39 @@ class $LineTable extends Line with TableInfo<$LineTable, LineData> {
   late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
       'name', aliasedName, false,
       type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _caloriesMeta = const VerificationMeta('calories');
   @override
-  List<GeneratedColumn> get $columns => [id, pageId, date, imagePath, name];
+  late final GeneratedColumn<double?> calories = GeneratedColumn<double?>(
+      'calories', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
+  final VerificationMeta _proteinMeta = const VerificationMeta('protein');
+  @override
+  late final GeneratedColumn<double?> protein = GeneratedColumn<double?>(
+      'protein', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
+  final VerificationMeta _carbohydratesMeta =
+      const VerificationMeta('carbohydrates');
+  @override
+  late final GeneratedColumn<double?> carbohydrates = GeneratedColumn<double?>(
+      'carbohydrates', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
+  final VerificationMeta _fatMeta = const VerificationMeta('fat');
+  @override
+  late final GeneratedColumn<double?> fat = GeneratedColumn<double?>(
+      'fat', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        pageId,
+        date,
+        imagePath,
+        name,
+        calories,
+        protein,
+        carbohydrates,
+        fat
+      ];
   @override
   String get aliasedName => _alias ?? 'line';
   @override
@@ -274,6 +402,32 @@ class $LineTable extends Line with TableInfo<$LineTable, LineData> {
           _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
       context.missing(_nameMeta);
+    }
+    if (data.containsKey('calories')) {
+      context.handle(_caloriesMeta,
+          calories.isAcceptableOrUnknown(data['calories']!, _caloriesMeta));
+    } else if (isInserting) {
+      context.missing(_caloriesMeta);
+    }
+    if (data.containsKey('protein')) {
+      context.handle(_proteinMeta,
+          protein.isAcceptableOrUnknown(data['protein']!, _proteinMeta));
+    } else if (isInserting) {
+      context.missing(_proteinMeta);
+    }
+    if (data.containsKey('carbohydrates')) {
+      context.handle(
+          _carbohydratesMeta,
+          carbohydrates.isAcceptableOrUnknown(
+              data['carbohydrates']!, _carbohydratesMeta));
+    } else if (isInserting) {
+      context.missing(_carbohydratesMeta);
+    }
+    if (data.containsKey('fat')) {
+      context.handle(
+          _fatMeta, fat.isAcceptableOrUnknown(data['fat']!, _fatMeta));
+    } else if (isInserting) {
+      context.missing(_fatMeta);
     }
     return context;
   }

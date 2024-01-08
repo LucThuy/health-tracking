@@ -16,7 +16,7 @@ class AppPages {
     GetPage(
       name: AppRoutes.rMain,
       binding: MainBinding(),
-      page: () => const MainScreen(),
+      page: () => MainScreen(),
     ),
     GetPage(
       name: AppRoutes.rCamera,

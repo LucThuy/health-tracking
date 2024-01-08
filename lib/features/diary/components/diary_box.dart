@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/features/dashboard/dashboard_controller.dart';
+import 'package:health_tracking/features/diary/diary_controller.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../local/database/diary.dart';
 import '../../../utility/theme.dart';
+import '../../dashboard/components/food_card.dart';
 import '../page/diary_page.dart';
 
 class DiaryBox extends StatelessWidget {
   var focusedDay;
   var diaryDao;
+  var diaryController = Get.find<DiaryController>();
+
 
   DiaryBox(DateTime focusedDay, DiaryDao diaryDao, {Key? key}) : super(key: key){
     this.focusedDay = focusedDay;
@@ -18,8 +24,27 @@ class DiaryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    return FutureBuilder(
+    future: diaryController.getLine(focusedDay),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        // Show a loading indicator while waiting for the Future to complete
+        return CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        // Show an error message if the Future fails
+        return Text('Error: ${snapshot.error}');
+      } else {
+        // Show the data when the Future is complete
+        return Center(
+          child: buildDiaryBoxUI(),
+        );
+      }
+    });
+  }
+
+  Widget buildDiaryBoxUI() {
     return SizedBox(
-      height: 30.h,
+      height: 38.h,
       width: 100.w,
       child: Padding(
         padding: const EdgeInsets.all(5),
@@ -40,79 +65,33 @@ class DiaryBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Nhật ký",
+                    "Diary",
                     style: GoogleFonts.pangolin(
                         color: kWhite,
                         fontWeight: FontWeight.w700,
                         fontSize: 14.sp
                     ),
                   ),
-                  Row(
-                    children: [
-                      Card(
-                        color: kGreen50o6,
-                        elevation: 1,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: StreamBuilder<List<DiaryData>>(
-                            stream: diaryDao.watchDiaryByDate(focusedDay),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                final diaryList = snapshot.data!;
-                                if (diaryList.isNotEmpty) {
-                                  // Nếu có nhật ký, hiển thị nội dung nhật ký
-                                  final diaryContent = diaryList.first.content;
-                                  return Container(
-                                      decoration: BoxDecoration(
-                                        gradient: kGradientGreen100White,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      height: 150,
-                                      width: 300,
-                                      child: InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => DiaryPage(focusedDay, diaryDao)),
-                                          );
-                                        },
-                                        child: SingleChildScrollView(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              diaryContent!,
-                                              style: GoogleFonts.pangolin(
-                                                  color: kGreen600,
-                                                  fontSize: 14.sp
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                  );
-                                }
+                  Expanded(
+                    child: Center(
+                      child: SizedBox(
+                        height: 220,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: diaryController.lineList.length + 1,
+                            itemBuilder: (context, index) {
+                              if (index !=
+                                  diaryController.lineList.length) {
+                                return FoodCard(
+                                    line: diaryController
+                                        .lineList
+                                        .elementAt(
+                                        index));
                               }
-                              // Nếu không có nhật ký hoặc có lỗi, hiển thị giao diện thêm nhật ký mới
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => DiaryPage(focusedDay, diaryDao)),
-                                  );
-                                },
-                                child: Center(
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 50,
-                                    color: kTextInvertColor,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                    ],
+                              return null;
+                            }),
+                      ),
+                    ),
                   ),
                 ],
               ),
