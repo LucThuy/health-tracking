@@ -25,13 +25,13 @@ class DiaryController extends GetxController {
   }
 
   Future<void> getLine(DateTime focusedDay) async {
-    var todayPage =
-    await pageDao.getPageByDate(dateFormat.format(focusedDay));
-    todayPage ??= await pageDao.insertPage(
-        PageCompanion.insert(date: dateFormat.format(focusedDay)));
-    lineDao.watchLineByPageId(todayPage.id).listen((data) {
-      lineList.assignAll(data);
-    });
+    var todayPage = await pageDao.getPageByDate(dateFormat.format(focusedDay));
+    lineList.clear();
+    if(todayPage != null){
+      lineDao.watchLineByPageId(todayPage.id).listen((data) {
+        lineList.assignAll(data);
+      });
+    }
   }
 
 }

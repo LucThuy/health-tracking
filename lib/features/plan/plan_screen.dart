@@ -21,6 +21,21 @@ class PlanPage extends GetView<PlanController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        title: Padding(
+          padding: EdgeInsets.only(left: 12),
+          child: Text(
+              'Add Plan',
+              style: GoogleFonts.pangolin(
+                color: kGreen800,
+                fontWeight: FontWeight.w700,
+                fontSize: 20.sp,
+              )
+          ),
+        ),
+      ),
       body: Container(
         decoration: const BoxDecoration(gradient: kGradientGreen100White),
         child: SafeArea(
@@ -29,19 +44,6 @@ class PlanPage extends GetView<PlanController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 5.h,
-                  child: Center(
-                    child: Text(
-                        diaryController.formatter.format(focusedDay),
-                        style: GoogleFonts.pangolin(
-                          color: kGreen800,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20.sp,
-                        )
-                    ),
-                  ),
-                ),
                 TimePicker(),
                 NutritionButton(),
                 Padding(
