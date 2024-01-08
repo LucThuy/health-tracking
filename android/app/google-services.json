@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "151085429342",
-    "project_id": "health-tracking-12433",
-    "storage_bucket": "health-tracking-12433.appspot.com"
+    "project_number": "624466782152",
+    "project_id": "health-tracking-v2",
+    "storage_bucket": "health-tracking-v2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:151085429342:android:9d0ba5b00557d2b0657acf",
+        "mobilesdk_app_id": "1:624466782152:android:d5bf1c280034a6e1f942fd",
         "android_client_info": {
           "package_name": "com.cm.health_tracking"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBLswxssHY-znmDRVVzF7fcqsYwP2hwuYU"
+          "current_key": "AIzaSyADPCudolaplQblyANonD8zbeaFAyW4Xds"
         }
       ],
       "services": {

@@ -1,20 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_tracking/routes/app_pages.dart';
 import 'package:http/http.dart';
 import 'package:sizer/sizer.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: FirebaseOptions(
-  //     apiKey: "AIzaSyDtxK2-RQY32LDGQRyLw3Ubk5eqO83bwR8",
-  //     appId: "151085429342",
-  //     messagingSenderId: "151085429342",
-  //     projectId: "health-tracking-12433",
-  //   ),
-  // );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyCrOrTVGA-RyTxceQNmnQHRElxyZRBLcSA",
+      appId: "624466782152",
+      messagingSenderId: "624466782152",
+      projectId: "health-tracking-v2",
+    ),
+  );
   runApp(const MyApp());
 }
 

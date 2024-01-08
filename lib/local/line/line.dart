@@ -12,6 +12,14 @@ class Line extends Table {
   TextColumn get imagePath => text()();
 
   TextColumn get name => text()();
+
+  RealColumn get calories => real()();
+
+  RealColumn get protein => real()();
+
+  RealColumn get carbohydrates => real()();
+
+  RealColumn get fat => real()();
 }
 
 @UseMoor(tables: [Line], daos: [LineDao])

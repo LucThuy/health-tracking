@@ -90,78 +90,261 @@ class AddLineScreen extends GetView<AddLineController> {
                 SizedBox(
                   width: 90.w,
                   height: 37.h,
-                  child: Column(
-                    children: [
-                      TextField(
-                        onChanged: (value) => {controller.onChangeName(value)},
-                        cursorColor: kGreen800,
-                        style: GoogleFonts.pangolin(
-                          color: kGreen800,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 12.sp,
-                        ),
-                        decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.only(
-                                top: 20, bottom: 15, left: 20, right: 20),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            floatingLabelStyle: GoogleFonts.pangolin(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: Column(
+                        children: [
+                          TextField(
+                            onChanged: (value) =>
+                                {controller.onChangeName(value)},
+                            cursorColor: kGreen800,
+                            style: GoogleFonts.pangolin(
                               color: kGreen800,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12.sp,
                             ),
-                            labelStyle: GoogleFonts.pangolin(
-                              color: kGreen800,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.sp,
-                            ),
-                            fillColor: kWhite,
-                            filled: true,
-                            labelText: "Dish name",
-                            hintText: "Ex. Bún đậu mắm tôm",
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: kGreen800),
-                                borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: kGreen800, width: 2),
-                                borderRadius: BorderRadius.circular(10)),
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: kGreen800),
-                                borderRadius: BorderRadius.circular(10))),
-                      ),
-                      Obx(
-                        () => RefreshIndicator(
-                          onRefresh: () =>
-                              controller.loadNutrition(controller.name.value),
-                          child: Center(
-                            child: SizedBox(
-                              height: 200,
-                              child: controller.nutritionList.isEmpty
-                                  ? Center(
-                                      child: Text(
-                                        "Nothing found",
-                                        style: GoogleFonts.pangolin(
-                                          color: kGreen800,
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 14.sp,
-                                        ),
-                                      ),
-                                    )
-                                  : ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount:
-                                          controller.nutritionList.length,
-                                      itemBuilder: (context, index) {
-                                        return FoodCardChoice(
-                                            nutritionData: controller
-                                                .nutritionList
-                                                .elementAt(index));
-                                      }),
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                    top: 20, bottom: 15, left: 20, right: 20),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                floatingLabelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                labelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                fillColor: kWhite,
+                                filled: true,
+                                labelText: "Dish name",
+                                hintText: "Ex. Bún đậu mắm tôm",
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: kGreen800, width: 2),
+                                    borderRadius: BorderRadius.circular(10)),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10))),
+                          ),
+                          Obx(
+                            () => RefreshIndicator(
+                              onRefresh: () => controller
+                                  .loadNutrition(controller.name.value),
+                              child: Center(
+                                child: SizedBox(
+                                  height: 200,
+                                  child: controller.nutritionList.isEmpty
+                                      ? Center(
+                                          child: Text(
+                                            "Nothing found",
+                                            style: GoogleFonts.pangolin(
+                                              color: kGreen800,
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 14.sp,
+                                            ),
+                                          ),
+                                        )
+                                      : ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount:
+                                              controller.nutritionList.length,
+                                          itemBuilder: (context, index) {
+                                            return FoodCardChoice(
+                                                nutritionData: controller
+                                                    .nutritionList
+                                                    .elementAt(index));
+                                          }),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          TextField(
+                            onChanged: (value) =>
+                                {controller.calories.value = double.parse(value)},
+                            cursorColor: kGreen800,
+                            style: GoogleFonts.pangolin(
+                              color: kGreen800,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12.sp,
+                            ),
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                    top: 20, bottom: 15, left: 20, right: 20),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                floatingLabelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                labelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                fillColor: kWhite,
+                                filled: true,
+                                labelText: "Calories",
+                                hintText: "Ex. 100",
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: kGreen800, width: 2),
+                                    borderRadius: BorderRadius.circular(10)),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10))),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            onChanged: (value) =>
+                                {controller.protein.value = double.parse(value)},
+                            cursorColor: kGreen800,
+                            style: GoogleFonts.pangolin(
+                              color: kGreen800,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12.sp,
+                            ),
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                    top: 20, bottom: 15, left: 20, right: 20),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                floatingLabelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                labelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                fillColor: kWhite,
+                                filled: true,
+                                labelText: "Protein",
+                                hintText: "Ex. 100",
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: kGreen800, width: 2),
+                                    borderRadius: BorderRadius.circular(10)),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10))),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            onChanged: (value) =>
+                                {controller.carbohydrates.value = double.parse(value)},
+                            cursorColor: kGreen800,
+                            style: GoogleFonts.pangolin(
+                              color: kGreen800,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12.sp,
+                            ),
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                    top: 20, bottom: 15, left: 20, right: 20),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                floatingLabelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                labelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                fillColor: kWhite,
+                                filled: true,
+                                labelText: "Carbohydrates",
+                                hintText: "Ex. 100",
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: kGreen800, width: 2),
+                                    borderRadius: BorderRadius.circular(10)),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10))),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextField(
+                            onChanged: (value) =>
+                                {controller.fat.value = double.parse(value)},
+                            cursorColor: kGreen800,
+                            style: GoogleFonts.pangolin(
+                              color: kGreen800,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12.sp,
+                            ),
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.only(
+                                    top: 20, bottom: 15, left: 20, right: 20),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                floatingLabelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                labelStyle: GoogleFonts.pangolin(
+                                  color: kGreen800,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                ),
+                                fillColor: kWhite,
+                                filled: true,
+                                labelText: "Fat",
+                                hintText: "Ex. 100",
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                        color: kGreen800, width: 2),
+                                    borderRadius: BorderRadius.circular(10)),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        const BorderSide(color: kGreen800),
+                                    borderRadius: BorderRadius.circular(10))),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -176,7 +359,7 @@ class AddLineScreen extends GetView<AddLineController> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
                       child: Dismissible(
-                        key: const Key("ActionButton"),
+                        key: UniqueKey(),
                         confirmDismiss:
                             (DismissDirection dismissDirection) async {
                           switch (dismissDirection) {
@@ -271,8 +454,9 @@ class AddLineScreen extends GetView<AddLineController> {
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).viewInsets.bottom)),
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                ),
               ],
             ),
           ),
