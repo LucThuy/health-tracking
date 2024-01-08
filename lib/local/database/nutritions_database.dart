@@ -23,9 +23,6 @@ class Nutrition extends Table {
   RealColumn get carbohydrates => real().nullable()();
 
   RealColumn get fat => real().nullable()();
-
-  TextColumn get imagePath => text()();
-
 }
 
 // This annotation tells the code generator which tables this DB works with
@@ -92,7 +89,6 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
         calories: double.parse(document['calories']),
         carbohydrates: double.parse(document['carbohydrates']),
         fat: double.parse(document['fat']),
-        imagePath: '',
       );
       return nutritionData;
     }).toList();
@@ -104,6 +100,6 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
     });
   }
 
-  Future<List<NutritionData>> searchNutrition(String query) => (select(nutrition)
-      ..where((n) => n.name.like('%$query%'))).get();
+  Future<List<NutritionData>> searchNutrition(String query) =>
+      (select(nutrition)..where((n) => n.name.like('%$query%'))).get();
 }

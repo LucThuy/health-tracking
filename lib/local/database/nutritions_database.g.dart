@@ -15,7 +15,6 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
   final double? protein;
   final double? carbohydrates;
   final double? fat;
-  final String imagePath;
   NutritionData(
       {required this.id,
       required this.name,
@@ -23,8 +22,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
       this.calories,
       this.protein,
       this.carbohydrates,
-      this.fat,
-      required this.imagePath});
+      this.fat});
   factory NutritionData.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
@@ -44,8 +42,6 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}carbohydrates']),
       fat: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}fat']),
-      imagePath: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}image_path'])!,
     );
   }
   @override
@@ -66,7 +62,6 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
     if (!nullToAbsent || fat != null) {
       map['fat'] = Variable<double?>(fat);
     }
-    map['image_path'] = Variable<String>(imagePath);
     return map;
   }
 
@@ -85,7 +80,6 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
           ? const Value.absent()
           : Value(carbohydrates),
       fat: fat == null && nullToAbsent ? const Value.absent() : Value(fat),
-      imagePath: Value(imagePath),
     );
   }
 
@@ -100,7 +94,6 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
       protein: serializer.fromJson<double?>(json['protein']),
       carbohydrates: serializer.fromJson<double?>(json['carbohydrates']),
       fat: serializer.fromJson<double?>(json['fat']),
-      imagePath: serializer.fromJson<String>(json['imagePath']),
     );
   }
   @override
@@ -114,7 +107,6 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
       'protein': serializer.toJson<double?>(protein),
       'carbohydrates': serializer.toJson<double?>(carbohydrates),
       'fat': serializer.toJson<double?>(fat),
-      'imagePath': serializer.toJson<String>(imagePath),
     };
   }
 
@@ -125,8 +117,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
           double? calories,
           double? protein,
           double? carbohydrates,
-          double? fat,
-          String? imagePath}) =>
+          double? fat}) =>
       NutritionData(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -135,7 +126,6 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
         protein: protein ?? this.protein,
         carbohydrates: carbohydrates ?? this.carbohydrates,
         fat: fat ?? this.fat,
-        imagePath: imagePath ?? this.imagePath,
       );
   @override
   String toString() {
@@ -146,15 +136,14 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
           ..write('calories: $calories, ')
           ..write('protein: $protein, ')
           ..write('carbohydrates: $carbohydrates, ')
-          ..write('fat: $fat, ')
-          ..write('imagePath: $imagePath')
+          ..write('fat: $fat')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, name, foodType, calories, protein, carbohydrates, fat, imagePath);
+  int get hashCode =>
+      Object.hash(id, name, foodType, calories, protein, carbohydrates, fat);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -165,8 +154,7 @@ class NutritionData extends DataClass implements Insertable<NutritionData> {
           other.calories == this.calories &&
           other.protein == this.protein &&
           other.carbohydrates == this.carbohydrates &&
-          other.fat == this.fat &&
-          other.imagePath == this.imagePath);
+          other.fat == this.fat);
 }
 
 class NutritionCompanion extends UpdateCompanion<NutritionData> {
@@ -177,7 +165,6 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
   final Value<double?> protein;
   final Value<double?> carbohydrates;
   final Value<double?> fat;
-  final Value<String> imagePath;
   const NutritionCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -186,7 +173,6 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
     this.protein = const Value.absent(),
     this.carbohydrates = const Value.absent(),
     this.fat = const Value.absent(),
-    this.imagePath = const Value.absent(),
   });
   NutritionCompanion.insert({
     required String id,
@@ -196,11 +182,9 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
     this.protein = const Value.absent(),
     this.carbohydrates = const Value.absent(),
     this.fat = const Value.absent(),
-    required String imagePath,
   })  : id = Value(id),
         name = Value(name),
-        foodType = Value(foodType),
-        imagePath = Value(imagePath);
+        foodType = Value(foodType);
   static Insertable<NutritionData> custom({
     Expression<String>? id,
     Expression<String>? name,
@@ -209,7 +193,6 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
     Expression<double?>? protein,
     Expression<double?>? carbohydrates,
     Expression<double?>? fat,
-    Expression<String>? imagePath,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -219,7 +202,6 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
       if (protein != null) 'protein': protein,
       if (carbohydrates != null) 'carbohydrates': carbohydrates,
       if (fat != null) 'fat': fat,
-      if (imagePath != null) 'image_path': imagePath,
     });
   }
 
@@ -230,8 +212,7 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
       Value<double?>? calories,
       Value<double?>? protein,
       Value<double?>? carbohydrates,
-      Value<double?>? fat,
-      Value<String>? imagePath}) {
+      Value<double?>? fat}) {
     return NutritionCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -240,7 +221,6 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
       protein: protein ?? this.protein,
       carbohydrates: carbohydrates ?? this.carbohydrates,
       fat: fat ?? this.fat,
-      imagePath: imagePath ?? this.imagePath,
     );
   }
 
@@ -268,9 +248,6 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
     if (fat.present) {
       map['fat'] = Variable<double?>(fat.value);
     }
-    if (imagePath.present) {
-      map['image_path'] = Variable<String>(imagePath.value);
-    }
     return map;
   }
 
@@ -283,8 +260,7 @@ class NutritionCompanion extends UpdateCompanion<NutritionData> {
           ..write('calories: $calories, ')
           ..write('protein: $protein, ')
           ..write('carbohydrates: $carbohydrates, ')
-          ..write('fat: $fat, ')
-          ..write('imagePath: $imagePath')
+          ..write('fat: $fat')
           ..write(')'))
         .toString();
   }
@@ -338,14 +314,9 @@ class $NutritionTable extends Nutrition
   late final GeneratedColumn<double?> fat = GeneratedColumn<double?>(
       'fat', aliasedName, true,
       type: const RealType(), requiredDuringInsert: false);
-  final VerificationMeta _imagePathMeta = const VerificationMeta('imagePath');
-  @override
-  late final GeneratedColumn<String?> imagePath = GeneratedColumn<String?>(
-      'image_path', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, foodType, calories, protein, carbohydrates, fat, imagePath];
+      [id, name, foodType, calories, protein, carbohydrates, fat];
   @override
   String get aliasedName => _alias ?? 'nutrition';
   @override
@@ -389,12 +360,6 @@ class $NutritionTable extends Nutrition
     if (data.containsKey('fat')) {
       context.handle(
           _fatMeta, fat.isAcceptableOrUnknown(data['fat']!, _fatMeta));
-    }
-    if (data.containsKey('image_path')) {
-      context.handle(_imagePathMeta,
-          imagePath.isAcceptableOrUnknown(data['image_path']!, _imagePathMeta));
-    } else if (isInserting) {
-      context.missing(_imagePathMeta);
     }
     return context;
   }
