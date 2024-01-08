@@ -85,27 +85,12 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
         id: document.id,
         name: document['name'],
         foodType: document['type'],
-        calories: double.parse(document['calories']),
         protein: double.parse(document['protein']),
+        calories: double.parse(document['calories']),
         carbohydrates: double.parse(document['carbohydrates']),
         fat: double.parse(document['fat']),
       );
       return nutritionData;
-      // // Check if the data already exists in the local database
-      // final query = select(nutrition)
-      //   ..where((tbl) => tbl.id.equals(nutritionData.id));
-      //
-      // final existingData = await query.getSingleOrNull();
-      //
-      // if (existingData == null) {
-      //   // Log and return the new data only if it doesn't exist
-      //   print("Transformed Nutrition Data: $nutritionData");
-      //   return nutritionData;
-      // } else {
-      //   // Log that the data already exists and return null
-      //   print("Data already exists in local database: $nutritionData");
-      //   return null;
-      // }
     }).toList();
 
     // Insert or update the data in your local database
