@@ -22,6 +22,9 @@ class Nutrition extends Table {
   RealColumn get carbohydrates => real().nullable()();
 
   RealColumn get fat => real().nullable()();
+
+  TextColumn get imagePath => text()();
+
 }
 
 // This annotation tells the code generator which tables this DB works with
@@ -31,7 +34,7 @@ class NutritionsDatabase extends _$NutritionsDatabase {
   NutritionsDatabase()
       // Specify the location of the database file
       : super((FlutterQueryExecutor.inDatabaseFolder(
-          path: 'db.sqlite',
+          path: 'nutrition.lite',
           // Good for debugging - prints SQL in the console
           logStatements: true,
         )));

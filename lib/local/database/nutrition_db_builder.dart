@@ -8,7 +8,7 @@ class nutritiondb_builder {
   bool insertToDB() {
     bool isInserted = true;
     _nutritionsDao.insertNutritionData(
-        NutritionData(id: 1, name: 'nothing', foodType: 'meals'));
+        NutritionData(id: 1, name: 'nothing', foodType: 'meals', imagePath: ''));
 
     return isInserted;
   }
