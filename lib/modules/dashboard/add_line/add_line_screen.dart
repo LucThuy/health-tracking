@@ -93,7 +93,7 @@ class AddLineScreen extends GetView<AddLineController> {
                   child: Column(
                     children: [
                       TextField(
-                        onChanged: (value) => {controller.name.value = value},
+                        onChanged: (value) => {controller.onChangeName(value)},
                         cursorColor: kGreen800,
                         style: GoogleFonts.pangolin(
                           color: kGreen800,
@@ -129,17 +129,38 @@ class AddLineScreen extends GetView<AddLineController> {
                                 borderSide: const BorderSide(color: kGreen800),
                                 borderRadius: BorderRadius.circular(10))),
                       ),
-                      Obx(() => SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Text(controller.name.value),
-                            FoodCardChoice(),
-                            FoodCardChoice(),
-                            FoodCardChoice(),
-                          ],
+                      Obx(
+                        () => RefreshIndicator(
+                          onRefresh: () =>
+                              controller.loadNutrition(controller.name.value),
+                          child: Center(
+                            child: SizedBox(
+                              height: 200,
+                              child: controller.nutritionList.isEmpty
+                                  ? Center(
+                                      child: Text(
+                                        "Nothing found",
+                                        style: GoogleFonts.pangolin(
+                                          color: kGreen800,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14.sp,
+                                        ),
+                                      ),
+                                    )
+                                  : ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount:
+                                          controller.nutritionList.length,
+                                      itemBuilder: (context, index) {
+                                        return FoodCardChoice(
+                                            nutritionData: controller
+                                                .nutritionList
+                                                .elementAt(index));
+                                      }),
+                            ),
+                          ),
                         ),
-                      )),
+                      ),
                     ],
                   ),
                 ),
