@@ -9,7 +9,6 @@ import 'components/diary_box.dart';
 import 'components/meal_box.dart';
 
 class DiaryScreen extends GetView<DiaryController> {
-
   const DiaryScreen({super.key});
 
   @override
@@ -18,22 +17,17 @@ class DiaryScreen extends GetView<DiaryController> {
       body: Container(
         decoration: const BoxDecoration(gradient: kGradientGreen50White),
         child: SingleChildScrollView(
-            padding: const EdgeInsets.only(
-                top: 30, bottom: 5, left: 5, right: 5
-            ),
-            child: Obx(() =>
-                Column(
-                  children: [
-                    Calender(controller.focusedDay.value),
-                    MealBox(controller.focusedDay.value),
-                    DiaryBox(
-                        controller.focusedDay.value,
-                      Get.find<DiaryDao>()
-                    ),
-                  ],
-                ),
-            )
-        ),
+            padding:
+                const EdgeInsets.only(top: 30, bottom: 5, left: 5, right: 5),
+            child: Obx(
+              () => Column(
+                children: [
+                  Calender(controller.focusedDay.value),
+                  MealBox(controller.focusedDay.value),
+                  DiaryBox(controller.focusedDay.value, Get.find<DiaryDao>()),
+                ],
+              ),
+            )),
       ),
     );
   }

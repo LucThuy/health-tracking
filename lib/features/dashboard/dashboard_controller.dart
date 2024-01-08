@@ -14,6 +14,8 @@ class DashboardController extends GetxController {
   final lineList = RxList<LineData>([]);
   final mainController = Get.find<MainController>();
 
+  // final NutritionsDao nd = NutritionsDao(NutritionsDatabase());
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -21,7 +23,28 @@ class DashboardController extends GetxController {
   }
 
   Future<void> loadLine() async {
-    PageData todayPage = await pageDao.getPageByDate(dateFormat.format(currentDate.value));
+    // await pageDao
+    //     .getPageByDate(dateFormat.format(currentDate.value))
+    //     .then((pageData) => {
+    //           if (pageData == null)
+    //             {
+    //               pageDao.insertPage(PageCompanion.insert(
+    //                   date: dateFormat.format(currentDate.value)))
+    //             }
+    //         });
+    // print('Load line');
+    // nd.syncFirebaseData();
+    //
+    // var list = await nd.getAllNutrition();
+    //
+    // for (var l in list) {
+    //   print(l);
+    // }
+
+    var todayPage =
+        await pageDao.getPageByDate(dateFormat.format(currentDate.value));
+    todayPage ??= await pageDao.insertPage(
+        PageCompanion.insert(date: dateFormat.format(currentDate.value)));
     lineDao.watchLineByPageId(todayPage.id).listen((data) {
       lineList.assignAll(data);
     });

@@ -14,15 +14,4 @@ class MainController extends GetxController {
   }
 
   MainController();
-
-  @override
-  void onInit() async {
-    await pageDao.getPageByDate(dateFormat.format(currentDate))
-        .then((pageData) => {
-          if (pageData == null) {
-            pageDao.insertPage(PageCompanion.insert(date: dateFormat.format(currentDate)))
-          }
-    });
-    super.onInit();
-  }
 }
