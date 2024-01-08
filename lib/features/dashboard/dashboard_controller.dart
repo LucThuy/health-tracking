@@ -43,15 +43,15 @@ class DashboardController extends GetxController {
 
     var todayPage =
         await pageDao.getPageByDate(dateFormat.format(currentDate.value));
-    todayPage ??= await pageDao.insertPage(
-        PageCompanion.insert(date: dateFormat.format(currentDate.value)));
+    todayPage ??= await pageDao.insertPage(PageCompanion.insert(
+        date: dateFormat.format(currentDate.value),
+        calories: 0.0,
+        protein: 0.0,
+        carbohydrates: 0.0,
+        fat: 0.0));
+    print(todayPage);
     lineDao.watchLineByPageId(todayPage.id).listen((data) {
       lineList.assignAll(data);
     });
   }
-
-
-
-
-
 }

@@ -359,7 +359,7 @@ class AddLineScreen extends GetView<AddLineController> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
                       child: Dismissible(
-                        key: const Key("ActionButton"),
+                        key: UniqueKey(),
                         confirmDismiss:
                             (DismissDirection dismissDirection) async {
                           switch (dismissDirection) {
