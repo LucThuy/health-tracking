@@ -90,7 +90,7 @@ class ImageScreen extends GetView<ImageController> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: Dismissible(
-                    key: const Key("ActionButton"),
+                    key: UniqueKey(),
                     onDismissed: (direction) => {
                       if (direction == DismissDirection.startToEnd)
                         {controller.takeImage()}

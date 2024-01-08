@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/local/database/nutritions_database.dart';
 import 'package:sizer/sizer.dart';
 
 import '../utility/theme.dart';
 
 class FoodCardChoice extends StatelessWidget {
-  const FoodCardChoice({super.key});
+  final NutritionData nutritionData;
+
+  const FoodCardChoice({super.key, required this.nutritionData});
 
   @override
   Widget build(BuildContext context) {

@@ -23,6 +23,9 @@ class Nutrition extends Table {
   RealColumn get carbohydrates => real().nullable()();
 
   RealColumn get fat => real().nullable()();
+
+  TextColumn get imagePath => text()();
+
 }
 
 // This annotation tells the code generator which tables this DB works with
@@ -32,7 +35,7 @@ class NutritionsDatabase extends _$NutritionsDatabase {
   NutritionsDatabase()
       // Specify the location of the database file
       : super((FlutterQueryExecutor.inDatabaseFolder(
-          path: 'db.sqlite',
+          path: 'nutrition.lite',
           // Good for debugging - prints SQL in the console
           logStatements: true,
         )));
@@ -89,6 +92,7 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
         calories: double.parse(document['calories']),
         carbohydrates: double.parse(document['carbohydrates']),
         fat: double.parse(document['fat']),
+        imagePath: '',
       );
       return nutritionData;
     }).toList();
@@ -99,4 +103,7 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
           mode: InsertMode.insertOrReplace);
     });
   }
+
+  Future<List<NutritionData>> searchNutrition(String query) => (select(nutrition)
+      ..where((n) => n.name.like('%$query%'))).get();
 }
