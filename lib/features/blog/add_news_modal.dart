@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracking/features/blog/blog_screen.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
+import '../../../utility/theme.dart';
 import '../../services/firebase_crud.dart';
 
 class AddPage extends StatefulWidget {
@@ -23,47 +25,140 @@ class _AddPage extends State<AddPage> {
     final nameField = TextFormField(
         controller: _title,
         autofocus: false,
+        cursorColor: kGreen800,
+        style: GoogleFonts.pangolin(
+          color: kGreen800,
+          fontWeight: FontWeight.w300,
+          fontSize: 12.sp,
+        ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
             return 'This field is required';
           }
         },
         decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Title",
-            border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
+            contentPadding: const EdgeInsets.only(
+                top: 20, bottom: 15, left: 20, right: 20),
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            floatingLabelStyle: GoogleFonts.pangolin(
+              color: kGreen800,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+            ),
+            labelStyle: GoogleFonts.pangolin(
+              color: kGreen800,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+            ),
+            fillColor: kWhite,
+            filled: true,
+            labelText: "Title",
+            hintText: "Nhập tiêu đề",
+            enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: kGreen800),
+                borderRadius: BorderRadius.circular(10)),
+            focusedBorder: OutlineInputBorder(
+                borderSide:
+                const BorderSide(color: kGreen800, width: 2),
+                borderRadius: BorderRadius.circular(10)),
+            border: OutlineInputBorder(
+                borderSide: const BorderSide(color: kGreen800),
+                borderRadius: BorderRadius.circular(10))
+        )
+    );
     final positionField = TextFormField(
         controller: _content,
         autofocus: false,
+        cursorColor: kGreen800,
+        style: GoogleFonts.pangolin(
+          color: kGreen800,
+          fontWeight: FontWeight.w300,
+          fontSize: 12.sp,
+        ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
             return 'This field is required';
           }
         },
         decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Content",
-            border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
+            contentPadding: const EdgeInsets.only(
+                top: 80, bottom: 40, left: 20, right: 20),
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            floatingLabelStyle: GoogleFonts.pangolin(
+              color: kGreen800,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+            ),
+            labelStyle: GoogleFonts.pangolin(
+              color: kGreen800,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+            ),
+            fillColor: kWhite,
+            filled: true,
+            labelText: "Content",
+            hintText: "Nhập nội dung",
+            enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: kGreen800),
+                borderRadius: BorderRadius.circular(10)),
+            focusedBorder: OutlineInputBorder(
+                borderSide:
+                const BorderSide(color: kGreen800, width: 2),
+                borderRadius: BorderRadius.circular(10)),
+            border: OutlineInputBorder(
+                borderSide: const BorderSide(color: kGreen800),
+                borderRadius: BorderRadius.circular(10))
+        )
+    );
     final contactField = TextFormField(
         controller: _image,
         autofocus: false,
+        cursorColor: kGreen800,
+        style: GoogleFonts.pangolin(
+          color: kGreen800,
+          fontWeight: FontWeight.w300,
+          fontSize: 12.sp,
+        ),
         validator: (value) {
           if (value == null || value.trim().isEmpty) {
             return 'This field is required';
           }
         },
         decoration: InputDecoration(
-            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-            hintText: "Image",
-            border:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))));
+            contentPadding: const EdgeInsets.only(
+                top: 20, bottom: 15, left: 20, right: 20),
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            floatingLabelStyle: GoogleFonts.pangolin(
+              color: kGreen800,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+            ),
+            labelStyle: GoogleFonts.pangolin(
+              color: kGreen800,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp,
+            ),
+            fillColor: kWhite,
+            filled: true,
+            labelText: "Image Link",
+            hintText: "https://image.vn.com",
+            enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: kGreen800),
+                borderRadius: BorderRadius.circular(10)),
+            focusedBorder: OutlineInputBorder(
+                borderSide:
+                const BorderSide(color: kGreen800, width: 2),
+                borderRadius: BorderRadius.circular(10)),
+            border: OutlineInputBorder(
+                borderSide: const BorderSide(color: kGreen800),
+                borderRadius: BorderRadius.circular(10))
+        )
+    );
 
     final SaveButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Theme.of(context).primaryColor,
+      color: kGreen800o9,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -100,7 +195,11 @@ class _AddPage extends State<AddPage> {
         },
         child: Text(
           "Save",
-          style: TextStyle(color: Theme.of(context).primaryColorLight),
+          style: GoogleFonts.pangolin(
+              color: kWhite,
+              fontWeight: FontWeight.w700,
+              fontSize: 14.sp
+          ),
           textAlign: TextAlign.center,
         ),
       ),
@@ -109,8 +208,14 @@ class _AddPage extends State<AddPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Health Blog'),
-        backgroundColor: Theme.of(context).primaryColor,
+        title: Text('Health Blog',
+          style: GoogleFonts.pangolin(
+            color: kWhite,
+            fontWeight: FontWeight.w700,
+            fontSize: 14.sp
+        ),
+        ),
+        backgroundColor: kGreen800o9,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

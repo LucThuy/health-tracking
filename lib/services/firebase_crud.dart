@@ -10,6 +10,11 @@ class FirebaseCrud {
     Stream<QuerySnapshot> stream = newsItemCollection.where("status", isEqualTo: 1).snapshots();
     return stream;
   }
+  static Stream<QuerySnapshot> getNewsById(id) {
+    CollectionReference newsItemCollection = _Collection;
+    Stream<QuerySnapshot> stream = newsItemCollection.where("status", isEqualTo: 1).where("id", isEqualTo: id).snapshots();
+    return stream;
+  }
 
   static Future<Response> addNews({
     required String title,
