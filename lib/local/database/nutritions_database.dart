@@ -92,6 +92,7 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
         protein: double.parse(document['protein']),
         carbohydrates: double.parse(document['carbohydrates']),
         fat: double.parse(document['fat']),
+        imagePath: '',
       );
       return nutritionData;
       // // Check if the data already exists in the local database

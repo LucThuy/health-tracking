@@ -9,10 +9,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: FirebaseOptions(
-      apiKey: "AIzaSyDtxK2-RQY32LDGQRyLw3Ubk5eqO83bwR8",
-      appId: "151085429342",
-      messagingSenderId: "151085429342",
-      projectId: "health-tracking-12433",
+      apiKey: "AIzaSyCrOrTVGA-RyTxceQNmnQHRElxyZRBLcSA",
+      appId: "624466782152",
+      messagingSenderId: "624466782152",
+      projectId: "health-tracking-v2",
+
     ),
   );
   runApp(const MyApp());
