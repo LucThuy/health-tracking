@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import '../../routes/app_pages.dart';
 import '../../share/food_card_select.dart';
 import '../../utility/theme.dart';
+import '../diary/components/nutrition_button.dart';
 import '../diary/diary_controller.dart';
 
 class PlanPage extends GetView<PlanController> {
@@ -47,6 +48,7 @@ class PlanPage extends GetView<PlanController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TimePicker(),
+                NutritionButton(),
                 Padding(
                   padding: EdgeInsets.only(top: 15.0),
                   child: TextField(

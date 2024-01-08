@@ -65,7 +65,7 @@ class DiaryBox extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Nhật ký",
+                    "Diary",
                     style: GoogleFonts.pangolin(
                         color: kWhite,
                         fontWeight: FontWeight.w700,
