@@ -11,7 +11,9 @@ class PlanData extends DataClass implements Insertable<PlanData> {
   final int id;
   final String? content;
   final DateTime date;
-  PlanData({required this.id, this.content, required this.date});
+  final DateTime time;
+  PlanData(
+      {required this.id, this.content, required this.date, required this.time});
   factory PlanData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -22,6 +24,8 @@ class PlanData extends DataClass implements Insertable<PlanData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}content']),
       date: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
+      time: const DateTimeType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}time'])!,
     );
   }
   @override
@@ -32,6 +36,7 @@ class PlanData extends DataClass implements Insertable<PlanData> {
       map['content'] = Variable<String?>(content);
     }
     map['date'] = Variable<DateTime>(date);
+    map['time'] = Variable<DateTime>(time);
     return map;
   }
 
@@ -42,6 +47,7 @@ class PlanData extends DataClass implements Insertable<PlanData> {
           ? const Value.absent()
           : Value(content),
       date: Value(date),
+      time: Value(time),
     );
   }
 
@@ -52,6 +58,7 @@ class PlanData extends DataClass implements Insertable<PlanData> {
       id: serializer.fromJson<int>(json['id']),
       content: serializer.fromJson<String?>(json['content']),
       date: serializer.fromJson<DateTime>(json['date']),
+      time: serializer.fromJson<DateTime>(json['time']),
     );
   }
   @override
@@ -61,67 +68,82 @@ class PlanData extends DataClass implements Insertable<PlanData> {
       'id': serializer.toJson<int>(id),
       'content': serializer.toJson<String?>(content),
       'date': serializer.toJson<DateTime>(date),
+      'time': serializer.toJson<DateTime>(time),
     };
   }
 
-  PlanData copyWith({int? id, String? content, DateTime? date}) => PlanData(
+  PlanData copyWith(
+          {int? id, String? content, DateTime? date, DateTime? time}) =>
+      PlanData(
         id: id ?? this.id,
         content: content ?? this.content,
         date: date ?? this.date,
+        time: time ?? this.time,
       );
   @override
   String toString() {
     return (StringBuffer('PlanData(')
           ..write('id: $id, ')
           ..write('content: $content, ')
-          ..write('date: $date')
+          ..write('date: $date, ')
+          ..write('time: $time')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, content, date);
+  int get hashCode => Object.hash(id, content, date, time);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PlanData &&
           other.id == this.id &&
           other.content == this.content &&
-          other.date == this.date);
+          other.date == this.date &&
+          other.time == this.time);
 }
 
 class PlanCompanion extends UpdateCompanion<PlanData> {
   final Value<int> id;
   final Value<String?> content;
   final Value<DateTime> date;
+  final Value<DateTime> time;
   const PlanCompanion({
     this.id = const Value.absent(),
     this.content = const Value.absent(),
     this.date = const Value.absent(),
+    this.time = const Value.absent(),
   });
   PlanCompanion.insert({
     this.id = const Value.absent(),
     this.content = const Value.absent(),
     this.date = const Value.absent(),
-  });
+    required DateTime time,
+  }) : time = Value(time);
   static Insertable<PlanData> custom({
     Expression<int>? id,
     Expression<String?>? content,
     Expression<DateTime>? date,
+    Expression<DateTime>? time,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (content != null) 'content': content,
       if (date != null) 'date': date,
+      if (time != null) 'time': time,
     });
   }
 
   PlanCompanion copyWith(
-      {Value<int>? id, Value<String?>? content, Value<DateTime>? date}) {
+      {Value<int>? id,
+      Value<String?>? content,
+      Value<DateTime>? date,
+      Value<DateTime>? time}) {
     return PlanCompanion(
       id: id ?? this.id,
       content: content ?? this.content,
       date: date ?? this.date,
+      time: time ?? this.time,
     );
   }
 
@@ -137,6 +159,9 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
     if (date.present) {
       map['date'] = Variable<DateTime>(date.value);
     }
+    if (time.present) {
+      map['time'] = Variable<DateTime>(time.value);
+    }
     return map;
   }
 
@@ -145,7 +170,8 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
     return (StringBuffer('PlanCompanion(')
           ..write('id: $id, ')
           ..write('content: $content, ')
-          ..write('date: $date')
+          ..write('date: $date, ')
+          ..write('time: $time')
           ..write(')'))
         .toString();
   }
@@ -175,8 +201,13 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
       type: const IntType(),
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
+  final VerificationMeta _timeMeta = const VerificationMeta('time');
   @override
-  List<GeneratedColumn> get $columns => [id, content, date];
+  late final GeneratedColumn<DateTime?> time = GeneratedColumn<DateTime?>(
+      'time', aliasedName, false,
+      type: const IntType(), requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, content, date, time];
   @override
   String get aliasedName => _alias ?? 'plan';
   @override
@@ -196,6 +227,12 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
     if (data.containsKey('date')) {
       context.handle(
           _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    }
+    if (data.containsKey('time')) {
+      context.handle(
+          _timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
+    } else if (isInserting) {
+      context.missing(_timeMeta);
     }
     return context;
   }

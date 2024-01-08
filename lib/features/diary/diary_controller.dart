@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:health_tracking/local/database/diary.dart';
 import 'package:intl/intl.dart';
 
+import '../../local/database/nutritions_database.dart';
 import '../../local/line/line.dart';
 import '../../local/page/page.dart';
 import '../../routes/app_pages.dart';
@@ -14,6 +15,15 @@ class DiaryController extends GetxController {
   final PageDao pageDao = Get.find();
   final LineDao lineDao = Get.find();
   final lineList = RxList<LineData>([]);
+
+  final NutritionsDao nutritionsDao = Get.find();
+
+  var nutritionList = RxList<NutritionData>([]);
+
+  var name = "".obs;
+
+
+
 
   void saveDiary(String content, DateTime date) async {
     await diaryDao.saveDiary(content, date);
@@ -32,6 +42,16 @@ class DiaryController extends GetxController {
         lineList.assignAll(data);
       });
     }
+  }
+
+  onChangeName(value) {
+    name.value = value;
+    loadNutrition(value);
+  }
+
+  loadNutrition(String key) async {
+    nutritionList.value = await nutritionsDao.searchNutrition(key);
+    print(nutritionList.value);
   }
 
 }

@@ -6,15 +6,15 @@ import 'package:sizer/sizer.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: "AIzaSyDtxK2-RQY32LDGQRyLw3Ubk5eqO83bwR8",
-      appId: "151085429342",
-      messagingSenderId: "151085429342",
-      projectId: "health-tracking-12433",
-    ),
-  );
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: FirebaseOptions(
+  //     apiKey: "AIzaSyDtxK2-RQY32LDGQRyLw3Ubk5eqO83bwR8",
+  //     appId: "151085429342",
+  //     messagingSenderId: "151085429342",
+  //     projectId: "health-tracking-12433",
+  //   ),
+  // );
   runApp(const MyApp());
 }
 

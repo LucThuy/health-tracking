@@ -24,8 +24,6 @@ class Nutrition extends Table {
 
   RealColumn get fat => real().nullable()();
 
-  TextColumn get imagePath => text()();
-
 }
 
 // This annotation tells the code generator which tables this DB works with
