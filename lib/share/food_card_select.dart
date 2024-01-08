@@ -20,41 +20,105 @@ class FoodCardChoice extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),
-      child: SizedBox(
+      child: Container(
         width: 150,
         height: 210,
+        padding: const EdgeInsets.all(3),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-              shadowColor: kGreen950,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Image.network(
-                  "https://i1.sndcdn.com/avatars-rzk8K2FyGdgb7wdQ-VWh76w-t240x240.jpg",
-                  fit: BoxFit.cover,
-                  height: 140,
-                  width: 140,
-                ),
+            Text(
+              nutritionData.name,
+              style: GoogleFonts.pangolin(
+                color: kGreen800,
+                fontWeight: FontWeight.w700,
+                fontSize: 18.sp,
               ),
             ),
-            SizedBox(
-              height: 30,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Text(
-                  "Bus",
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Calories",
                   style: GoogleFonts.pangolin(
                     color: kGreen800,
                     fontWeight: FontWeight.w700,
-                    fontSize: 14.sp,
+                    fontSize: 12.sp,
                   ),
                 ),
-              ),
+                Text(
+                  nutritionData.calories.toString(),
+                  style: GoogleFonts.pangolin(
+                    color: kGreen800,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Protein",
+                  style: GoogleFonts.pangolin(
+                    color: kGreen800,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                ),
+                Text(
+                  nutritionData.protein.toString(),
+                  style: GoogleFonts.pangolin(
+                    color: kGreen800,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Carbohydrates",
+                  style: GoogleFonts.pangolin(
+                    color: kGreen800,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                ),
+                Text(
+                  nutritionData.carbohydrates.toString(),
+                  style: GoogleFonts.pangolin(
+                    color: kGreen800,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Fat",
+                  style: GoogleFonts.pangolin(
+                    color: kGreen800,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                ),
+                Text(
+                  nutritionData.fat.toString(),
+                  style: GoogleFonts.pangolin(
+                    color: kGreen800,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
