@@ -24,4 +24,5 @@ class PageDao extends DatabaseAccessor<PageDatabase> with _$PageDaoMixin {
 
   Future getPageByDate(String date) => (select(page)..where((p) => p.date.equals(date))).getSingleOrNull();
   Future insertPage(Insertable<PageData> pageData) => into(page).insert(pageData);
+
 }

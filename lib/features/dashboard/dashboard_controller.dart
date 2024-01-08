@@ -49,4 +49,9 @@ class DashboardController extends GetxController {
       lineList.assignAll(data);
     });
   }
+
+
+
+
+
 }
