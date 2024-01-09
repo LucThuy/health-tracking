@@ -44,7 +44,7 @@ class DashboardScreen extends GetView<DashboardController> {
                           //   color: kGreen600,
                           // ),
                           SizedBox(
-                            height: 40.h,
+                            height: 42.h,
                             width: 100.w,
                             child: Padding(
                               padding: const EdgeInsets.all(5),
@@ -101,7 +101,7 @@ class DashboardScreen extends GetView<DashboardController> {
                                                               .length) {
                                                         return Card(
                                                           color: kGreen50o6,
-                                                          elevation: 5,
+                                                          elevation: 3,
                                                           shape:
                                                               RoundedRectangleBorder(
                                                             borderRadius:
@@ -146,40 +146,146 @@ class DashboardScreen extends GetView<DashboardController> {
                                           ),
                                         ),
                                       ),
-                                      // ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            padding: kMainPadding,
-                                            width: 130,
-                                            decoration: BoxDecoration(
-                                              color: kBackgroundMainColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Icon(
-                                                  Icons.accessibility,
-                                                  size: 20,
-                                                  color: kTextInvertColor,
-                                                ),
-                                                Text(
-                                                  "100/1000 kcal",
-                                                  style: GoogleFonts.openSans(
-                                                    color: kTextInvertColor,
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize: 10.sp,
+                                      Obx(
+                                        () => Center(
+                                          child: Card(
+                                            color: Colors.transparent,
+                                            elevation: 3,
+                                            shadowColor: kGreen950,
+                                            child: Container(
+                                              height: 80,
+                                              width: 50.w,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: kGreen50o6,
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: 20,
+                                                    width: 150,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "Calories",
+                                                          style: GoogleFonts.pangolin(
+                                                            color: kWhite,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10.sp,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          controller.todayPage
+                                                              .value!.calories
+                                                              .toString(),
+                                                          style: GoogleFonts.pangolin(
+                                                            color: kWhite,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10.sp,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                  SizedBox(
+                                                    height: 20,
+                                                    width: 150,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "Protein",
+                                                          style: GoogleFonts.pangolin(
+                                                            color: kWhite,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10.sp,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          controller.todayPage
+                                                              .value!.protein
+                                                              .toString(),
+                                                          style: GoogleFonts.pangolin(
+                                                            color: kWhite,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10.sp,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                    width: 150,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "Carbohydrates",
+                                                          style: GoogleFonts.pangolin(
+                                                            color: kWhite,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10.sp,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          controller
+                                                              .todayPage
+                                                              .value!
+                                                              .carbohydrates
+                                                              .toString(),
+                                                          style: GoogleFonts.pangolin(
+                                                            color: kWhite,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10.sp,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                    width: 150,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "Fat",
+                                                          style: GoogleFonts.pangolin(
+                                                            color: kWhite,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10.sp,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          controller.todayPage
+                                                              .value!.fat
+                                                              .toString(),
+                                                          style: GoogleFonts.pangolin(
+                                                            color: kWhite,
+                                                            fontWeight: FontWeight.w700,
+                                                            fontSize: 10.sp,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ],
-                                      )
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),

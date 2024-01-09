@@ -73,12 +73,15 @@ class AddLineController extends GetxController {
       carbohydrates: double.parse(carbohydratesController.text),
       fat: double.parse(fatController.text),
     ));
-    nameController.clear();
-    caloriesController.clear();
-    proteinController.clear();
-    carbohydratesController.clear();
-    fatController.clear();
+    await pageDao.updatePage(PageData(
+        id: todayPage.id,
+        date: todayPage.date,
+        calories: todayPage.calories + double.parse(caloriesController.text),
+        protein: todayPage.protein + double.parse(proteinController.text),
+        carbohydrates: todayPage.carbohydrates +
+            double.parse(carbohydratesController.text),
+        fat: todayPage.fat + double.parse(fatController.text)));
     Get.offNamed(AppRoutes.rMain);
-    Get.until((route) => route.isFirst); 
+    Get.until((route) => route.isFirst);
   }
 }

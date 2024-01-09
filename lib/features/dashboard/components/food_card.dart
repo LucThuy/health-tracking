@@ -18,7 +18,7 @@ class FoodCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: kGreen50o6,
-      elevation: 5,
+      elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
       ),
