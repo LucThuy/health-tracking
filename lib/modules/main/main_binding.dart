@@ -3,6 +3,7 @@ import 'package:health_tracking/features/dashboard/dashboard_controller.dart';
 import 'package:health_tracking/features/diary/diary_controller.dart';
 import 'package:health_tracking/features/plan/plan_controller.dart';
 import 'package:health_tracking/local/database/diary.dart';
+import 'package:health_tracking/local/database/nutrition_database.dart';
 import 'package:health_tracking/local/database/nutritions_database.dart';
 import 'package:health_tracking/local/line/line.dart';
 import 'package:health_tracking/local/page/page.dart';

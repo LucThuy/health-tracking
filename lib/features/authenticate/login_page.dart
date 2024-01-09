@@ -10,6 +10,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:health_tracking/features/blog/add_news_modal.dart';
 import 'package:health_tracking/routes/app_pages.dart';
 import '../../services/auth.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
+import '../../../utility/theme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -36,8 +39,14 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Login"),
+        centerTitle: true,
+        title: Text("Login",style: GoogleFonts.pangolin(
+            color: kWhite,
+            fontWeight: FontWeight.w700,
+            fontSize: 16.sp
+        ),
+        ),
+        backgroundColor: kGreen800o9,
       ),
       body: Center(
         child: Padding(
@@ -47,7 +56,11 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Text(
                 "Login",
-                style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                style: GoogleFonts.pangolin(
+                    color: kWhite,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14.sp
+                ),
               ),
               SizedBox(
                 height: 30,
@@ -76,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: kGreen800o9,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -101,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    color: kGreen600,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -146,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       "Sign Up",
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: kGreen800,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
