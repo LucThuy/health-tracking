@@ -16,11 +16,11 @@ class AddLineController extends GetxController {
   final DateFormat dateFormatter = DateFormat('yMEd');
   final DateFormat dateFormat = DateFormat('yMd');
   final image = Get.arguments['image'];
-  final nameController = TextEditingController(text: "");
-  final caloriesController = TextEditingController(text: "");
-  final proteinController = TextEditingController(text: "");
-  final carbohydratesController = TextEditingController(text: "");
-  final fatController = TextEditingController(text: "");
+  late final TextEditingController nameController;
+  late final TextEditingController caloriesController;
+  late final TextEditingController proteinController;
+  late final TextEditingController carbohydratesController;
+  late final TextEditingController fatController;
 
   final LineDao lineDao = Get.find();
   final PageDao pageDao = Get.find();
@@ -31,6 +31,11 @@ class AddLineController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    nameController = TextEditingController(text: "");
+    caloriesController = TextEditingController(text: "");
+    proteinController = TextEditingController(text: "");
+    carbohydratesController = TextEditingController(text: "");
+    fatController = TextEditingController(text: "");
     await loadNutrition("");
   }
 
@@ -68,6 +73,12 @@ class AddLineController extends GetxController {
       carbohydrates: double.parse(carbohydratesController.text),
       fat: double.parse(fatController.text),
     ));
-    Get.toNamed(AppRoutes.rMain);
+    nameController.clear();
+    caloriesController.clear();
+    proteinController.clear();
+    carbohydratesController.clear();
+    fatController.clear();
+    Get.offNamed(AppRoutes.rMain);
+    Get.until((route) => route.isFirst); 
   }
 }

@@ -39,11 +39,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Text("Login",style: GoogleFonts.pangolin(
             color: kWhite,
             fontWeight: FontWeight.w700,
-            fontSize: 14.sp
+            fontSize: 16.sp
         ),
         ),
         backgroundColor: kGreen800o9,
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: kGreen800o9,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    color: kGreen600,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
@@ -159,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       "Sign Up",
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: kGreen800,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

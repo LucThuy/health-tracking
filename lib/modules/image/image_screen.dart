@@ -95,7 +95,10 @@ class ImageScreen extends GetView<ImageController> {
                       if (direction == DismissDirection.startToEnd)
                         {controller.takeImage()}
                       else if (direction == DismissDirection.endToStart)
-                        {Get.toNamed(AppRoutes.rMain)}
+                        {
+                          Get.offNamed(AppRoutes.rMain),
+                          Get.until((route) => route.isFirst),
+                        }
                     },
                     background: Container(
                       color: kGreen600,

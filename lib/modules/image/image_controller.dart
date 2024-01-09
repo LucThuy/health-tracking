@@ -33,6 +33,7 @@ class ImageController extends GetxController {
 
   Future<void> takeImage() async {
     final image = await cameraController.takePicture();
-    Get.toNamed(AppRoutes.rAddLine, arguments: {'image': image.path});
+    Get.offNamed(AppRoutes.rAddLine, arguments: {'image': image.path});
+    Get.until((route) => route.isFirst);
   }
 }

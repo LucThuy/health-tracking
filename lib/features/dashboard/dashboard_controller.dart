@@ -14,14 +14,30 @@ class DashboardController extends GetxController {
   final lineList = RxList<LineData>([]);
   final mainController = Get.find<MainController>();
   final pageList = RxList<PageData>([]);
+  var todayPage = Rxn<PageData>();
 
-  // final NutritionsDao nd = NutritionsDao(NutritionsDatabase());
+  var isLoading = true.obs;
 
   @override
   Future<void> onInit() async {
     super.onInit();
+    await loadTodayPage();
     await loadLine();
     await loadPage();
+    isLoading.value = false;
+  }
+
+  Future<void> loadTodayPage() async {
+    todayPage.value = await pageDao.getPageByDate(dateFormat.format(currentDate.value));
+    if (todayPage.value == null) {
+      await pageDao.insertPage(PageCompanion.insert(
+          date: dateFormat.format(currentDate.value),
+          calories: 0.0,
+          protein: 0.0,
+          carbohydrates: 0.0,
+          fat: 0.0));
+      todayPage.value = await pageDao.getPageByDate(dateFormat.format(currentDate.value));
+    }
   }
 
   Future<void> loadPage() async {
@@ -30,17 +46,10 @@ class DashboardController extends GetxController {
   }
 
   Future<void> loadLine() async {
-    var todayPage =
-        await pageDao.getPageByDate(dateFormat.format(currentDate.value));
-    todayPage ??= await pageDao.insertPage(PageCompanion.insert(
-        date: dateFormat.format(currentDate.value),
-        calories: 0.0,
-        protein: 0.0,
-        carbohydrates: 0.0,
-        fat: 0.0));
-    print(todayPage);
-    lineDao.watchLineByPageId(todayPage.id).listen((data) {
-      lineList.assignAll(data);
-    });
+    if (todayPage.value != null) {
+      lineDao.watchLineByPageId(todayPage.value!.id).listen((data) {
+        lineList.assignAll(data);
+      });
+    }
   }
 }

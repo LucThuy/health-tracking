@@ -23,7 +23,6 @@ class AddLineScreen extends GetView<AddLineController> {
         child: SafeArea(
           child: SingleChildScrollView(
             reverse: true,
-            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -140,8 +139,8 @@ class AddLineScreen extends GetView<AddLineController> {
                           ),
                           Obx(
                             () => RefreshIndicator(
-                              onRefresh: () => controller
-                                  .loadNutrition(controller.nameController.text),
+                              onRefresh: () => controller.loadNutrition(
+                                  controller.nameController.text),
                               child: Center(
                                 child: SizedBox(
                                   height: 200,
@@ -389,7 +388,10 @@ class AddLineScreen extends GetView<AddLineController> {
                           if (direction == DismissDirection.startToEnd)
                             {controller.insertLine()}
                           else if (direction == DismissDirection.endToStart)
-                            {Get.toNamed(AppRoutes.rMain)}
+                            {
+                              Get.offNamed(AppRoutes.rMain),
+                              Get.until((route) => route.isFirst),
+                            }
                         },
                         background: Container(
                           color: kGreen600,
@@ -457,6 +459,9 @@ class AddLineScreen extends GetView<AddLineController> {
                       ),
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 3.h,
                 ),
                 Padding(
                   padding: EdgeInsets.only(
