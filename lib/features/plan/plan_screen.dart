@@ -111,8 +111,7 @@ class PlanPage extends GetView<PlanController> {
                         )
                             : ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount:
-                            diaryController.nutritionList.length,
+                            itemCount: diaryController.nutritionList.length,
                             itemBuilder: (context, index) {
                               return FoodCardChoice(
                                   nutritionData: diaryController
@@ -162,9 +161,7 @@ class PlanPage extends GetView<PlanController> {
               },
               onDismissed: (direction) => {
                 if (direction == DismissDirection.startToEnd)
-                  {
-                    controller.savePlan(controller.selectedTime.value, diaryController.focusedDay.value, textController.text)
-                  }
+                  {controller.savePlan(controller.selectedTime.value, diaryController.focusedDay.value, textController.text)}
                 else if (direction == DismissDirection.endToStart)
                   {Get.toNamed(AppRoutes.rMain)}
               },

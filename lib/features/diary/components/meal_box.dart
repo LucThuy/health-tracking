@@ -68,55 +68,55 @@ class MealBox extends StatelessWidget {
                         fontSize: 14.sp
                     ),
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        // Expanded(
-                        //   child: Center(
-                        //     child: SizedBox(
-                        //       height: 220,
-                        //       child: ListView.builder(
-                        //           scrollDirection: Axis.horizontal,
-                        //           itemCount: planController.planList.length + 1,
-                        //           itemBuilder: (context, index) {
-                        //             if (index != planController.planList.length) {
-                        //               return MealCard(
-                        //                   plan: planController.planList.elementAt(index));
-                        //             }
-                        //             return null;
-                        //           }),
-                        //     ),
-                        //   ),
-                        // ),
-                        Card(
-                          color: kGreen50o6,
-                          elevation: 1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: SizedBox(
-                            height: 200,
-                            width: 100,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => PlanPage(focusedDay)),
-                                );
-                              },
-                              child: Center(
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 50,
-                                    color: kTextInvertColor,
-                                  )),
-                            ),
-                          ),
-                        )
-                      ],
+                  Expanded(
+                    child: SizedBox(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: planController.planList.length + 1,
+                        itemBuilder: (context, index) {
+                          if(index == planController.planList.length){
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Card(
+                                color: kGreen50o6,
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Center(
+                                  child: SizedBox(
+                                    width: 150,
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => PlanPage(focusedDay)),
+                                        );
+                                      },
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.add,
+                                          size: 80,
+                                          color: kTextInvertColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: MealCard(
+                                plan: planController.planList.elementAt(index),
+                              ),
+                            );
+                          }
+                        },
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
