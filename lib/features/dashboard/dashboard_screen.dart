@@ -134,11 +134,14 @@ class DashboardScreen extends GetView<DashboardController> {
                                                           ),
                                                         );
                                                       } else {
-                                                        return FoodCard(
-                                                            line: controller
-                                                                .lineList
-                                                                .elementAt(
-                                                                    index));
+                                                        return InkWell(
+                                                          onTap: () => {controller.detailLine(index)},
+                                                          child: FoodCard(
+                                                              line: controller
+                                                                  .lineList
+                                                                  .elementAt(
+                                                                      index)),
+                                                        );
                                                       }
                                                     }),
                                               ),
