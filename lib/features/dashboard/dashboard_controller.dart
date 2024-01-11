@@ -4,6 +4,7 @@ import 'package:health_tracking/modules/main/main_controller.dart';
 import 'package:intl/intl.dart';
 
 import '../../local/page/page.dart';
+import '../../routes/app_pages.dart';
 
 class DashboardController extends GetxController {
   var currentDate = DateTime.now().obs;
@@ -28,7 +29,8 @@ class DashboardController extends GetxController {
   }
 
   Future<void> loadTodayPage() async {
-    todayPage.value = await pageDao.getPageByDate(dateFormat.format(currentDate.value));
+    todayPage.value =
+        await pageDao.getPageByDate(dateFormat.format(currentDate.value));
     if (todayPage.value == null) {
       await pageDao.insertPage(PageCompanion.insert(
           date: dateFormat.format(currentDate.value),
@@ -36,7 +38,8 @@ class DashboardController extends GetxController {
           protein: 0.0,
           carbohydrates: 0.0,
           fat: 0.0));
-      todayPage.value = await pageDao.getPageByDate(dateFormat.format(currentDate.value));
+      todayPage.value =
+          await pageDao.getPageByDate(dateFormat.format(currentDate.value));
     }
   }
 
@@ -51,5 +54,10 @@ class DashboardController extends GetxController {
         lineList.assignAll(data);
       });
     }
+  }
+
+  detailLine(int index) {
+    Get.offNamed(AppRoutes.rDetailLine, arguments: {'lineId': lineList[index].id});
+    Get.until((route) => route.isFirst);
   }
 }

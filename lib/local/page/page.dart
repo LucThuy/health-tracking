@@ -39,4 +39,6 @@ class PageDao extends DatabaseAccessor<PageDatabase> with _$PageDaoMixin {
 
   Future insertPage(Insertable<PageData> pageData) =>
       into(page).insert(pageData);
+
+  Future updatePage(Insertable<PageData> pageData) => update(page).replace(pageData);
 }
