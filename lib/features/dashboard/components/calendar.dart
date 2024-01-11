@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/features/dashboard/dashboard_controller.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../utility/theme.dart';
-import '../diary_controller.dart';
 
 class Calender extends StatelessWidget {
-  final diaryController = Get.find<DiaryController>();
+  final dashboardController = Get.find<DashboardController>();
   var focusedDay;
 
   Calender(DateTime focusedDay, {Key? key}) : super(key: key) {
@@ -88,7 +88,7 @@ class Calender extends StatelessWidget {
                           fontWeight: FontWeight.w700, fontSize: 14.sp),
                     ),
                     onDaySelected: (selectedDay, focusedDay) {
-                      diaryController.updateSelectedDay(selectedDay);
+                      dashboardController.updateSelectedWeek(selectedDay);
                     },
                   )
                 ],

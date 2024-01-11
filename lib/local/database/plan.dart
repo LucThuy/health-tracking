@@ -45,4 +45,7 @@ class PlanDao extends DatabaseAccessor<PlanDatabase> with _$PlanDaoMixin {
 
     return query.get();
   }
+  Future<List<PlanData>> getAllPlan() async{
+      return select(plan).get();
+  }
 }

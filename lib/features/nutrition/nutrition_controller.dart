@@ -11,25 +11,24 @@ class NutritionController extends GetxController {
   RxList<NutritionData> foodResults = <NutritionData>[].obs;
   RxList<NutritionData> mealResults = <NutritionData>[].obs;
   RxList<NutritionData> ingredientResults = <NutritionData>[].obs;
-  final ndb.NutritionsDao nutritionsDao =
-      ndb.NutritionsDao(ndb.NutritionsDatabase());
+  final ndb.NutritionsDao nutritionsDao = Get.find();
   late NutritionDatabase nutritionDatabase;
 
   @override
   Future<void> onInit() async {
     // TODO: implement onInit
     super.onInit();
-    nutritionDatabase = NutritionDatabase(nutritionsDao);
-    nutritionDatabase.createData();
+    // nutritionDatabase = NutritionDatabase(nutritionsDao);
+    // nutritionDatabase.createData();
   }
 
-  void performSearch() {
+  Future<void> performSearch() async{
     foodResults.assignAll(
-        nutritionDatabase.search(FoodType.food, searchController.text));
+       await nutritionDatabase.search(FoodType.food, searchController.text));
     mealResults.assignAll(
-        nutritionDatabase.search(FoodType.meal, searchController.text));
+        await nutritionDatabase.search(FoodType.meal, searchController.text));
     ingredientResults.assignAll(
-        nutritionDatabase.search(FoodType.ingredient, searchController.text));
+        await nutritionDatabase.search(FoodType.ingredient, searchController.text));
   }
 
   Future<void> showAll(FoodType foodType) async {

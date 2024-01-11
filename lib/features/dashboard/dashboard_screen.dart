@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_tracking/features/dashboard/components/food_card.dart';
 import 'package:health_tracking/features/dashboard/dashboard_controller.dart';
+import 'package:health_tracking/features/diary/components/calender.dart';
 import 'package:health_tracking/routes/app_pages.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../utility/theme.dart';
@@ -14,8 +16,8 @@ class DashboardScreen extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
+    return SingleChildScrollView(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -134,7 +136,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                         );
                                                       } else {
                                                         return InkWell(
-                                                          onTap: () => {controller.detailLine(index)},
+                                                          onTap: () => {
+                                                            controller
+                                                                .detailLine(
+                                                                    index)
+                                                          },
                                                           child: FoodCard(
                                                               line: controller
                                                                   .lineList
@@ -174,9 +180,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                       children: [
                                                         Text(
                                                           "Calories",
-                                                          style: GoogleFonts.pangolin(
+                                                          style: GoogleFonts
+                                                              .pangolin(
                                                             color: kWhite,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             fontSize: 10.sp,
                                                           ),
                                                         ),
@@ -184,9 +192,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                           controller.todayPage
                                                               .value!.calories
                                                               .toString(),
-                                                          style: GoogleFonts.pangolin(
+                                                          style: GoogleFonts
+                                                              .pangolin(
                                                             color: kWhite,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             fontSize: 10.sp,
                                                           ),
                                                         ),
@@ -203,9 +213,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                       children: [
                                                         Text(
                                                           "Protein",
-                                                          style: GoogleFonts.pangolin(
+                                                          style: GoogleFonts
+                                                              .pangolin(
                                                             color: kWhite,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             fontSize: 10.sp,
                                                           ),
                                                         ),
@@ -213,9 +225,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                           controller.todayPage
                                                               .value!.protein
                                                               .toString(),
-                                                          style: GoogleFonts.pangolin(
+                                                          style: GoogleFonts
+                                                              .pangolin(
                                                             color: kWhite,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             fontSize: 10.sp,
                                                           ),
                                                         ),
@@ -232,9 +246,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                       children: [
                                                         Text(
                                                           "Carbohydrates",
-                                                          style: GoogleFonts.pangolin(
+                                                          style: GoogleFonts
+                                                              .pangolin(
                                                             color: kWhite,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             fontSize: 10.sp,
                                                           ),
                                                         ),
@@ -244,9 +260,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                               .value!
                                                               .carbohydrates
                                                               .toString(),
-                                                          style: GoogleFonts.pangolin(
+                                                          style: GoogleFonts
+                                                              .pangolin(
                                                             color: kWhite,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             fontSize: 10.sp,
                                                           ),
                                                         ),
@@ -263,9 +281,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                       children: [
                                                         Text(
                                                           "Fat",
-                                                          style: GoogleFonts.pangolin(
+                                                          style: GoogleFonts
+                                                              .pangolin(
                                                             color: kWhite,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             fontSize: 10.sp,
                                                           ),
                                                         ),
@@ -273,9 +293,11 @@ class DashboardScreen extends GetView<DashboardController> {
                                                           controller.todayPage
                                                               .value!.fat
                                                               .toString(),
-                                                          style: GoogleFonts.pangolin(
+                                                          style: GoogleFonts
+                                                              .pangolin(
                                                             color: kWhite,
-                                                            fontWeight: FontWeight.w700,
+                                                            fontWeight:
+                                                                FontWeight.w700,
                                                             fontSize: 10.sp,
                                                           ),
                                                         ),
@@ -295,24 +317,35 @@ class DashboardScreen extends GetView<DashboardController> {
                             ),
                           ), //card food
                           SizedBox(
-                            height: 35.h,
                             width: 100.w,
                             child: Padding(
                               padding: const EdgeInsets.all(5),
                               child: Card(
                                 elevation: 3,
-                                color: kGreen400,
+                                color: kGreen600,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                child: LineChartComponent(
-                                  dayCaloriesList: controller.pageList
-                                      .map((element) => DayCalories(
-                                          index: 1,
-                                          day: element.date.toString(),
-                                          calories: element.calories))
-                                      .toList(),
-                                  userName: 'Kien',
+                                child: Obx(
+                                  () => LineChartComponent(
+                                    dayCaloriesList: controller.pageList
+                                        .map((element) => DayCalories(
+                                            index: 1,
+                                            day: getWeekdayName(
+                                                DateFormat('M/d/yyyy')
+                                                    .parse(element.date)
+                                                    .weekday),
+                                            calories: element.calories))
+                                        .toList(),
+                                    userName: 'Kien',
+                                    planningDayCaloriesList: controller.planList
+                                        .map((element) => DayCalories(
+                                            index: 1,
+                                            day: getWeekdayName(
+                                                element.date.weekday),
+                                            calories: element.calories))
+                                        .toList(),
+                                  ),
                                 ),
                               ),
                             ),
@@ -326,4 +359,38 @@ class DashboardScreen extends GetView<DashboardController> {
       ),
     );
   }
+
+  String getWeekdayName(int weekday) {
+    switch (weekday) {
+      case 1:
+        return 'Mon';
+      case 2:
+        return 'Tue';
+      case 3:
+        return 'Wed';
+      case 4:
+        return 'Thu';
+      case 5:
+        return 'Fri';
+      case 6:
+        return 'Sat';
+      case 7:
+        return 'Sun';
+      default:
+        return 'Invalid weekday';
+    }
+  }
 }
+// controller.pageList
+//     .map((element) => DayCalories(
+// index: 1,
+// day: '2',
+// calories: element.calories))
+// .toList(),
+// [
+// DayCalories(index: 1, day: '2', calories: 100),
+// DayCalories(index: 2, day: '3', calories: 200),
+// DayCalories(index: 3, day: '4', calories: 300),
+// DayCalories(index: 4, day: '5', calories: 200),
+// DayCalories(index: 5, day: '6', calories: 700),
+// ]

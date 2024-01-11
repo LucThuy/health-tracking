@@ -969,7 +969,7 @@ class NutritionDatabase {
   //       fat: 0.1),
   // ];
 
-  List<NutritionData> search(FoodType foodType, String query) {
+  Future<List<NutritionData>> search(FoodType foodType, String query) async {
     List<NutritionData> searchResults = [];
     switch (foodType) {
       case FoodType.food:

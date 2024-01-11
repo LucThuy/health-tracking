@@ -35,10 +35,30 @@ class PageDao extends DatabaseAccessor<PageDatabase> with _$PageDaoMixin {
   Future getPageByDate(String date) =>
       (select(page)..where((p) => p.date.equals(date))).getSingleOrNull();
 
+  Future<PageData> getPageByDateOrNot(String date) async {
+    var pageData =
+        await (select(page)..where((p) => p.date.equals(date))).get();
+    if (pageData.isNotEmpty) {
+      // If there is a matching row, return the first one
+      return pageData.first;
+    } else {
+      // If no matching row, return a new PageData object
+      return PageData(
+        id: 0,
+        date: date,
+        calories: 0,
+        protein: 0,
+        carbohydrates: 0,
+        fat: 0,
+      );
+    }
+  }
+
   Future getAllPage() => (select(page).get());
 
   Future insertPage(Insertable<PageData> pageData) =>
       into(page).insert(pageData);
 
-  Future updatePage(Insertable<PageData> pageData) => update(page).replace(pageData);
+  Future updatePage(Insertable<PageData> pageData) =>
+      update(page).replace(pageData);
 }

@@ -1,9 +1,13 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/features/dashboard/components/calendar.dart';
 import 'package:sizer/sizer.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+import '../../../utility/theme.dart';
 
 class DayCalories {
-  final double index;
+  final int index;
   final String day;
   final double calories;
 
@@ -12,72 +16,62 @@ class DayCalories {
 
 class LineChartComponent extends StatelessWidget {
   final List<DayCalories> dayCaloriesList;
+  final List<DayCalories> planningDayCaloriesList;
   final String userName;
 
-  LineChartComponent({required this.dayCaloriesList, required this.userName});
+  LineChartComponent(
+      {required this.dayCaloriesList,
+      required this.userName,
+      required this.planningDayCaloriesList}) {
+    print(this.dayCaloriesList);
+  }
 
   @override
   Widget build(BuildContext context) {
     // Convert the DayCalories list to FlSpot list
-    List<FlSpot> dataPoints = dayCaloriesList
-        .map((dayCalories) => FlSpot(dayCalories.index, dayCalories.calories))
-        .toList();
-
     return Column(
       children: [
+        Calender(DateTime.now()),
         SizedBox(
-          width: 100.w,
-          height: 25.h,
-          child: LineChart(
-            LineChartData(
-              gridData: FlGridData(show: false),
-              titlesData: FlTitlesData(
-                leftTitles: SideTitles(
-                  showTitles: true,
-                  reservedSize: 40,
-                  getTitles: (value) {
-                    // Provide labels for the y-axis (left) based on calories
-                    return value.toString();
-                  },
-                ),
-                bottomTitles: SideTitles(
-                  showTitles: true,
-                  reservedSize: 22,
-                  getTitles: (value) {
-                    // Provide labels for the x-axis (bottom) based on days
-                    return value
-                        .toInt()
-                        .toString(); // Convert day to int for simplicity
-                  },
+            width: 100.w,
+            height: 25.h,
+            child: SfCartesianChart(
+              enableSideBySideSeriesPlacement: false,
+              primaryXAxis: CategoryAxis(
+                title: AxisTitle(
+                  text: 'Day',
+                  textStyle: GoogleFonts.pangolin(
+                    color: kWhite,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10.sp,
+                  ),
                 ),
               ),
-              borderData: FlBorderData(show: true),
-              minX: 0,
-              maxX: dayCaloriesList.length.toDouble() - 1,
-              minY: 0,
-              maxY: dayCaloriesList
-                  .map((dc) => dc.calories)
-                  .reduce((a, b) => a > b ? a : b),
-              lineBarsData: [
-                LineChartBarData(
-                  spots: dataPoints,
-                  isCurved: true,
-                  colors: [Colors.white],
-                  dotData: FlDotData(show: false),
-                  belowBarData: BarAreaData(show: false),
+              primaryYAxis: NumericAxis(
+                title: AxisTitle(
+                  text: 'Calories',
+                  textStyle: GoogleFonts.pangolin(
+                    color: kWhite,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10.sp,
+                  ),
                 ),
+              ),
+              series: [
+                ColumnSeries<DayCalories, String>(
+                  dataSource: dayCaloriesList,
+                  xValueMapper: (DayCalories data, _) => data.day,
+                  yValueMapper: (DayCalories data, _) => data.calories,
+                ),
+                ColumnSeries<DayCalories, String>(
+                  opacity: 0.9,
+                  width: 0.4,
+                  dataSource: planningDayCaloriesList,
+                  xValueMapper: (DayCalories data, _) => data.day,
+                  yValueMapper: (DayCalories data, _) => data.calories,
+                )
               ],
-            ),
-          ),
-        ),
-        Text(
-          'Data chart of $userName',
-          style: TextStyle(
-            fontFamily: 'consolas',
-            fontSize: 20,
-          ),
-          textAlign: TextAlign.center,
-        )
+            )),
       ],
     );
   }
