@@ -47,7 +47,7 @@ class MealCard extends StatelessWidget {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Text(
-                      plan.content.toString(),
+                      plan.name.toString(),
                       style: GoogleFonts.pangolin(
                         color: kWhite,
                         fontWeight: FontWeight.w700,

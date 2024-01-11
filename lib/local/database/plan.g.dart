@@ -9,45 +9,68 @@ part of 'plan.dart';
 // ignore_for_file: type=lint
 class PlanData extends DataClass implements Insertable<PlanData> {
   final int id;
-  final String? content;
+  final String name;
   final DateTime date;
   final DateTime time;
+  final double calories;
+  final double protein;
+  final double carbohydrates;
+  final double fat;
   PlanData(
-      {required this.id, this.content, required this.date, required this.time});
+      {required this.id,
+      required this.name,
+      required this.date,
+      required this.time,
+      required this.calories,
+      required this.protein,
+      required this.carbohydrates,
+      required this.fat});
   factory PlanData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return PlanData(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      content: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}content']),
+      name: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
       date: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
       time: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}time'])!,
+      calories: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}calories'])!,
+      protein: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}protein'])!,
+      carbohydrates: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}carbohydrates'])!,
+      fat: const RealType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}fat'])!,
     );
   }
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    if (!nullToAbsent || content != null) {
-      map['content'] = Variable<String?>(content);
-    }
+    map['name'] = Variable<String>(name);
     map['date'] = Variable<DateTime>(date);
     map['time'] = Variable<DateTime>(time);
+    map['calories'] = Variable<double>(calories);
+    map['protein'] = Variable<double>(protein);
+    map['carbohydrates'] = Variable<double>(carbohydrates);
+    map['fat'] = Variable<double>(fat);
     return map;
   }
 
   PlanCompanion toCompanion(bool nullToAbsent) {
     return PlanCompanion(
       id: Value(id),
-      content: content == null && nullToAbsent
-          ? const Value.absent()
-          : Value(content),
+      name: Value(name),
       date: Value(date),
       time: Value(time),
+      calories: Value(calories),
+      protein: Value(protein),
+      carbohydrates: Value(carbohydrates),
+      fat: Value(fat),
     );
   }
 
@@ -56,9 +79,13 @@ class PlanData extends DataClass implements Insertable<PlanData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return PlanData(
       id: serializer.fromJson<int>(json['id']),
-      content: serializer.fromJson<String?>(json['content']),
+      name: serializer.fromJson<String>(json['name']),
       date: serializer.fromJson<DateTime>(json['date']),
       time: serializer.fromJson<DateTime>(json['time']),
+      calories: serializer.fromJson<double>(json['calories']),
+      protein: serializer.fromJson<double>(json['protein']),
+      carbohydrates: serializer.fromJson<double>(json['carbohydrates']),
+      fat: serializer.fromJson<double>(json['fat']),
     );
   }
   @override
@@ -66,84 +93,142 @@ class PlanData extends DataClass implements Insertable<PlanData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'content': serializer.toJson<String?>(content),
+      'name': serializer.toJson<String>(name),
       'date': serializer.toJson<DateTime>(date),
       'time': serializer.toJson<DateTime>(time),
+      'calories': serializer.toJson<double>(calories),
+      'protein': serializer.toJson<double>(protein),
+      'carbohydrates': serializer.toJson<double>(carbohydrates),
+      'fat': serializer.toJson<double>(fat),
     };
   }
 
   PlanData copyWith(
-          {int? id, String? content, DateTime? date, DateTime? time}) =>
+          {int? id,
+          String? name,
+          DateTime? date,
+          DateTime? time,
+          double? calories,
+          double? protein,
+          double? carbohydrates,
+          double? fat}) =>
       PlanData(
         id: id ?? this.id,
-        content: content ?? this.content,
+        name: name ?? this.name,
         date: date ?? this.date,
         time: time ?? this.time,
+        calories: calories ?? this.calories,
+        protein: protein ?? this.protein,
+        carbohydrates: carbohydrates ?? this.carbohydrates,
+        fat: fat ?? this.fat,
       );
   @override
   String toString() {
     return (StringBuffer('PlanData(')
           ..write('id: $id, ')
-          ..write('content: $content, ')
+          ..write('name: $name, ')
           ..write('date: $date, ')
-          ..write('time: $time')
+          ..write('time: $time, ')
+          ..write('calories: $calories, ')
+          ..write('protein: $protein, ')
+          ..write('carbohydrates: $carbohydrates, ')
+          ..write('fat: $fat')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, content, date, time);
+  int get hashCode =>
+      Object.hash(id, name, date, time, calories, protein, carbohydrates, fat);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is PlanData &&
           other.id == this.id &&
-          other.content == this.content &&
+          other.name == this.name &&
           other.date == this.date &&
-          other.time == this.time);
+          other.time == this.time &&
+          other.calories == this.calories &&
+          other.protein == this.protein &&
+          other.carbohydrates == this.carbohydrates &&
+          other.fat == this.fat);
 }
 
 class PlanCompanion extends UpdateCompanion<PlanData> {
   final Value<int> id;
-  final Value<String?> content;
+  final Value<String> name;
   final Value<DateTime> date;
   final Value<DateTime> time;
+  final Value<double> calories;
+  final Value<double> protein;
+  final Value<double> carbohydrates;
+  final Value<double> fat;
   const PlanCompanion({
     this.id = const Value.absent(),
-    this.content = const Value.absent(),
+    this.name = const Value.absent(),
     this.date = const Value.absent(),
     this.time = const Value.absent(),
+    this.calories = const Value.absent(),
+    this.protein = const Value.absent(),
+    this.carbohydrates = const Value.absent(),
+    this.fat = const Value.absent(),
   });
   PlanCompanion.insert({
     this.id = const Value.absent(),
-    this.content = const Value.absent(),
-    this.date = const Value.absent(),
+    required String name,
+    required DateTime date,
     required DateTime time,
-  }) : time = Value(time);
+    required double calories,
+    required double protein,
+    required double carbohydrates,
+    required double fat,
+  })  : name = Value(name),
+        date = Value(date),
+        time = Value(time),
+        calories = Value(calories),
+        protein = Value(protein),
+        carbohydrates = Value(carbohydrates),
+        fat = Value(fat);
   static Insertable<PlanData> custom({
     Expression<int>? id,
-    Expression<String?>? content,
+    Expression<String>? name,
     Expression<DateTime>? date,
     Expression<DateTime>? time,
+    Expression<double>? calories,
+    Expression<double>? protein,
+    Expression<double>? carbohydrates,
+    Expression<double>? fat,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (content != null) 'content': content,
+      if (name != null) 'name': name,
       if (date != null) 'date': date,
       if (time != null) 'time': time,
+      if (calories != null) 'calories': calories,
+      if (protein != null) 'protein': protein,
+      if (carbohydrates != null) 'carbohydrates': carbohydrates,
+      if (fat != null) 'fat': fat,
     });
   }
 
   PlanCompanion copyWith(
       {Value<int>? id,
-      Value<String?>? content,
+      Value<String>? name,
       Value<DateTime>? date,
-      Value<DateTime>? time}) {
+      Value<DateTime>? time,
+      Value<double>? calories,
+      Value<double>? protein,
+      Value<double>? carbohydrates,
+      Value<double>? fat}) {
     return PlanCompanion(
       id: id ?? this.id,
-      content: content ?? this.content,
+      name: name ?? this.name,
       date: date ?? this.date,
       time: time ?? this.time,
+      calories: calories ?? this.calories,
+      protein: protein ?? this.protein,
+      carbohydrates: carbohydrates ?? this.carbohydrates,
+      fat: fat ?? this.fat,
     );
   }
 
@@ -153,14 +238,26 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (content.present) {
-      map['content'] = Variable<String?>(content.value);
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
     }
     if (date.present) {
       map['date'] = Variable<DateTime>(date.value);
     }
     if (time.present) {
       map['time'] = Variable<DateTime>(time.value);
+    }
+    if (calories.present) {
+      map['calories'] = Variable<double>(calories.value);
+    }
+    if (protein.present) {
+      map['protein'] = Variable<double>(protein.value);
+    }
+    if (carbohydrates.present) {
+      map['carbohydrates'] = Variable<double>(carbohydrates.value);
+    }
+    if (fat.present) {
+      map['fat'] = Variable<double>(fat.value);
     }
     return map;
   }
@@ -169,9 +266,13 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
   String toString() {
     return (StringBuffer('PlanCompanion(')
           ..write('id: $id, ')
-          ..write('content: $content, ')
+          ..write('name: $name, ')
           ..write('date: $date, ')
-          ..write('time: $time')
+          ..write('time: $time, ')
+          ..write('calories: $calories, ')
+          ..write('protein: $protein, ')
+          ..write('carbohydrates: $carbohydrates, ')
+          ..write('fat: $fat')
           ..write(')'))
         .toString();
   }
@@ -189,25 +290,45 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
       type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _contentMeta = const VerificationMeta('content');
+  final VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
-  late final GeneratedColumn<String?> content = GeneratedColumn<String?>(
-      'content', aliasedName, true,
-      type: const StringType(), requiredDuringInsert: false);
+  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
+      'name', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
       'date', aliasedName, false,
-      type: const IntType(),
-      requiredDuringInsert: false,
-      defaultValue: currentDateAndTime);
+      type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _timeMeta = const VerificationMeta('time');
   @override
   late final GeneratedColumn<DateTime?> time = GeneratedColumn<DateTime?>(
       'time', aliasedName, false,
       type: const IntType(), requiredDuringInsert: true);
+  final VerificationMeta _caloriesMeta = const VerificationMeta('calories');
   @override
-  List<GeneratedColumn> get $columns => [id, content, date, time];
+  late final GeneratedColumn<double?> calories = GeneratedColumn<double?>(
+      'calories', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
+  final VerificationMeta _proteinMeta = const VerificationMeta('protein');
+  @override
+  late final GeneratedColumn<double?> protein = GeneratedColumn<double?>(
+      'protein', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
+  final VerificationMeta _carbohydratesMeta =
+      const VerificationMeta('carbohydrates');
+  @override
+  late final GeneratedColumn<double?> carbohydrates = GeneratedColumn<double?>(
+      'carbohydrates', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
+  final VerificationMeta _fatMeta = const VerificationMeta('fat');
+  @override
+  late final GeneratedColumn<double?> fat = GeneratedColumn<double?>(
+      'fat', aliasedName, false,
+      type: const RealType(), requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, name, date, time, calories, protein, carbohydrates, fat];
   @override
   String get aliasedName => _alias ?? 'plan';
   @override
@@ -220,19 +341,49 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('content')) {
-      context.handle(_contentMeta,
-          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
     }
     if (data.containsKey('date')) {
       context.handle(
           _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
     }
     if (data.containsKey('time')) {
       context.handle(
           _timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
     } else if (isInserting) {
       context.missing(_timeMeta);
+    }
+    if (data.containsKey('calories')) {
+      context.handle(_caloriesMeta,
+          calories.isAcceptableOrUnknown(data['calories']!, _caloriesMeta));
+    } else if (isInserting) {
+      context.missing(_caloriesMeta);
+    }
+    if (data.containsKey('protein')) {
+      context.handle(_proteinMeta,
+          protein.isAcceptableOrUnknown(data['protein']!, _proteinMeta));
+    } else if (isInserting) {
+      context.missing(_proteinMeta);
+    }
+    if (data.containsKey('carbohydrates')) {
+      context.handle(
+          _carbohydratesMeta,
+          carbohydrates.isAcceptableOrUnknown(
+              data['carbohydrates']!, _carbohydratesMeta));
+    } else if (isInserting) {
+      context.missing(_carbohydratesMeta);
+    }
+    if (data.containsKey('fat')) {
+      context.handle(
+          _fatMeta, fat.isAcceptableOrUnknown(data['fat']!, _fatMeta));
+    } else if (isInserting) {
+      context.missing(_fatMeta);
     }
     return context;
   }
