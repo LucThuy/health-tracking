@@ -80,8 +80,7 @@ class MealBox extends StatelessWidget {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PlanPage(focusedDay)),
+                                                    builder: (context) => PlanPage(focusedDay)),
                                               );
                                             },
                                             child: Center(
@@ -99,9 +98,12 @@ class MealBox extends StatelessWidget {
                                 } else {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: MealCard(
-                                      plan: diaryController.planList.elementAt(
-                                          index),
+                                    child: InkWell(
+                                      onTap: () => {diaryController.detailPlan(index)},
+                                      child: MealCard(
+                                        plan: diaryController.planList.elementAt(
+                                            index),
+                                      ),
                                     ),
                                   );
                                 }

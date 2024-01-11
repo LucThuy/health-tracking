@@ -57,7 +57,7 @@ class DashboardController extends GetxController {
   }
 
   detailLine(int index) {
-    Get.offNamed(AppRoutes.rDetailLine, arguments: {'lineId': lineList[index].id});
+    Get.offAllNamed(AppRoutes.rDetailLine, arguments: {'lineId': lineList[index].id});
     Get.until((route) => route.isFirst);
   }
 }

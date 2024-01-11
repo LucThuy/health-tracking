@@ -5,7 +5,6 @@ import '../../local/database/plan.dart';
 import '../../local/line/line.dart';
 import '../../local/page/page.dart';
 import '../../routes/app_pages.dart';
-import '../plan/plan_controller.dart';
 
 class DiaryController extends GetxController {
   Rx<DateTime> focusedDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day).toUtc().add(Duration(hours: 7)).obs;
@@ -53,9 +52,13 @@ class DiaryController extends GetxController {
     }
 
   detailLine(int index) {
-    Get.offNamed(AppRoutes.rDetailLine, arguments: {'lineId': lineList[index].id});
+    Get.offAllNamed(AppRoutes.rDetailLine, arguments: {'lineId': lineList[index].id});
     Get.until((route) => route.isFirst);
   }
 
+  detailPlan(int index) {
+    Get.offAllNamed(AppRoutes.rDetailPlan, arguments: {'planId': planList[index].id});
+    Get.until((route) => route.isFirst);
+  }
 
 }

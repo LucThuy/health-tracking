@@ -83,7 +83,7 @@ class Calender extends StatelessWidget {
                           fontSize: 14.sp
                       ),
                       todayTextStyle: GoogleFonts.pangolin(
-                          color: kBlack,
+                          color: kWhite,
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp
                       ),
@@ -96,6 +96,14 @@ class Calender extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp
                       ),
+                      selectedDecoration: BoxDecoration(
+                        color: kGreen600,
+                        shape: BoxShape.circle,
+                      ),
+                      todayDecoration: BoxDecoration(
+                        color: kGreen950,
+                        shape: BoxShape.circle,
+                      )
                     ),
                     onDaySelected: (selectedDay, focusedDay) {
                       diaryController.updateSelectedDay(selectedDay);
