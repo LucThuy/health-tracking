@@ -49,7 +49,6 @@ class PlanPage extends GetView<PlanController> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   TimePicker(),
-                  NutritionButton(),
                   Padding(
                     padding: EdgeInsets.only(top: 15.0),
                     child: TextField(

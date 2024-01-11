@@ -58,7 +58,7 @@ class PlanController extends GetxController {
   Future<void> savePlan(DateTime focusedDay) async {
     DateTime now = DateTime.now();
     // Combine the date and time
-    DateTime combinedDateTime = DateTime(now.year, now.month, now.day, selectedTime.value.hour, selectedTime.value.minute,);
+    DateTime combinedDateTime = DateTime(focusedDay.year, focusedDay.month, focusedDay.day, selectedTime.value.hour, selectedTime.value.minute,);
     await planDao.insertPlan(PlanCompanion.insert(
       name: nameController.text,
       time: combinedDateTime,

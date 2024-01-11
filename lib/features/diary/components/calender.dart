@@ -13,9 +13,10 @@ class Calender extends StatelessWidget {
   final diaryController = Get.find<DiaryController>();
   var focusedDay;
 
-  Calender(DateTime focusedDay, {Key? key}) : super(key: key) {
+  Calender(DateTime focusedDay, {Key? key}) : super(key: key){
     this.focusedDay = focusedDay;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +37,8 @@ class Calender extends StatelessWidget {
               color: kGreen800o9,
             ),
             child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),
+              padding: const EdgeInsets.only(
+                  top: 0, bottom: 0, left: 10, right: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,14 +47,15 @@ class Calender extends StatelessWidget {
                     focusedDay: focusedDay,
                     firstDay: DateTime.utc(2023, 10, 16),
                     lastDay: DateTime.utc(2024, 3, 14),
-                    rowHeight: 45,
+                    rowHeight: 40,
                     calendarFormat: CalendarFormat.week,
                     selectedDayPredicate: (day) => isSameDay(day, focusedDay),
                     headerStyle: HeaderStyle(
                       titleTextStyle: GoogleFonts.pangolin(
-                          color: kWhite,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20.sp),
+                        color: kWhite,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 20.sp
+                      ),
                       formatButtonVisible: false,
                       titleCentered: true,
                     ),
@@ -61,31 +63,47 @@ class Calender extends StatelessWidget {
                       weekdayStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp),
+                          fontSize: 14.sp
+                      ),
                       weekendStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp),
+                          fontSize: 14.sp
+                      ),
                     ),
                     calendarStyle: CalendarStyle(
                       defaultTextStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp),
+                          fontSize: 14.sp
+                      ),
                       weekendTextStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp),
+                          fontSize: 14.sp
+                      ),
                       todayTextStyle: GoogleFonts.pangolin(
-                          color: kBlack,
+                          color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp),
+                          fontSize: 14.sp
+                      ),
                       selectedTextStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp),
+                          fontSize: 14.sp
+                      ),
                       outsideTextStyle: GoogleFonts.pangolin(
-                          fontWeight: FontWeight.w700, fontSize: 14.sp),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp
+                      ),
+                      selectedDecoration: BoxDecoration(
+                        color: kGreen600,
+                        shape: BoxShape.circle,
+                      ),
+                      todayDecoration: BoxDecoration(
+                        color: kGreen950,
+                        shape: BoxShape.circle,
+                      )
                     ),
                     onDaySelected: (selectedDay, focusedDay) {
                       diaryController.updateSelectedDay(selectedDay);

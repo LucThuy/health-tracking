@@ -41,6 +41,7 @@ class DailyPlanDao extends DatabaseAccessor<DailyPlanDatabase> with _$DailyPlanD
     await update(dailyPlan).replace(dailyPlanData);
   }
 
+
   Future<DailyPlanData> getDailyPlanByDate(DateTime date) async {
     final query = select(dailyPlan)
       ..where((p) => p.date.equals(date));

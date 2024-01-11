@@ -6,4 +6,5 @@ abstract class AppRoutes {
   static const rImage = "/image";
   static const rAddLine = "/addLine";
   static const rDetailLine = "/detailLine";
+  static const rDetailPlan = "/detailPlan";
 }
