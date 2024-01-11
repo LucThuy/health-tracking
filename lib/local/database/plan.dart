@@ -4,14 +4,27 @@ part 'plan.g.dart';
 
 class Plan extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get content => text().nullable()();
-  DateTimeColumn get date => dateTime().withDefault(currentDateAndTime)();
+
+  TextColumn get name => text()();
+
+  DateTimeColumn get date => dateTime()();
+
   DateTimeColumn get time => dateTime()();
+
+  RealColumn get calories => real()();
+
+  RealColumn get protein => real()();
+
+  RealColumn get carbohydrates => real()();
+
+  RealColumn get fat => real()();
 }
 
 @UseMoor(tables: [Plan], daos: [PlanDao])
 class PlanDatabase extends _$PlanDatabase {
-  PlanDatabase() : super(FlutterQueryExecutor.inDatabaseFolder(path: 'plan.lite', logStatements: true));
+  PlanDatabase()
+      : super(FlutterQueryExecutor.inDatabaseFolder(
+            path: 'plan.lite', logStatements: true));
 
   @override
   int get schemaVersion => 1;
@@ -23,15 +36,8 @@ class PlanDao extends DatabaseAccessor<PlanDatabase> with _$PlanDaoMixin {
 
   PlanDao(this.planDb) : super(planDb);
 
-  Future<void> insertPlan(String content, DateTime date, DateTime time) async {
-      await into(plan).insert(
-        PlanCompanion(
-          content: Value(content),
-          date: Value(date),
-          time: Value(time)
-        ),
-      );
-  }
+  Future insertPlan(Insertable<PlanData> planData) =>
+      into(plan).insert(planData);
 
   Future<List<PlanData>> getPlansByDate(DateTime date) async {
     final query = select(plan)
@@ -39,6 +45,4 @@ class PlanDao extends DatabaseAccessor<PlanDatabase> with _$PlanDaoMixin {
 
     return query.get();
   }
-
-
 }

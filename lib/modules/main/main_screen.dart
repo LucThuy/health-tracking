@@ -6,7 +6,6 @@ import 'package:health_tracking/features/blog/blog_screen.dart';
 import 'package:health_tracking/features/dashboard/dashboard_screen.dart';
 import 'package:health_tracking/features/diary/diary_screen.dart';
 import 'package:health_tracking/modules/main/main_controller.dart';
-import 'package:health_tracking/modules/scan/camera_screen.dart';
 import 'package:health_tracking/utility/theme.dart';
 import 'package:sizer/sizer.dart';
 

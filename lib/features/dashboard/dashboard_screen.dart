@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_tracking/features/dashboard/components/food_card.dart';
-import 'package:health_tracking/features/dashboard/components/username.dart';
 import 'package:health_tracking/features/dashboard/dashboard_controller.dart';
 import 'package:health_tracking/routes/app_pages.dart';
 import 'package:sizer/sizer.dart';
