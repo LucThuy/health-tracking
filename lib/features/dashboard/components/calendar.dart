@@ -3,20 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/features/dashboard/dashboard_controller.dart';
 import 'package:sizer/sizer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../utility/theme.dart';
-import '../diary_controller.dart';
 
 class Calender extends StatelessWidget {
-  final diaryController = Get.find<DiaryController>();
+  final dashboardController = Get.find<DashboardController>();
   var focusedDay;
 
-  Calender(DateTime focusedDay, {Key? key}) : super(key: key){
+  Calender(DateTime focusedDay, {Key? key}) : super(key: key) {
     this.focusedDay = focusedDay;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +36,8 @@ class Calender extends StatelessWidget {
               color: kGreen800o9,
             ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 0, bottom: 0, left: 10, right: 10),
+              padding:
+                  const EdgeInsets.only(top: 0, bottom: 0, left: 10, right: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,15 +46,14 @@ class Calender extends StatelessWidget {
                     focusedDay: focusedDay,
                     firstDay: DateTime.utc(2023, 10, 16),
                     lastDay: DateTime.utc(2024, 3, 14),
-                    rowHeight: 40,
+                    rowHeight: 45,
                     calendarFormat: CalendarFormat.week,
                     selectedDayPredicate: (day) => isSameDay(day, focusedDay),
                     headerStyle: HeaderStyle(
                       titleTextStyle: GoogleFonts.pangolin(
-                        color: kWhite,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20.sp
-                      ),
+                          color: kWhite,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20.sp),
                       formatButtonVisible: false,
                       titleCentered: true,
                     ),
@@ -63,50 +61,34 @@ class Calender extends StatelessWidget {
                       weekdayStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp
-                      ),
+                          fontSize: 14.sp),
                       weekendStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp
-                      ),
+                          fontSize: 14.sp),
                     ),
                     calendarStyle: CalendarStyle(
                       defaultTextStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp
-                      ),
+                          fontSize: 14.sp),
                       weekendTextStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp
-                      ),
+                          fontSize: 14.sp),
                       todayTextStyle: GoogleFonts.pangolin(
-                          color: kWhite,
+                          color: kBlack,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp
-                      ),
+                          fontSize: 14.sp),
                       selectedTextStyle: GoogleFonts.pangolin(
                           color: kWhite,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14.sp
-                      ),
+                          fontSize: 14.sp),
                       outsideTextStyle: GoogleFonts.pangolin(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14.sp
-                      ),
-                      selectedDecoration: BoxDecoration(
-                        color: kGreen600,
-                        shape: BoxShape.circle,
-                      ),
-                      todayDecoration: BoxDecoration(
-                        color: kGreen950,
-                        shape: BoxShape.circle,
-                      )
+                          fontWeight: FontWeight.w700, fontSize: 14.sp),
                     ),
                     onDaySelected: (selectedDay, focusedDay) {
-                      diaryController.updateSelectedDay(selectedDay);
+                      dashboardController.updateSelectedWeek(selectedDay);
                     },
                   )
                 ],

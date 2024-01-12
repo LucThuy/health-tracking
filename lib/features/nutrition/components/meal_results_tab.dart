@@ -11,6 +11,6 @@ class MealResultsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.showAll(FoodType.meal);
-    return ResultsTab(foodType: FoodType.meal);
+    return ResultsTab(foodType:'meal');
   }
 }

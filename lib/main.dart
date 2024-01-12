@@ -8,7 +8,7 @@ import 'package:sizer/sizer.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(
+    options: const FirebaseOptions(
       apiKey: "AIzaSyCrOrTVGA-RyTxceQNmnQHRElxyZRBLcSA",
       appId: "624466782152",
       messagingSenderId: "624466782152",

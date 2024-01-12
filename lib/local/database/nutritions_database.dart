@@ -71,7 +71,6 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
 
   List<NutritionData> search(FoodType type, String query) {
     List<NutritionData> nutritionList = [];
-
     return nutritionList;
   }
 
@@ -102,4 +101,9 @@ class NutritionsDao extends DatabaseAccessor<NutritionsDatabase>
 
   Future<List<NutritionData>> searchNutrition(String query) =>
       (select(nutrition)..where((n) => n.name.like('%$query%'))).get();
+
+  Future<List<NutritionData>> searchTypeNutrition(String query) async{
+    return (select(nutrition)..where((n) => n.foodType.like('%$query%'))).get();
+  }
+
 }

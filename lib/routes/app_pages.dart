@@ -6,6 +6,10 @@ import 'package:health_tracking/modules/main/main_binding.dart';
 import 'package:health_tracking/modules/main/main_screen.dart';
 import 'package:health_tracking/modules/scan/camera_screen.dart';
 
+import '../modules/dashboard/detail_line/detail_line_binding.dart';
+import '../modules/dashboard/detail_line/detail_line_screen.dart';
+import '../modules/diary/detail_plan_binding.dart';
+import '../modules/diary/detail_plan_screen.dart';
 import '../modules/image/image_screen.dart';
 
 part 'app_routes.dart';
@@ -33,6 +37,16 @@ class AppPages {
       name: AppRoutes.rAddLine,
       binding: AddLineBinding(),
       page: () => const AddLineScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.rDetailLine,
+      binding: DetailLineBinding(),
+      page: () => const DetailLineScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.rDetailPlan,
+      binding: DetailPlanBinding(),
+      page: () => DetailPlanScreen(),
     )
   ];
 }

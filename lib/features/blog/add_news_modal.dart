@@ -167,8 +167,8 @@ class _AddPage extends State<AddPage> {
                 backgroundImage: MemoryImage(_image!),
             ) :
             CircleAvatar(
-          radius: 0,
-          backgroundImage: NetworkImage("https://media.istockphoto.com/id/1248723171/vector/camera-photo-upload-icon-on-isolated-white-background-eps-10-vector.jpg?s=612x612&w=0&k=20&c=e-OBJ2jbB-W_vfEwNCip4PW4DqhHGXYMtC3K_mzOac0="),
+          radius: 64,
+          backgroundImage: NetworkImage("https://static.thenounproject.com/png/396915-200.png"),
         ),
         Positioned(
             child: IconButton(

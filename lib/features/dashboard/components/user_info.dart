@@ -1,42 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/features/dashboard/components/calendar.dart';
+import 'package:sizer/sizer.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
-class UserAvatarWithName extends StatelessWidget {
-  final String username;
-  final String name;
+import '../../../utility/theme.dart';
 
-  UserAvatarWithName({
-    required this.username,
-    required this.name,
-  });
+class DayCalories {
+  final int index;
+  final String day;
+  final double calories;
+
+  DayCalories({required this.index, required this.day, required this.calories});
+}
+
+class LineChartComponent extends StatelessWidget {
+  final List<DayCalories> dayCaloriesList;
+  final List<DayCalories> planningDayCaloriesList;
+  final String userName;
+
+  LineChartComponent(
+      {required this.dayCaloriesList,
+      required this.userName,
+      required this.planningDayCaloriesList}) {
+    print(this.dayCaloriesList);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    // Convert the DayCalories list to FlSpot list
+    return Column(
       children: [
-        CircleAvatar(
-          backgroundColor: Colors.blue, // Change the background color as needed
-          child: Text(
-            name.isNotEmpty ? name[0].toUpperCase() : '',
-            style: TextStyle(
-              color: Colors.white, // Change the text color as needed
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-          radius: 30,
-        ),
-        SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              name,
-              style: TextStyle(
-                fontSize: 16,
+        Calender(DateTime.now()),
+        SizedBox(
+            width: 100.w,
+            height: 25.h,
+            child: SfCartesianChart(
+              enableSideBySideSeriesPlacement: false,
+              primaryXAxis: CategoryAxis(
+                title: AxisTitle(
+                  text: 'Day',
+                  textStyle: GoogleFonts.pangolin(
+                    color: kWhite,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10.sp,
+                  ),
+                ),
               ),
-            ),
-          ],
-        ),
+              primaryYAxis: NumericAxis(
+                title: AxisTitle(
+                  text: 'Calories',
+                  textStyle: GoogleFonts.pangolin(
+                    color: kWhite,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 10.sp,
+                  ),
+                ),
+              ),
+              series: [
+                ColumnSeries<DayCalories, String>(
+                  dataSource: dayCaloriesList,
+                  xValueMapper: (DayCalories data, _) => data.day,
+                  yValueMapper: (DayCalories data, _) => data.calories,
+                ),
+                ColumnSeries<DayCalories, String>(
+                  opacity: 0.9,
+                  width: 0.4,
+                  dataSource: planningDayCaloriesList,
+                  xValueMapper: (DayCalories data, _) => data.day,
+                  yValueMapper: (DayCalories data, _) => data.calories,
+                )
+              ],
+            )),
       ],
     );
   }

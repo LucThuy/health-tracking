@@ -43,6 +43,10 @@ class LineDao extends DatabaseAccessor<LineDatabase> with _$LineDaoMixin {
   Stream<List<LineData>> watchLineByPageId(int pageId) =>
       (select(line)..where((line) => line.pageId.equals(pageId))).watch();
 
+  Future watchLineById(int id) => (select(line)..where((l) => l.id.equals(id))).getSingleOrNull();
+
   Future insertLine(Insertable<LineData> lineData) =>
       into(line).insert(lineData);
+
+  Future deleteLine(Insertable<LineData> lineData) => delete(line).delete(lineData);
 }

@@ -1,42 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'plan.dart';
+part of 'daily_plan.dart';
 
 // **************************************************************************
 // MoorGenerator
 // **************************************************************************
 
 // ignore_for_file: type=lint
-class PlanData extends DataClass implements Insertable<PlanData> {
+class DailyPlanData extends DataClass implements Insertable<DailyPlanData> {
   final int id;
-  final String name;
   final DateTime date;
-  final DateTime time;
   final double calories;
   final double protein;
   final double carbohydrates;
   final double fat;
-  PlanData(
+  DailyPlanData(
       {required this.id,
-      required this.name,
       required this.date,
-      required this.time,
       required this.calories,
       required this.protein,
       required this.carbohydrates,
       required this.fat});
-  factory PlanData.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory DailyPlanData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
-    return PlanData(
+    return DailyPlanData(
       id: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
-      name: const StringType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
       date: const DateTimeType()
           .mapFromDatabaseResponse(data['${effectivePrefix}date'])!,
-      time: const DateTimeType()
-          .mapFromDatabaseResponse(data['${effectivePrefix}time'])!,
       calories: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}calories'])!,
       protein: const RealType()
@@ -51,9 +44,7 @@ class PlanData extends DataClass implements Insertable<PlanData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['name'] = Variable<String>(name);
     map['date'] = Variable<DateTime>(date);
-    map['time'] = Variable<DateTime>(time);
     map['calories'] = Variable<double>(calories);
     map['protein'] = Variable<double>(protein);
     map['carbohydrates'] = Variable<double>(carbohydrates);
@@ -61,12 +52,10 @@ class PlanData extends DataClass implements Insertable<PlanData> {
     return map;
   }
 
-  PlanCompanion toCompanion(bool nullToAbsent) {
-    return PlanCompanion(
+  DailyPlanCompanion toCompanion(bool nullToAbsent) {
+    return DailyPlanCompanion(
       id: Value(id),
-      name: Value(name),
       date: Value(date),
-      time: Value(time),
       calories: Value(calories),
       protein: Value(protein),
       carbohydrates: Value(carbohydrates),
@@ -74,14 +63,12 @@ class PlanData extends DataClass implements Insertable<PlanData> {
     );
   }
 
-  factory PlanData.fromJson(Map<String, dynamic> json,
+  factory DailyPlanData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return PlanData(
+    return DailyPlanData(
       id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
       date: serializer.fromJson<DateTime>(json['date']),
-      time: serializer.fromJson<DateTime>(json['time']),
       calories: serializer.fromJson<double>(json['calories']),
       protein: serializer.fromJson<double>(json['protein']),
       carbohydrates: serializer.fromJson<double>(json['carbohydrates']),
@@ -93,9 +80,7 @@ class PlanData extends DataClass implements Insertable<PlanData> {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
       'date': serializer.toJson<DateTime>(date),
-      'time': serializer.toJson<DateTime>(time),
       'calories': serializer.toJson<double>(calories),
       'protein': serializer.toJson<double>(protein),
       'carbohydrates': serializer.toJson<double>(carbohydrates),
@@ -103,20 +88,16 @@ class PlanData extends DataClass implements Insertable<PlanData> {
     };
   }
 
-  PlanData copyWith(
+  DailyPlanData copyWith(
           {int? id,
-          String? name,
           DateTime? date,
-          DateTime? time,
           double? calories,
           double? protein,
           double? carbohydrates,
           double? fat}) =>
-      PlanData(
+      DailyPlanData(
         id: id ?? this.id,
-        name: name ?? this.name,
         date: date ?? this.date,
-        time: time ?? this.time,
         calories: calories ?? this.calories,
         protein: protein ?? this.protein,
         carbohydrates: carbohydrates ?? this.carbohydrates,
@@ -124,11 +105,9 @@ class PlanData extends DataClass implements Insertable<PlanData> {
       );
   @override
   String toString() {
-    return (StringBuffer('PlanData(')
+    return (StringBuffer('DailyPlanData(')
           ..write('id: $id, ')
-          ..write('name: $name, ')
           ..write('date: $date, ')
-          ..write('time: $time, ')
           ..write('calories: $calories, ')
           ..write('protein: $protein, ')
           ..write('carbohydrates: $carbohydrates, ')
@@ -139,61 +118,49 @@ class PlanData extends DataClass implements Insertable<PlanData> {
 
   @override
   int get hashCode =>
-      Object.hash(id, name, date, time, calories, protein, carbohydrates, fat);
+      Object.hash(id, date, calories, protein, carbohydrates, fat);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is PlanData &&
+      (other is DailyPlanData &&
           other.id == this.id &&
-          other.name == this.name &&
           other.date == this.date &&
-          other.time == this.time &&
           other.calories == this.calories &&
           other.protein == this.protein &&
           other.carbohydrates == this.carbohydrates &&
           other.fat == this.fat);
 }
 
-class PlanCompanion extends UpdateCompanion<PlanData> {
+class DailyPlanCompanion extends UpdateCompanion<DailyPlanData> {
   final Value<int> id;
-  final Value<String> name;
   final Value<DateTime> date;
-  final Value<DateTime> time;
   final Value<double> calories;
   final Value<double> protein;
   final Value<double> carbohydrates;
   final Value<double> fat;
-  const PlanCompanion({
+  const DailyPlanCompanion({
     this.id = const Value.absent(),
-    this.name = const Value.absent(),
     this.date = const Value.absent(),
-    this.time = const Value.absent(),
     this.calories = const Value.absent(),
     this.protein = const Value.absent(),
     this.carbohydrates = const Value.absent(),
     this.fat = const Value.absent(),
   });
-  PlanCompanion.insert({
+  DailyPlanCompanion.insert({
     this.id = const Value.absent(),
-    required String name,
     required DateTime date,
-    required DateTime time,
     required double calories,
     required double protein,
     required double carbohydrates,
     required double fat,
-  })  : name = Value(name),
-        date = Value(date),
-        time = Value(time),
+  })  : date = Value(date),
         calories = Value(calories),
         protein = Value(protein),
         carbohydrates = Value(carbohydrates),
         fat = Value(fat);
-  static Insertable<PlanData> custom({
+  static Insertable<DailyPlanData> custom({
     Expression<int>? id,
-    Expression<String>? name,
     Expression<DateTime>? date,
-    Expression<DateTime>? time,
     Expression<double>? calories,
     Expression<double>? protein,
     Expression<double>? carbohydrates,
@@ -201,9 +168,7 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (name != null) 'name': name,
       if (date != null) 'date': date,
-      if (time != null) 'time': time,
       if (calories != null) 'calories': calories,
       if (protein != null) 'protein': protein,
       if (carbohydrates != null) 'carbohydrates': carbohydrates,
@@ -211,20 +176,16 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
     });
   }
 
-  PlanCompanion copyWith(
+  DailyPlanCompanion copyWith(
       {Value<int>? id,
-      Value<String>? name,
       Value<DateTime>? date,
-      Value<DateTime>? time,
       Value<double>? calories,
       Value<double>? protein,
       Value<double>? carbohydrates,
       Value<double>? fat}) {
-    return PlanCompanion(
+    return DailyPlanCompanion(
       id: id ?? this.id,
-      name: name ?? this.name,
       date: date ?? this.date,
-      time: time ?? this.time,
       calories: calories ?? this.calories,
       protein: protein ?? this.protein,
       carbohydrates: carbohydrates ?? this.carbohydrates,
@@ -238,14 +199,8 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
-    }
     if (date.present) {
       map['date'] = Variable<DateTime>(date.value);
-    }
-    if (time.present) {
-      map['time'] = Variable<DateTime>(time.value);
     }
     if (calories.present) {
       map['calories'] = Variable<double>(calories.value);
@@ -264,11 +219,9 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
 
   @override
   String toString() {
-    return (StringBuffer('PlanCompanion(')
+    return (StringBuffer('DailyPlanCompanion(')
           ..write('id: $id, ')
-          ..write('name: $name, ')
           ..write('date: $date, ')
-          ..write('time: $time, ')
           ..write('calories: $calories, ')
           ..write('protein: $protein, ')
           ..write('carbohydrates: $carbohydrates, ')
@@ -278,11 +231,12 @@ class PlanCompanion extends UpdateCompanion<PlanData> {
   }
 }
 
-class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
+class $DailyPlanTable extends DailyPlan
+    with TableInfo<$DailyPlanTable, DailyPlanData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PlanTable(this.attachedDatabase, [this._alias]);
+  $DailyPlanTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
@@ -290,20 +244,10 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
       type: const IntType(),
       requiredDuringInsert: false,
       defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  final VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
-      'name', aliasedName, false,
-      type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _dateMeta = const VerificationMeta('date');
   @override
   late final GeneratedColumn<DateTime?> date = GeneratedColumn<DateTime?>(
       'date', aliasedName, false,
-      type: const IntType(), requiredDuringInsert: true);
-  final VerificationMeta _timeMeta = const VerificationMeta('time');
-  @override
-  late final GeneratedColumn<DateTime?> time = GeneratedColumn<DateTime?>(
-      'time', aliasedName, false,
       type: const IntType(), requiredDuringInsert: true);
   final VerificationMeta _caloriesMeta = const VerificationMeta('calories');
   @override
@@ -328,36 +272,24 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
       type: const RealType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, date, time, calories, protein, carbohydrates, fat];
+      [id, date, calories, protein, carbohydrates, fat];
   @override
-  String get aliasedName => _alias ?? 'plan';
+  String get aliasedName => _alias ?? 'daily_plan';
   @override
-  String get actualTableName => 'plan';
+  String get actualTableName => 'daily_plan';
   @override
-  VerificationContext validateIntegrity(Insertable<PlanData> instance,
+  VerificationContext validateIntegrity(Insertable<DailyPlanData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
     if (data.containsKey('date')) {
       context.handle(
           _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
     } else if (isInserting) {
       context.missing(_dateMeta);
-    }
-    if (data.containsKey('time')) {
-      context.handle(
-          _timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
-    } else if (isInserting) {
-      context.missing(_timeMeta);
     }
     if (data.containsKey('calories')) {
       context.handle(_caloriesMeta,
@@ -391,31 +323,33 @@ class $PlanTable extends Plan with TableInfo<$PlanTable, PlanData> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PlanData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    return PlanData.fromData(data, attachedDatabase,
+  DailyPlanData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return DailyPlanData.fromData(data, attachedDatabase,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override
-  $PlanTable createAlias(String alias) {
-    return $PlanTable(attachedDatabase, alias);
+  $DailyPlanTable createAlias(String alias) {
+    return $DailyPlanTable(attachedDatabase, alias);
   }
 }
 
-abstract class _$PlanDatabase extends GeneratedDatabase {
-  _$PlanDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  late final $PlanTable plan = $PlanTable(this);
-  late final PlanDao planDao = PlanDao(this as PlanDatabase);
+abstract class _$DailyPlanDatabase extends GeneratedDatabase {
+  _$DailyPlanDatabase(QueryExecutor e)
+      : super(SqlTypeSystem.defaultInstance, e);
+  late final $DailyPlanTable dailyPlan = $DailyPlanTable(this);
+  late final DailyPlanDao dailyPlanDao =
+      DailyPlanDao(this as DailyPlanDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [plan];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [dailyPlan];
 }
 
 // **************************************************************************
 // DaoGenerator
 // **************************************************************************
 
-mixin _$PlanDaoMixin on DatabaseAccessor<PlanDatabase> {
-  $PlanTable get plan => attachedDatabase.plan;
+mixin _$DailyPlanDaoMixin on DatabaseAccessor<DailyPlanDatabase> {
+  $DailyPlanTable get dailyPlan => attachedDatabase.dailyPlan;
 }

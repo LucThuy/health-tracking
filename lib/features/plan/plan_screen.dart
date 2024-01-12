@@ -39,32 +39,110 @@ class PlanPage extends GetView<PlanController> {
           ),
         ),
       ),
-      body: Container(
-        decoration: const BoxDecoration(gradient: kGradientGreen100White),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TimePicker(),
-                NutritionButton(),
-                Padding(
-                  padding: EdgeInsets.only(top: 15.0),
-                  child: TextField(
-                    onChanged: (value) => {diaryController.onChangeName(value)},
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(gradient: kGradientGreen100White),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TimePicker(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: TextField(
+                      onChanged: (value) => {controller.onChangeName(value)},
+                      cursorColor: kGreen800,
+                      style: GoogleFonts.pangolin(
+                        color: kGreen800,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 12.sp,
+                      ),
+                      controller: controller.nameController,
+                      decoration: InputDecoration(
+        
+                          contentPadding: const EdgeInsets.only(
+                              top: 20, bottom: 15, left: 20, right: 20),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          floatingLabelStyle: GoogleFonts.pangolin(
+                            color: kGreen800,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14.sp,
+                          ),
+                          labelStyle: GoogleFonts.pangolin(
+                            color: kGreen800,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14.sp,
+                          ),
+                          fillColor: kWhite,
+                          filled: true,
+                          labelText: "Dish name",
+                          hintText: "Ex. Bún đậu mắm tôm",
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: kGreen800),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: kGreen800, width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(color: kGreen800),
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                  ),
+                  Obx(
+                        () => RefreshIndicator(
+                          onRefresh: () =>
+                              controller.loadNutrition(controller.nameController.text),
+                          child: Center(
+                            child: SizedBox(
+                              height: 200,
+                              child: controller.nutritionList.isEmpty
+                                  ? Center(
+                                child: Text(
+                                  "Nothing found",
+                                  style: GoogleFonts.pangolin(
+                                    color: kGreen800,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                              )
+                                  : ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: controller.nutritionList.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        controller.onChooseFood(index);
+                                      },
+                                      child: FoodCardChoice(
+                                          nutritionData: controller
+                                              .nutritionList
+                                              .elementAt(index)),
+                                    );
+                                  }),
+                            ),
+                          ),
+                        ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    controller: controller.caloriesController,
                     cursorColor: kGreen800,
                     style: GoogleFonts.pangolin(
                       color: kGreen800,
                       fontWeight: FontWeight.w300,
                       fontSize: 12.sp,
                     ),
-                    controller: textController,
                     decoration: InputDecoration(
-
                         contentPadding: const EdgeInsets.only(
                             top: 20, bottom: 15, left: 20, right: 20),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        floatingLabelBehavior:
+                        FloatingLabelBehavior.always,
                         floatingLabelStyle: GoogleFonts.pangolin(
                           color: kGreen800,
                           fontWeight: FontWeight.w700,
@@ -77,53 +155,152 @@ class PlanPage extends GetView<PlanController> {
                         ),
                         fillColor: kWhite,
                         filled: true,
-                        labelText: "Dish name",
-                        hintText: "Ex. Bún đậu mắm tôm",
+                        labelText: "Calories",
+                        hintText: "Ex. 100",
                         enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: kGreen800),
+                            borderSide:
+                            const BorderSide(color: kGreen800),
                             borderRadius: BorderRadius.circular(10)),
                         focusedBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 color: kGreen800, width: 2),
                             borderRadius: BorderRadius.circular(10)),
                         border: OutlineInputBorder(
-                            borderSide: const BorderSide(color: kGreen800),
+                            borderSide:
+                            const BorderSide(color: kGreen800),
                             borderRadius: BorderRadius.circular(10))),
                   ),
-                ),
-                Obx(
-                      () => RefreshIndicator(
-                    onRefresh: () =>
-                        diaryController.loadNutrition(diaryController.name.value),
-                    child: Center(
-                      child: SizedBox(
-                        height: 200,
-                        child: diaryController.nutritionList.isEmpty
-                            ? Center(
-                          child: Text(
-                            "Nothing found",
-                            style: GoogleFonts.pangolin(
-                              color: kGreen800,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                        )
-                            : ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount:
-                            diaryController.nutritionList.length,
-                            itemBuilder: (context, index) {
-                              return FoodCardChoice(
-                                  nutritionData: diaryController
-                                      .nutritionList
-                                      .elementAt(index));
-                            }),
-                      ),
-                    ),
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
-              ],
+                  TextField(
+                    controller: controller.proteinController,
+                    cursorColor: kGreen800,
+                    style: GoogleFonts.pangolin(
+                      color: kGreen800,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 12.sp,
+                    ),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(
+                            top: 20, bottom: 15, left: 20, right: 20),
+                        floatingLabelBehavior:
+                        FloatingLabelBehavior.always,
+                        floatingLabelStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp,
+                        ),
+                        labelStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp,
+                        ),
+                        fillColor: kWhite,
+                        filled: true,
+                        labelText: "Protein",
+                        hintText: "Ex. 100",
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                            const BorderSide(color: kGreen800),
+                            borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kGreen800, width: 2),
+                            borderRadius: BorderRadius.circular(10)),
+                        border: OutlineInputBorder(
+                            borderSide:
+                            const BorderSide(color: kGreen800),
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    controller: controller.carbohydratesController,
+                    cursorColor: kGreen800,
+                    style: GoogleFonts.pangolin(
+                      color: kGreen800,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 12.sp,
+                    ),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(
+                            top: 20, bottom: 15, left: 20, right: 20),
+                        floatingLabelBehavior:
+                        FloatingLabelBehavior.always,
+                        floatingLabelStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp,
+                        ),
+                        labelStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp,
+                        ),
+                        fillColor: kWhite,
+                        filled: true,
+                        labelText: "Carbohydrates",
+                        hintText: "Ex. 100",
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                            const BorderSide(color: kGreen800),
+                            borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kGreen800, width: 2),
+                            borderRadius: BorderRadius.circular(10)),
+                        border: OutlineInputBorder(
+                            borderSide:
+                            const BorderSide(color: kGreen800),
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    controller: controller.fatController,
+                    cursorColor: kGreen800,
+                    style: GoogleFonts.pangolin(
+                      color: kGreen800,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 12.sp,
+                    ),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(
+                            top: 20, bottom: 15, left: 20, right: 20),
+                        floatingLabelBehavior:
+                        FloatingLabelBehavior.always,
+                        floatingLabelStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp,
+                        ),
+                        labelStyle: GoogleFonts.pangolin(
+                          color: kGreen800,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14.sp,
+                        ),
+                        fillColor: kWhite,
+                        filled: true,
+                        labelText: "Fat",
+                        hintText: "Ex. 100",
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                            const BorderSide(color: kGreen800),
+                            borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: kGreen800, width: 2),
+                            borderRadius: BorderRadius.circular(10)),
+                        border: OutlineInputBorder(
+                            borderSide:
+                            const BorderSide(color: kGreen800),
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -162,9 +339,7 @@ class PlanPage extends GetView<PlanController> {
               },
               onDismissed: (direction) => {
                 if (direction == DismissDirection.startToEnd)
-                  {
-                    controller.savePlan(controller.selectedTime.value, diaryController.focusedDay.value, textController.text)
-                  }
+                  {controller.savePlan(diaryController.focusedDay.value)}
                 else if (direction == DismissDirection.endToStart)
                   {Get.toNamed(AppRoutes.rMain)}
               },
