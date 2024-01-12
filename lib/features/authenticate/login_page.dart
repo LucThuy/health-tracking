@@ -40,10 +40,11 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Text("Login",style: GoogleFonts.pangolin(
             color: kWhite,
             fontWeight: FontWeight.w700,
-            fontSize: 14.sp
+            fontSize: 18.sp
         ),
         ),
         backgroundColor: kGreen800o9,
@@ -54,14 +55,6 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Login",
-                style: GoogleFonts.pangolin(
-                    color: kWhite,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.sp
-                ),
-              ),
               SizedBox(
                 height: 30,
               ),
@@ -89,16 +82,17 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: kGreen800,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                     child: _isSigning ? CircularProgressIndicator(
                       color: Colors.white,) : Text(
                       "Login",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.pangolin(
+                          color: kWhite,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16.sp
                       ),
                     ),
                   ),
@@ -125,9 +119,10 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(width: 5,),
                         Text(
                           "Sign in with Google",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                          style: GoogleFonts.pangolin(
+                              color: kWhite,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16.sp
                           ),
                         ),
                       ],
@@ -150,16 +145,15 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()),
-                            (route) => false,
+                        MaterialPageRoute(builder: (context) => SignUpPage())
                       );
                     },
                     child: Text(
                       "Sign Up",
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: kGreen800,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

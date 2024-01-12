@@ -26,6 +26,7 @@ class _BlogState extends State<BlogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: kGreen800o9,
         elevation: 0.0,
         title: Row(

@@ -1,9 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:health_tracking/features/blog/blog_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_tracking/helper/utils.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utility/theme.dart';
 import '../../services/firebase_crud.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddPage extends StatefulWidget {
   @override
@@ -16,9 +20,53 @@ class AddPage extends StatefulWidget {
 class _AddPage extends State<AddPage> {
   final _title = TextEditingController();
   final _content = TextEditingController();
-  final _image = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  void addNews() async {
+    if (_formKey.currentState!.validate()) {
+      var response = await FirebaseCrud.addNews(
+          title: _title.text,
+          content: _content.text,
+          file: _image!);
+      if(response.code == 200) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => BlogPage())
+        );
+      }
+      if (response.code != 200) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(response.message.toString()),
+              );
+            });
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(response.message.toString()),
+              );
+            });
+      }
+    }
+  }
+
+
+  Uint8List? _image;
+
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -110,49 +158,27 @@ class _AddPage extends State<AddPage> {
                 borderRadius: BorderRadius.circular(10))
         )
     );
-    final contactField = TextFormField(
-        controller: _image,
-        autofocus: false,
-        cursorColor: kGreen800,
-        style: GoogleFonts.pangolin(
-          color: kGreen800,
-          fontWeight: FontWeight.w300,
-          fontSize: 12.sp,
+    
+    final imageField = Stack(
+      children: [
+        _image != null ?
+            CircleAvatar(
+              radius: 64,
+                backgroundImage: MemoryImage(_image!),
+            ) :
+            CircleAvatar(
+          radius: 0,
+          backgroundImage: NetworkImage("https://media.istockphoto.com/id/1248723171/vector/camera-photo-upload-icon-on-isolated-white-background-eps-10-vector.jpg?s=612x612&w=0&k=20&c=e-OBJ2jbB-W_vfEwNCip4PW4DqhHGXYMtC3K_mzOac0="),
         ),
-        validator: (value) {
-          if (value == null || value.trim().isEmpty) {
-            return 'This field is required';
-          }
-        },
-        decoration: InputDecoration(
-            contentPadding: const EdgeInsets.only(
-                top: 20, bottom: 15, left: 20, right: 20),
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            floatingLabelStyle: GoogleFonts.pangolin(
-              color: kGreen800,
-              fontWeight: FontWeight.w700,
-              fontSize: 14.sp,
+        Positioned(
+            child: IconButton(
+              onPressed: selectImage,
+              icon: const Icon(Icons.add_a_photo)
             ),
-            labelStyle: GoogleFonts.pangolin(
-              color: kGreen800,
-              fontWeight: FontWeight.w700,
-              fontSize: 14.sp,
-            ),
-            fillColor: kWhite,
-            filled: true,
-            labelText: "Image Link",
-            hintText: "https://image.vn.com",
-            enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: kGreen800),
-                borderRadius: BorderRadius.circular(10)),
-            focusedBorder: OutlineInputBorder(
-                borderSide:
-                const BorderSide(color: kGreen800, width: 2),
-                borderRadius: BorderRadius.circular(10)),
-            border: OutlineInputBorder(
-                borderSide: const BorderSide(color: kGreen800),
-                borderRadius: BorderRadius.circular(10))
+          bottom: -10,
+          left: 80
         )
+      ],
     );
 
     final SaveButon = Material(
@@ -162,37 +188,7 @@ class _AddPage extends State<AddPage> {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {
-            var response = await FirebaseCrud.addNews(
-                title: _title.text,
-                content: _content.text,
-                image: _image.text);
-            if(response.code == 200) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BlogPage())
-              );
-            }
-            if (response.code != 200) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: Text(response.message.toString()),
-                    );
-                  });
-            } else {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      content: Text(response.message.toString()),
-                    );
-                  });
-            }
-          }
-        },
+        onPressed: () => addNews(),
         child: Text(
           "Save",
           style: GoogleFonts.pangolin(
@@ -232,7 +228,7 @@ class _AddPage extends State<AddPage> {
                   const SizedBox(height: 25.0),
                   positionField,
                   const SizedBox(height: 35.0),
-                  contactField,
+                  imageField,
                   const SizedBox(height: 45.0),
                   SaveButon,
                   const SizedBox(height: 15.0),

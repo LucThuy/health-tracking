@@ -7,8 +7,7 @@ import '../../routes/app_pages.dart';
 class PlanController extends GetxController {
   Rx<TimeOfDay> selectedTime = TimeOfDay.now().obs;
   final PlanDao planDao = Get.find();
-
-
+  final planList = RxList<PlanData>([]);
 
   void updateTime(TimeOfDay newTime) {
     selectedTime.value = newTime;
@@ -28,5 +27,11 @@ class PlanController extends GetxController {
     Get.toNamed(AppRoutes.rMain);
   }
 
-
+  Future<void> getPlan(DateTime focusedDay) async {
+    planList.clear();
+    List<PlanData> plans = await planDao.getPlansByDate(focusedDay);
+    if (plans != null) {
+      planList.assignAll(plans);
+    }
+  }
 }
