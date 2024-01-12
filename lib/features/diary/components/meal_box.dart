@@ -12,7 +12,7 @@ class MealBox extends StatelessWidget {
   var focusedDay;
   final diaryController = Get.find<DiaryController>();
 
-  MealBox(DateTime focusedDay, {Key? key}) : super(key: key){
+  MealBox(DateTime focusedDay, {Key? key}) : super(key: key) {
     this.focusedDay = focusedDay;
   }
 
@@ -45,81 +45,82 @@ class MealBox extends StatelessWidget {
                     style: GoogleFonts.pangolin(
                         color: kWhite,
                         fontWeight: FontWeight.w700,
-                        fontSize: 14.sp
-                    ),
+                        fontSize: 14.sp),
                   ),
                   Expanded(
                     child: FutureBuilder<void>(
-                      future: diaryController.getPlan(focusedDay),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return CircularProgressIndicator();
-                        } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else {
-                          return SizedBox(
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: diaryController.planList.length + 1,
-                              itemBuilder: (context, index) {
-                                if (index == diaryController.planList.length) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Card(
-                                      color: kGreen50o6,
-                                      elevation: 5,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Center(
-                                        child: SizedBox(
-                                          width: 150,
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => PlanPage(focusedDay)),
-                                              );
-                                            },
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.add,
-                                                size: 80,
-                                                color: kTextInvertColor,
+                        future: diaryController.getPlan(focusedDay),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return SizedBox(
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: diaryController.planList.length + 1,
+                                itemBuilder: (context, index) {
+                                  if (index ==
+                                      diaryController.planList.length) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Card(
+                                        color: kGreen50o6,
+                                        elevation: 5,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: Center(
+                                          child: SizedBox(
+                                            width: 150,
+                                            child: InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PlanPage(focusedDay)),
+                                                );
+                                              },
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 80,
+                                                  color: kTextInvertColor,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                } else {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: InkWell(
-                                      onTap: () => {diaryController.detailPlan(index)},
-                                      child: MealCard(
-                                        plan: diaryController.planList.elementAt(
-                                            index),
+                                    );
+                                  } else {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () =>
+                                            {diaryController.detailPlan(index)},
+                                        child: MealCard(
+                                          plan: diaryController.planList
+                                              .elementAt(index),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }
-                              },
-                            ),
-                          );
-                        }
-                      }
-                    ),
+                                    );
+                                  }
+                                },
+                              ),
+                            );
+                          }
+                        }),
                   )
                 ],
               ),
             ),
           ),
         ),
-
       ),
     );
   }

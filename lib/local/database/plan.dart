@@ -36,22 +36,22 @@ class PlanDao extends DatabaseAccessor<PlanDatabase> with _$PlanDaoMixin {
 
   PlanDao(this.planDb) : super(planDb);
 
-  Future watchPlanById(int id) => (select(plan)..where((p) => p.id.equals(id))).getSingleOrNull();
+  Future watchPlanById(int id) =>
+      (select(plan)..where((p) => p.id.equals(id))).getSingleOrNull();
 
   Future insertPlan(Insertable<PlanData> planData) =>
       into(plan).insert(planData);
 
   Future<List<PlanData>> getPlansByDate(DateTime date) async {
-    final query = select(plan)
-      ..where((p) => p.date.equals(date));
+    final query = select(plan)..where((p) => p.date.equals(date));
 
     return query.get();
   }
-  Future<List<PlanData>> getAllPlan() async{
-      return select(plan).get();
+
+  Future<List<PlanData>> getAllPlan() async {
+    return select(plan).get();
   }
 
-  Future deletePlan(Insertable<PlanData> planData) => delete(plan).delete(planData);
-
-
+  Future deletePlan(Insertable<PlanData> planData) =>
+      delete(plan).delete(planData);
 }

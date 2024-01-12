@@ -40,11 +40,10 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Login",style: GoogleFonts.pangolin(
-            color: kWhite,
-            fontWeight: FontWeight.w700,
-            fontSize: 16.sp
-        ),
+        title: Text(
+          "Login",
+          style: GoogleFonts.pangolin(
+              color: kWhite, fontWeight: FontWeight.w700, fontSize: 16.sp),
         ),
         backgroundColor: kGreen800o9,
       ),
@@ -54,14 +53,6 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Login",
-                style: GoogleFonts.pangolin(
-                    color: kWhite,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.sp
-                ),
-              ),
               SizedBox(
                 height: 30,
               ),
@@ -93,22 +84,26 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
-                    child: _isSigning ? CircularProgressIndicator(
-                      color: Colors.white,) : Text(
-                      "Login",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: _isSigning
+                        ? CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : Text(
+                            "Login",
+                            style: GoogleFonts.pangolin(
+                                color: kWhite,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16.sp),
+                          ),
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               GestureDetector(
                 onTap: () {
                   _signInWithGoogle();
-
                 },
                 child: Container(
                   width: double.infinity,
@@ -121,26 +116,28 @@ class _LoginPageState extends State<LoginPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(FontAwesomeIcons.google, color: Colors.white,),
-                        SizedBox(width: 5,),
+                        Icon(
+                          FontAwesomeIcons.google,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
                         Text(
                           "Sign in with Google",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: GoogleFonts.pangolin(
+                              color: kWhite,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16.sp),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-
-
               SizedBox(
                 height: 20,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -150,11 +147,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUpPage()),
-                            (route) => false,
-                      );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpPage()));
                     },
                     child: Text(
                       "Sign Up",
@@ -195,18 +191,16 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-
-  _signInWithGoogle()async{
-
+  _signInWithGoogle() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 
     try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
 
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
-
-      if(googleSignInAccount != null ){
-        final GoogleSignInAuthentication googleSignInAuthentication = await
-        googleSignInAccount.authentication;
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
 
         final AuthCredential credential = GoogleAuthProvider.credential(
           idToken: googleSignInAuthentication.idToken,
@@ -215,17 +209,10 @@ class _LoginPageState extends State<LoginPage> {
 
         await _firebaseAuth.signInWithCredential(credential);
         Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => AddPage())
-        );
+            context, MaterialPageRoute(builder: (context) => AddPage()));
       }
-
-    }catch(e) {
+    } catch (e) {
       showToast(message: "some error occured $e");
     }
-
-
   }
-
-
 }

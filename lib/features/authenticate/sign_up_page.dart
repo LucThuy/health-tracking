@@ -4,6 +4,9 @@ import 'package:health_tracking/services/auth.dart';
 import 'package:health_tracking/features/authenticate/login_page.dart';
 import 'package:health_tracking/features/authenticate/widgets/form_container_widget.dart';
 import 'package:health_tracking/helper/toast.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
+import '../../../utility/theme.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -34,7 +37,13 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("SignUp"),
+        centerTitle: true,
+        title: Text("Sign Up",style: GoogleFonts.pangolin(
+        color: kWhite,
+            fontWeight: FontWeight.w700,
+            fontSize: 18.sp
+        ),),
+        backgroundColor: kGreen800o9,
       ),
       body: Center(
         child: Padding(
@@ -42,10 +51,6 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Sign Up",
-                style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
-              ),
               SizedBox(
                 height: 30,
               ),
@@ -82,14 +87,17 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: double.infinity,
                   height: 45,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: kGreen800,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(
                       child: isSigningUp ? CircularProgressIndicator(color: Colors.white,):Text(
                         "Sign Up",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        style: GoogleFonts.pangolin(
+                            color: kWhite,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18.sp
+                        ),
                       )),
                 ),
               ),
@@ -114,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Text(
                         "Login",
                         style: TextStyle(
-                            color: Colors.blue, fontWeight: FontWeight.bold),
+                            color: kGreen800, fontWeight: FontWeight.bold),
                       ))
                 ],
               )

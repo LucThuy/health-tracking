@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utility/theme.dart';
+
 class BlogPage extends StatefulWidget {
   @override
   _BlogState createState() => _BlogState();
@@ -26,7 +27,6 @@ class _BlogState extends State<BlogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: kGreen800o9,
         elevation: 0.0,
@@ -36,10 +36,7 @@ class _BlogState extends State<BlogPage> {
             Text(
               "Blog",
               style: GoogleFonts.pangolin(
-                  color: kWhite,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16.sp
-              ),
+                  color: kWhite, fontWeight: FontWeight.w700, fontSize: 16.sp),
             ),
           ],
         ),
@@ -53,43 +50,46 @@ class _BlogState extends State<BlogPage> {
               child: ListView(
                 children: snapshot.data!.docs.map((e) {
                   return Card(
-                    elevation: 5, // Độ nổi (độ bay lên) của thẻ
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0), // Bo tròn góc của thẻ
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetail(e["id"])));
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
-                            child: Image.network(
-                              e["image"],
-                              width: double.infinity,
-                              height: 150,
-                              fit: BoxFit.cover,
+                      elevation: 5, // Độ nổi (độ bay lên) của thẻ
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(10.0), // Bo tròn góc của thẻ
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewsDetail(e["id"])));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(10.0)),
+                              child: Image.network(
+                                e["image"],
+                                width: double.infinity,
+                                height: 150,
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                              title: Text(
-                                e["title"],
-                                style: GoogleFonts.pangolin(
-                                    color: kGreen800o9,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14.sp
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                title: Text(
+                                  e["title"],
+                                  style: GoogleFonts.pangolin(
+                                      color: kGreen800o9,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14.sp),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  );
+                          ],
+                        ),
+                      ));
                 }).toList(),
               ),
             );
@@ -102,23 +102,16 @@ class _BlogState extends State<BlogPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if(email != null) {
+          if (email != null) {
             Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddPage())
-            );
+                context, MaterialPageRoute(builder: (context) => AddPage()));
           } else {
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginPage())
-            );
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
           }
-
         },
         child: const Icon(Icons.add),
       ),
     );
   }
-
 }
-
