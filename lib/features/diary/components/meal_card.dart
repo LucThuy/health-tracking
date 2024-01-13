@@ -43,28 +43,162 @@ class MealCard extends StatelessWidget {
             Column(
               children: [
                 SizedBox(
-                  height: 30,
+                  height: 150,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child: Text(
-                      plan.name.toString(),
-                      style: GoogleFonts.pangolin(
-                        color: kWhite,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14.sp,
-                      ),
+                    child: Column(
+                      children: [
+                        Text(
+                          plan.name.toString(),
+                          style: GoogleFonts.pangolin(
+                            color: kWhite,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15.sp,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        SizedBox(
+                          height: 20,
+                          width: 130,
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            children: [
+                              Text(
+                                "Calories:",
+                                style: GoogleFonts
+                                    .pangolin(
+                                  color: kWhite,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                              Text(
+                                plan.calories
+                                    .toString(),
+                                style: GoogleFonts
+                                    .pangolin(
+                                  color: kWhite,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                          width: 130,
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            children: [
+                              Text(
+                                "Protein:",
+                                style: GoogleFonts
+                                    .pangolin(
+                                  color: kWhite,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                              Text(
+                                plan.protein
+                                    .toString(),
+                                style: GoogleFonts
+                                    .pangolin(
+                                  color: kWhite,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                          width: 130,
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            children: [
+                              Text(
+                                "Cacbohydrates:",
+                                style: GoogleFonts
+                                    .pangolin(
+                                  color: kWhite,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                              Text(
+                                plan.carbohydrates
+                                    .toString(),
+                                style: GoogleFonts
+                                    .pangolin(
+                                  color: kWhite,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: 10.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                          width: 130,
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment
+                                .spaceBetween,
+                            children: [
+                              Text(
+                                "Fat:",
+                                style: GoogleFonts
+                                    .pangolin(
+                                  color: kWhite,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                              Text(
+                                plan.fat
+                                    .toString(),
+                                style: GoogleFonts
+                                    .pangolin(
+                                  color: kWhite,
+                                  fontWeight:
+                                  FontWeight.w700,
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Text(
-                  timeFormatter.format(plan.time),
-                  style: GoogleFonts.pangolin(
-                    color: kWhite,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 10.sp,
-                  ),
-                ),
+
               ],
+            ),
+            Text(
+              timeFormatter.format(plan.time),
+              style: GoogleFonts.pangolin(
+                color: kWhite,
+                fontWeight: FontWeight.w700,
+                fontSize: 12.sp,
+              ),
             ),
           ],
         ),
