@@ -20,8 +20,8 @@ class FirebaseCrud {
     return stream;
   }
 
-  static Future<String> uploadImageToStorage(String childName, Uint8List file) async {
-    Reference ref = _storage.ref().child(childName);
+  static Future<String> uploadImageToStorage(String childName, Uint8List file, String title) async {
+    Reference ref = _storage.ref().child("$childName/$title.jpg");
 
     UploadTask uploadTask = ref.putData(file);
     TaskSnapshot snapshot = await uploadTask;
@@ -34,7 +34,7 @@ class FirebaseCrud {
     required String content,
     required Uint8List file
   }) async {
-    String imageUrl = await uploadImageToStorage("image", file);
+    String imageUrl = await uploadImageToStorage("image", file, title);
     Response response = Response();
     DocumentReference documentReferencer =
     _Collection.doc();
