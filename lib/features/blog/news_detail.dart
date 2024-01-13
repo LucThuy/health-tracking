@@ -4,6 +4,8 @@ import 'package:health_tracking/services/firebase_crud.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utility/theme.dart';
+import 'package:flutter_html/flutter_html.dart';
+
 class NewsDetail extends StatelessWidget {
   var id;
   var collectionReference;
@@ -71,11 +73,7 @@ class NewsDetail extends StatelessWidget {
                                       fontSize: 18.sp
                                   ),
                                 ),
-                                subtitle: Text(e["content"],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),),
+                                subtitle: Html(data: e["content"]),
                               ),
                             ),
                           ],
