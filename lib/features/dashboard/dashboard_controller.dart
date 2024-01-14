@@ -62,8 +62,28 @@ class DashboardController extends GetxController {
   }
 
   Future<void> loadPlan() async {
-    var plan = await planDao.getAllPlan();
-    planList.assignAll(plan);
+    planList.clear();
+    var dates = generateWeekDates(findWeekStart(focusedWeek.value));
+    for (var date in dates) {
+      print('log plan');
+      print(date.weekday);
+      var plans = await planDao.getPlansByDate(date);
+      double totolCalories = 0;
+      for (var plan in plans) {
+        totolCalories += plan.calories;
+      }
+      print('Total calories ${totolCalories}');
+      planList.add(PlanData(
+          id: 0,
+          name: 'noname',
+          date: date,
+          time: DateTime(1),
+          calories: totolCalories,
+          protein: 0,
+          carbohydrates: 0,
+          fat: 0));
+    }
+    // print(planList.value.length);
   }
 
   Future<void> loadLine() async {
@@ -81,10 +101,12 @@ class DashboardController extends GetxController {
   }
 
   //week utility
-  void updateSelectedWeek(DateTime day) {
+  Future<void> updateSelectedWeek(DateTime day) async {
     this.focusedWeek.value = day;
-    // loadPage();
-    // loadPlan();
+    print("Day updated");
+    print(day);
+    await loadPage();
+    await loadPlan();
   }
 
   DateTime findWeekStart(DateTime date) {

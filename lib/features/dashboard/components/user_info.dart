@@ -23,7 +23,10 @@ class LineChartComponent extends StatelessWidget {
       {required this.dayCaloriesList,
       required this.userName,
       required this.planningDayCaloriesList}) {
-    print(this.dayCaloriesList);
+    for (var element in planningDayCaloriesList) {
+      print(element.day);
+      print(element.calories);
+    }
   }
 
   @override
