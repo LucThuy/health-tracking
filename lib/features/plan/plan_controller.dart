@@ -21,7 +21,6 @@ class PlanController extends GetxController {
 
   var nutritionList = RxList<NutritionData>([]);
 
-
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -58,7 +57,13 @@ class PlanController extends GetxController {
   Future<void> savePlan(DateTime focusedDay) async {
     DateTime now = DateTime.now();
     // Combine the date and time
-    DateTime combinedDateTime = DateTime(focusedDay.year, focusedDay.month, focusedDay.day, selectedTime.value.hour, selectedTime.value.minute,);
+    DateTime combinedDateTime = DateTime(
+      focusedDay.year,
+      focusedDay.month,
+      focusedDay.day,
+      selectedTime.value.hour,
+      selectedTime.value.minute,
+    );
     await planDao.insertPlan(PlanCompanion.insert(
       name: nameController.text,
       time: combinedDateTime,
@@ -74,13 +79,10 @@ class PlanController extends GetxController {
         date: focusedDay,
         calories: dailyPlan.calories + double.parse(caloriesController.text),
         protein: dailyPlan.protein + double.parse(proteinController.text),
-        carbohydrates: dailyPlan.carbohydrates + double.parse(carbohydratesController.text),
+        carbohydrates: dailyPlan.carbohydrates +
+            double.parse(carbohydratesController.text),
         fat: dailyPlan.fat + double.parse(fatController.text)));
     await Get.toNamed(AppRoutes.rMain);
     Get.until((route) => route.isFirst);
   }
-
-
-
-
 }

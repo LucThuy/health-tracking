@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import '../model/response.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final FirebaseStorage _storage = FirebaseStorage.instanceFor(bucket: "gs://health-tracking-v2.appspot.com");
 final CollectionReference _Collection = _firestore.collection('news');
 class FirebaseCrud {
 //CRUD method here
@@ -16,12 +20,21 @@ class FirebaseCrud {
     return stream;
   }
 
+  static Future<String> uploadImageToStorage(String childName, Uint8List file, String title) async {
+    Reference ref = _storage.ref().child("$childName/$title.jpg");
+
+    UploadTask uploadTask = ref.putData(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
   static Future<Response> addNews({
     required String title,
     required String content,
-    required String image,
+    required Uint8List file
   }) async {
-
+    String imageUrl = await uploadImageToStorage("image", file, title);
     Response response = Response();
     DocumentReference documentReferencer =
     _Collection.doc();
@@ -29,7 +42,7 @@ class FirebaseCrud {
     Map<String, dynamic> data = <String, dynamic>{
       "title": title,
       "content": content,
-      "image" : image,
+      "image": imageUrl,
       "status": 0
     };
 
